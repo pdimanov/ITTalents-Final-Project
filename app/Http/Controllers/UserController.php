@@ -47,4 +47,17 @@ class UserController extends Controller
             return response(['message' => 'There is no such user.'], 404);
         }
     }
+
+    public function createHero(Request $request)
+    {
+        $this->validate($request, [
+           'name' => 'required|unique',
+        ]);
+
+        $name = $request->input('name');
+        $gender = $request->input('gender') === 'female' ? : 'male';
+
+
+
+    }
 }

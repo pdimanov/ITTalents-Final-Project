@@ -1,0 +1,27 @@
+body {
+  font-family: $body-font-family;
+  font-size: $body-font-size;
+  background: $main-content-background;
+  color: ghostwhite !important;
+  padding: 40px 0 40px 0;
+
+  #main {
+    padding: 0;
+  }
+}
+
+@font-face {
+  font-family: AllerDisplay;
+  src: url(../fonts/AllerDisplay.ttf);
+}
+
+@font-face {
+  font-family: AllerRegular;
+  src: url(../fonts/Aller_Rg.ttf);
+}
+
+@font-face {
+  font-family: BPmono;
+  src: url(../fonts/BPmono.ttf);
+}
+

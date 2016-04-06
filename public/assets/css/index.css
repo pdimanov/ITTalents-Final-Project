@@ -1,0 +1,102 @@
+/*
+custom classes
+*/
+body {
+  font-family: BPmono;
+  font-size: 18px;
+  background: #3B8686;
+  color: ghostwhite !important;
+  padding: 40px 0 40px 0; }
+  body #main {
+    padding: 0; }
+
+@font-face {
+  font-family: AllerDisplay;
+  src: url(../fonts/AllerDisplay.ttf); }
+@font-face {
+  font-family: AllerRegular;
+  src: url(../fonts/Aller_Rg.ttf); }
+@font-face {
+  font-family: BPmono;
+  src: url(../fonts/BPmono.ttf); }
+#navbar {
+  border-radius: 0;
+  margin: 0;
+  background: #61456a;
+  border: 0;
+  border-bottom: 5px solid #67546d; }
+  #navbar #mainToggle > span {
+    background-color: #67546d; }
+  #navbar #bs-example-navbar-collapse-1 {
+    border-color: #67546d; }
+  #navbar .navbar-collapse.collapse.in, #navbar .navbar-collapse.collapsing {
+    border-color: #67546d; }
+  #navbar a:hover {
+    background: #67546d; }
+  #navbar .dropdown:active {
+    background: #67546d; }
+  #navbar .dropdown .dropdown-menu {
+    background: #61456a;
+    border-color: #67546d; }
+    #navbar .dropdown .dropdown-menu .divider {
+      background: #67546d; }
+  #navbar .dropdown.open > a {
+    background: #67546d; }
+
+#mainContent {
+  padding-top: 55px;
+  min-height: 600px;
+  background: #3B8686; }
+  #mainContent #logo {
+    pointer-events: none; }
+
+#footer {
+  height: 40px;
+  background: #61456a;
+  /*position: absolute;
+  bottom: 0;*/
+  width: 100%;
+  /*opacity: 0.7;*/ }
+  #footer > div {
+    height: 100%; }
+    #footer > div > p {
+      height: 100%;
+      margin-bottom: 0;
+      line-height: 40px; }
+
+.custom-nav-link {
+  color: ghostwhite !important; }
+
+.custom-link {
+  color: ghostwhite !important;
+  text-decoration: underline; }
+
+.logo {
+  font-size: 20px;
+  font-family: AllerDisplay; }
+
+.content-div {
+  /*min-height: 800px;*/
+  margin-top: 50px; }
+
+.btn-custom1 {
+  background-color: #67546d;
+  /*border-radius: 0;*/ }
+  .btn-custom1:hover {
+    background-color: #61456a;
+    color: ghostwhite; }
+  .btn-custom1:focus {
+    color: ghostwhite; }
+
+.btn-facebook {
+  background-color: #3b5998; }
+  .btn-facebook:hover {
+    background-color: #273f98;
+    color: ghostwhite; }
+  .btn-facebook:focus {
+    color: ghostwhite; }
+
+.panel-default {
+  color: black; }
+
+/*# sourceMappingURL=index.css.map */

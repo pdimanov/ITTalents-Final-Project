@@ -1,0 +1,202 @@
+{
+  "1": {
+    "name": "Leather Armor",
+    "attack": "0",
+    "defense": "10",
+    "price": "50",
+    "slot_type": "armor",
+    "pic": "assets/images/shopItems/armor1.png"
+  },
+  "2": {
+    "name": "Iron Armor",
+    "attack": "0",
+    "defense": "20",
+    "price": "100",
+    "slot_type": "armor",
+    "pic": "assets/images/shopItems/armor2.png"
+  },
+  "3": {
+    "name": "Better Iron Armor",
+    "attack": "0",
+    "defense": "30",
+    "price": "140",
+    "slot_type": "armor",
+    "pic": "assets/images/shopItems/armor3.png"
+  },
+  "4": {
+    "name": "Shiny Brass-Iron Armor",
+    "attack": "0",
+    "defense": "40",
+    "price": "180",
+    "slot_type": "armor",
+    "pic": "assets/images/shopItems/armor4.png"
+  },
+  "5": {
+    "name": "Dragon Armor",
+    "attack": "0",
+    "defense": "70",
+    "price": "350",
+    "slot_type": "armor",
+    "pic": "assets/images/shopItems/armor5.png"
+  },
+  "6": {
+    "name": "Leather Boots",
+    "attack": "0",
+    "defense": "5",
+    "price": "30",
+    "slot_type": "boots",
+    "pic": "assets/images/shopItems/boots1.png"
+  },
+  "7": {
+    "name": "Green Leather Boots",
+    "attack": "5",
+    "defense": "10",
+    "price": "70",
+    "slot_type": "boots",
+    "pic": "assets/images/shopItems/boots2.png"
+  },
+  "8": {
+    "name": "Plated Leather Boots",
+    "attack": "10",
+    "defense": "20",
+    "price": "150",
+    "slot_type": "boots",
+    "pic": "assets/images/shopItems/boots3.png"
+  },
+  "9": {
+    "name": "Iron Boots",
+    "attack": "15",
+    "defense": "30",
+    "price": "220",
+    "slot_type": "boots",
+    "pic": "assets/images/shopItems/armor4.png"
+  },
+  "10": {
+    "name": "Fire Mage Boots",
+    "attack": "25",
+    "defense": "40",
+    "price": "280",
+    "slot_type": "boots",
+    "pic": "assets/images/shopItems/boots5.png"
+  },
+  "11": {
+    "name": "Leather Helmet",
+    "attack": "0",
+    "defense": "5",
+    "price": "30",
+    "slot_type": "gloves",
+    "pic": "assets/images/shopItems/gloves1.png"
+  },
+  "12": {
+    "name": "Green Leather Gloves",
+    "attack": "5",
+    "defense": "10",
+    "price": "70",
+    "slot_type": "gloves",
+    "pic": "assets/images/shopItems/gloves2.png"
+  },
+  "13": {
+    "name": "Plated Leather Gloves",
+    "attack": "10",
+    "defense": "20",
+    "price": "150",
+    "slot_type": "gloves",
+    "pic": "assets/images/shopItems/gloves3.png"
+  },
+  "14": {
+    "name": "Iron Gloves",
+    "attack": "15",
+    "defense": "30",
+    "price": "220",
+    "slot_type": "gloves",
+    "pic": "assets/images/shopItems/gloves3.png"
+  },
+  "15": {
+    "name": "Fire Mage Gloves",
+    "attack": "25",
+    "defense": "40",
+    "price": "280",
+    "slot_type": "gloves",
+    "pic": "assets/images/shopItems/gloves3.png"
+  },
+  "16": {
+    "name": "Leather Helmet",
+    "attack": "0",
+    "defense": "10",
+    "price": "50",
+    "slot_type": "head",
+    "pic": "assets/images/shopItems/head1.png"
+  },
+  "17": {
+    "name": "Iron Helmet",
+    "attack": "0",
+    "defense": "20",
+    "price": "100",
+    "slot_type": "head",
+    "pic": "assets/images/shopItems/head2.png"
+  },
+  "18": {
+    "name": "Shiny Brass-Iron Helmet",
+    "attack": "0",
+    "defense": "30",
+    "price": "150",
+    "slot_type": "head",
+    "pic": "assets/images/shopItems/head3.png"
+  },
+  "19": {
+    "name": "Apprentice Hat",
+    "attack": "10",
+    "defense": "35",
+    "price": "220",
+    "slot_type": "head",
+    "pic": "assets/images/shopItems/head4.png"
+  },
+  "20": {
+    "name": "Fire Mage Hat",
+    "attack": "20",
+    "defense": "40",
+    "price": "270",
+    "slot_type": "head",
+    "pic": "assets/images/shopItems/head5.png"
+  },
+  "21": {
+    "name": "Iron Sword",
+    "attack": "10",
+    "defense": "0",
+    "price": "50",
+    "slot_type": "weapon",
+    "pic": "assets/images/shopItems/weapon1.png"
+  },
+  "22": {
+    "name": "Spiked Iron Sword",
+    "attack": "15",
+    "defense": "0",
+    "price": "80",
+    "slot_type": "weapon",
+    "pic": "assets/images/shopItems/weapon2.png"
+  },
+  "23": {
+    "name": "Thunder Sword",
+    "attack": "25",
+    "defense": "5",
+    "price": "150",
+    "slot_type": "weapon",
+    "pic": "assets/images/shopItems/weapon3.png"
+  },
+  "24": {
+    "name": "Fire Sword",
+    "attack": "35",
+    "defense": "10",
+    "price": "220",
+    "slot_type": "weapon",
+    "pic": "assets/images/shopItems/weapon4.png"
+  },
+  "25": {
+    "name": "Sword of Darkness",
+    "attack": "45",
+    "defense": "15",
+    "price": "300",
+    "slot_type": "weapon",
+    "pic": "assets/images/shopItems/weapon5.png"
+  }
+}

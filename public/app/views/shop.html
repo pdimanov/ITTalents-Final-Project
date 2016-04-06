@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default" ng-repeat="item in shop">
+            <div class="panel-heading">
+                {{item.name}}
+            </div>
+            <div class="panel-body">
+                <div class="col-md-8">
+                    <div ng-repeat="(key, val) in item" ng-if="key != 'name' && key != 'pic'">
+                        <span>{{key.replace('_', ' ')}}: </span>
+                        <span>{{val}}<span class="glyphicon glyphicon-euro" ng-if="key == 'price'"></span></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{item.pic}}" alt="item icon" class="img-responsive img-thumbnail">
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-default">Buy</button>
+            </div>
+        </div>
+    </div>
+</div>

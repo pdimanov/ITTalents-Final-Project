@@ -1,0 +1,15 @@
+{
+  "profile": {
+    "username": "asdasd",
+    "email": "asd@asd",
+    "pic": "assets/images/placeholder.png"
+  },
+  "hero": {
+    "name": "John",
+    "gender": "male",
+    "level": "5",
+    "health": "245",
+    "attack": "80",
+    "defense": "40"
+  }
+}

@@ -1,0 +1,49 @@
+.custom-nav-link {
+  color: $nav-links-color !important;
+}
+
+.custom-link {
+  color: $nav-links-color !important;
+  text-decoration: underline;
+}
+
+.logo {
+  font-size: $logo-font-size;
+  font-family: $logo-font-family;
+}
+
+.content-div {
+  /*min-height: 800px;*/
+  margin-top: 50px;
+}
+
+.btn-custom1 {
+  background-color: $navbar-border-color;
+  /*border-radius: 0;*/
+
+  &:hover {
+    background-color: $navbar-background;
+    color: ghostwhite;
+  }
+
+  &:focus {
+    color: ghostwhite;
+  }
+}
+
+.btn-facebook {
+  background-color: $btn-facebook-background;
+
+  &:hover {
+    background-color: $btn-facebook-hover-background;
+    color: ghostwhite;
+  }
+
+  &:focus {
+    color: ghostwhite;
+  }
+}
+
+.panel-default {
+  color: black;
+}

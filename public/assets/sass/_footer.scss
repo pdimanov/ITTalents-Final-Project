@@ -1,0 +1,18 @@
+#footer {
+  height: 40px;
+  background: $footer-background;
+  /*position: absolute;
+  bottom: 0;*/
+  width: 100%;
+  /*opacity: 0.7;*/
+
+  > div {
+    height: 100%;
+
+    > p {
+      height: 100%;
+      margin-bottom: 0;
+      line-height: 40px;
+    }
+  }
+}

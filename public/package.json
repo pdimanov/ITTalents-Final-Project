@@ -1,0 +1,28 @@
+{
+  "name": "finalrpg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-route": "^1.5.3",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.2",
+    "phaser": "^2.4.6",
+    "satellizer": "^0.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khdoop/ITT_Final_Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Khdoop/ITT_Final_Project/issues"
+  },
+  "homepage": "https://github.com/Khdoop/ITT_Final_Project#readme"
+}

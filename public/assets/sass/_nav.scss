@@ -1,0 +1,44 @@
+#navbar {
+  border-radius: 0;
+  margin: 0;
+  background: $navbar-background;
+  border: 0;
+  border-bottom: $navbar-border-bottom;
+
+  #mainToggle > span {
+    background-color: $navbar-border-color;
+  }
+
+  #bs-example-navbar-collapse-1 {
+    border-color: $navbar-border-color;
+  }
+
+  .navbar-collapse.collapse.in,.navbar-collapse.collapsing  {
+    border-color: $navbar-border-color;
+  }
+
+  a:hover {
+    background: $navbar-border-color;
+  }
+
+  .dropdown {
+    &:active {
+      background: $navbar-border-color;
+    }
+
+    .dropdown-menu {
+      background: $navbar-background;
+      border-color: $navbar-border-color;
+
+      .divider {
+        background: $navbar-border-color;
+      }
+    }
+  }
+
+  .dropdown.open {
+    > a {
+      background: $navbar-border-color;
+    }
+  }
+}

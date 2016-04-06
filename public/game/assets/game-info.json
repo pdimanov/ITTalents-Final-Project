@@ -1,0 +1,370 @@
+[
+  {
+    "name": "Khdoop",
+    "gender": "male",
+    "level": "1",
+    "exp": "0",
+    "health": "100",
+    "attack": "10",
+    "defense": "5",
+    "x": "200",
+    "y": "2944",
+    "completedQuest": false,
+    "currentQuest": false
+  },
+  [
+    {
+      "name": "Jimmy",
+      "x": "832",
+      "y": "2912",
+      "frame": "7",
+      "quote": "Hello, traveler! Be careful, there are wolfs in this town.",
+      "quest": {
+        "id": 1,
+        "name": "Wolf Slayer",
+        "description": "Save us from the wolfs..",
+        "target": "wolf",
+        "count": 3,
+        "gold": "50",
+        "exp": "100",
+        "items": [1, 6],
+        "progress": 0,
+        "accepted": false
+      }
+    },
+    {
+      "name": "Brok",
+      "x": "992",
+      "y": "1152",
+      "frame": "49",
+      "quote": "Hello!",
+      "quest": {
+        "id": 2,
+        "name": "Spiders everywhere",
+        "description": "We are all afraid of spiders. Please, help us..",
+        "target": "spider",
+        "count": 7,
+        "gold": "110",
+        "exp": "300",
+        "items": [12, 17, 21],
+        "progress": 0,
+        "accepted": false
+      }
+    },
+    {
+      "name": "David",
+      "x": "2208",
+      "y": "640",
+      "frame": "1",
+      "quote": "Did you know the villagers in the previous town are afraid of little spiders? Ha-ha",
+      "quest": {
+        "id": 3,
+        "name": "Zombieland",
+        "description": "Wolfs and spiders? Nah, we have real problems. IT'S ZOMBIE APOCALYPSE!",
+        "target": "zombie",
+        "count": 5,
+        "gold": "150",
+        "exp": "500",
+        "items": [4, 9],
+        "progress": 0,
+        "accepted": false
+      }
+    },
+    {
+      "name": "Harold",
+      "x": "2336",
+      "y": "1792",
+      "frame": "58",
+      "quote": "Are you afraid of death?",
+      "quest": {
+        "id": 4,
+        "name": "Angel of Death",
+        "description": "Kill Azrael",
+        "target": "angel_death",
+        "count": 1,
+        "gold": "250",
+        "exp": "700",
+        "items": [25],
+        "progress": 0,
+        "accepted": false
+      }
+    }
+  ],
+  [
+    {
+      "id": "wolf",
+      "health": 50,
+      "attack": 5,
+      "defense": 5,
+      "spawnX": 1088,
+      "spawnY": 2240,
+      "spawnWidth": 128,
+      "spawnHeight": 224,
+      "gold": 5,
+      "exp": 10
+    },
+    {
+      "id": "spider",
+      "health": 90,
+      "attack": 10,
+      "defense": 10,
+      "spawnX": 608,
+      "spawnY": 672,
+      "spawnWidth": 288,
+      "spawnHeight": 160,
+      "gold": 10,
+      "exp": 20
+    },
+    {
+      "id": "zombie",
+      "health": 200,
+      "attack": 30,
+      "defense": 10,
+      "spawnX": 2400,
+      "spawnY": 1056,
+      "spawnWidth": 352,
+      "spawnHeight": 96,
+      "gold": 15,
+      "exp": 30
+    },
+    {
+      "id": "angel_death",
+      "health": 600,
+      "attack": 100,
+      "defense": 100,
+      "spawnX": 2640,
+      "spawnY": 2736,
+      "spawnWidth": 416,
+      "spawnHeight": 272,
+      "gold": 100,
+      "exp": 100
+    }
+  ],
+  [
+    {
+      "id": 1,
+      "name": "Leather Armor",
+      "attack": "0",
+      "defense": "10",
+      "price": "50",
+      "slot_type": "armor",
+      "pic": "assets/images/shopItems/armor1.png"
+    },
+    {
+      "id": 2,
+      "name": "Iron Armor",
+      "attack": "0",
+      "defense": "20",
+      "price": "100",
+      "slot_type": "armor",
+      "pic": "assets/images/shopItems/armor2.png"
+    },
+    {
+      "id": 3,
+      "name": "Better Iron Armor",
+      "attack": "0",
+      "defense": "30",
+      "price": "140",
+      "slot_type": "armor",
+      "pic": "assets/images/shopItems/armor3.png"
+    },
+    {
+      "id": 4,
+      "name": "Shiny Brass-Iron Armor",
+      "attack": "0",
+      "defense": "40",
+      "price": "180",
+      "slot_type": "armor",
+      "pic": "assets/images/shopItems/armor4.png"
+    },
+    {
+      "id": 5,
+      "name": "Dragon Armor",
+      "attack": "0",
+      "defense": "70",
+      "price": "350",
+      "slot_type": "armor",
+      "pic": "assets/images/shopItems/armor5.png"
+    },
+    {
+      "id": 6,
+      "name": "Leather Boots",
+      "attack": "0",
+      "defense": "5",
+      "price": "30",
+      "slot_type": "boots",
+      "pic": "assets/images/shopItems/boots1.png"
+    },
+    {
+      "id": 7,
+      "name": "Green Leather Boots",
+      "attack": "5",
+      "defense": "10",
+      "price": "70",
+      "slot_type": "boots",
+      "pic": "assets/images/shopItems/boots2.png"
+    },
+    {
+      "id": 8,
+      "name": "Plated Leather Boots",
+      "attack": "10",
+      "defense": "20",
+      "price": "150",
+      "slot_type": "boots",
+      "pic": "assets/images/shopItems/boots3.png"
+    },
+    {
+      "id": 9,
+      "name": "Iron Boots",
+      "attack": "15",
+      "defense": "30",
+      "price": "220",
+      "slot_type": "boots",
+      "pic": "assets/images/shopItems/armor4.png"
+    },
+    {
+      "id": 10,
+      "name": "Fire Mage Boots",
+      "attack": "25",
+      "defense": "40",
+      "price": "280",
+      "slot_type": "boots",
+      "pic": "assets/images/shopItems/boots5.png"
+    },
+    {
+      "id": 11,
+      "name": "Leather Helmet",
+      "attack": "0",
+      "defense": "5",
+      "price": "30",
+      "slot_type": "gloves",
+      "pic": "assets/images/shopItems/gloves1.png"
+    },
+    {
+      "id": 12,
+      "name": "Green Leather Gloves",
+      "attack": "5",
+      "defense": "10",
+      "price": "70",
+      "slot_type": "gloves",
+      "pic": "assets/images/shopItems/gloves2.png"
+    },
+    {
+      "id": 13,
+      "name": "Plated Leather Gloves",
+      "attack": "10",
+      "defense": "20",
+      "price": "150",
+      "slot_type": "gloves",
+      "pic": "assets/images/shopItems/gloves3.png"
+    },
+    {
+      "id": 14,
+      "name": "Iron Gloves",
+      "attack": "15",
+      "defense": "30",
+      "price": "220",
+      "slot_type": "gloves",
+      "pic": "assets/images/shopItems/gloves3.png"
+    },
+    {
+      "id": 15,
+      "name": "Fire Mage Gloves",
+      "attack": "25",
+      "defense": "40",
+      "price": "280",
+      "slot_type": "gloves",
+      "pic": "assets/images/shopItems/gloves3.png"
+    },
+    {
+      "id": 16,
+      "name": "Leather Helmet",
+      "attack": "0",
+      "defense": "10",
+      "price": "50",
+      "slot_type": "head",
+      "pic": "assets/images/shopItems/head1.png"
+    },
+    {
+      "id": 17,
+      "name": "Iron Helmet",
+      "attack": "0",
+      "defense": "20",
+      "price": "100",
+      "slot_type": "head",
+      "pic": "assets/images/shopItems/head2.png"
+    },
+    {
+      "id": 18,
+      "name": "Shiny Brass-Iron Helmet",
+      "attack": "0",
+      "defense": "30",
+      "price": "150",
+      "slot_type": "head",
+      "pic": "assets/images/shopItems/head3.png"
+    },
+    {
+      "id": 19,
+      "name": "Apprentice Hat",
+      "attack": "10",
+      "defense": "35",
+      "price": "220",
+      "slot_type": "head",
+      "pic": "assets/images/shopItems/head4.png"
+    },
+    {
+      "id": 20,
+      "name": "Fire Mage Hat",
+      "attack": "20",
+      "defense": "40",
+      "price": "270",
+      "slot_type": "head",
+      "pic": "assets/images/shopItems/head5.png"
+    },
+    {
+      "id": 21,
+      "name": "Iron Sword",
+      "attack": "10",
+      "defense": "0",
+      "price": "50",
+      "slot_type": "weapon",
+      "pic": "assets/images/shopItems/weapon1.png"
+    },
+    {
+      "id": 22,
+      "name": "Spiked Iron Sword",
+      "attack": "17",
+      "defense": "0",
+      "price": "85",
+      "slot_type": "weapon",
+      "pic": "assets/images/shopItems/weapon2.png"
+    },
+    {
+      "id": 23,
+      "name": "Thunder Sword",
+      "attack": "25",
+      "defense": "5",
+      "price": "150",
+      "slot_type": "weapon",
+      "pic": "assets/images/shopItems/weapon3.png"
+    },
+    {
+      "id": 24,
+      "name": "Fire Sword",
+      "attack": "35",
+      "defense": "10",
+      "price": "220",
+      "slot_type": "weapon",
+      "pic": "assets/images/shopItems/weapon4.png"
+    },
+    {
+      "id": 25,
+      "name": "Sword of Darkness",
+      "attack": "45",
+      "defense": "15",
+      "price": "300",
+      "slot_type": "weapon",
+      "pic": "assets/images/shopItems/weapon5.png"
+    }
+  ]
+]

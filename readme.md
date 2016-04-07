@@ -36,3 +36,6 @@ DB_USERNAME=my_project
 - For filling the database with the seeders we have provided, you can run the command `php artisan db:seed`.</br>
 **Note: You must have migrated your database beforehand.**</br>
 - For making a localhost server you must run the command `php artisan serve`, after that you can open **localhost:8000** in your browser.
+
+## Routing and use of the API
+

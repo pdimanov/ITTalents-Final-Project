@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Response;
 
 class HeroController extends Controller
 {
+    private function getHero()
+    {
+        return Hero::where('user_id', Auth::id())->first();
+    }
+
     public function index()
     {
         return Hero::with('items')
@@ -60,7 +65,7 @@ class HeroController extends Controller
     public function buyItem(Request $request)
     {
         $item = Item::where('id', $request->input('id'))->first();
-        $hero = Hero::where('user_id', Auth::id())->first();
+        $hero = $this->getHero();
         $heroGold = $hero['gold'];
 
         if($heroGold >= $item->price){
@@ -84,13 +89,65 @@ class HeroController extends Controller
 
         //$hero returns true if he has the item which he wants to sell and false if he doesn't have it
         if($hero){
-            $hero->items()->detach($item->id);
+            return $hero->items()->detach($item->id);
             $hero->gold += $item->price / 2;
             $hero->save();
-            
+
             return Response::json(['message' => 'Successfully sold an item.'], 200);
         } else {
             return Response::json(['error' => 'The hero doesn\'t have such an item.'], 200);
         }
+    }
+
+    public function saveHeroLocation(Request $request)
+    {
+        $this->validate($request,[
+            'map_x' => 'min:0',
+            'map_y' => 'min:0'
+        ]);
+
+        $hero = $this->getHero();
+        $hero->map_x = $request->input('map_x');
+        $hero->map_y = $request->input('map_y');
+        $hero->save();
+
+        return Response::json(['message' => 'Hero\'s location has been successfully saved.'], 200);
+    }
+
+    public function saveHeroGold(Request $request)
+    {
+        $this->validate($request, [
+            'gold' => 'min:0'
+        ]);
+
+        $hero = $this->getHero();
+        $hero->gold += $request->input('gold');
+        if($hero->gold < 0){
+            return Response::json(['error' => 'The hero cannot have less than zero gold.'], 200);
+        }
+        $hero->save();
+
+        return Response::json(['message' => 'Hero\'s gold has been successfully saved.'], 200);
+    }
+
+    public function saveHeroLevelAndExperience(Request $request)
+    {
+        $this->validate($request,[
+            'level' => 'min:1',
+            'experience' => 'min:1'
+        ]);
+
+        $newLevel = $request->input('level');
+        $newExperience = $request->input('level');
+
+        $hero = $this->getHero();
+        if($newLevel < $hero->level || $newLevel === $hero->level && $newExperience < $hero->experience){
+            return Response::json(['error' => 'The hero can\'t be a lower level or lower experience than before.'], 200);
+        }
+        $hero->level = $newLevel;
+        $hero->experience = $newExperience;
+        $hero->save();
+
+        return Response::json(['message' => 'Hero\'s level and experience have been successfully saved.'], 200);
     }
 }

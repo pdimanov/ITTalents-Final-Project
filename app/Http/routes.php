@@ -28,6 +28,12 @@ Route::group(['prefix' => 'api'],function(){
         Route::post('/hero/buy', 'HeroController@buyItem');
         Route::post('/hero/sell', 'HeroController@sellItem');
         Route::delete('/hero', 'HeroController@deleteHero');
+        // H E R O | S A V E S
+        Route::group(['prefix' => '/save'], function(){
+            Route::post('/location', 'HeroController@saveHeroLocation');
+            Route::post('/gold', 'HeroController@saveHeroGold');
+            Route::post('/level', 'HeroController@saveHeroLevelAndExperience');
+        });
 
         // S H O P
         Route::get('/shop', 'ShopController@index');
@@ -35,4 +41,4 @@ Route::group(['prefix' => 'api'],function(){
     });
 });
 
-Route::auth();
+//Route::auth();

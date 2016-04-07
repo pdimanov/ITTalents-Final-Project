@@ -34,17 +34,17 @@
                 <span class="help-block" ng-show="form.password.$dirty && form.password.$error.maxlength && (form.password.$dirty ||form.loginClicked)">Password must be at max 8 symbols</span>
                 <span class="help-block" ng-show="form.password.$error.required && (form.password.$dirty || form.loginClicked)">This field is required!</span>
             </div>
-            <div ng-class="{'form-group' : true, 'has-error': (!equalPasswords && form.repeatPassword.$dirty) || (!form.repeatPassword.$valid && (form.repeatPassword.$dirty ||form.loginClicked))}">
+            <div ng-class="{'form-group' : true, 'has-error': (!equalPasswords && form.password_confirmation.$dirty) || (!form.password_confirmation.$valid && (form.password_confirmation.$dirty ||form.loginClicked))}">
                 <label class="control-label" for="password_confirmation">Repeat Password</label>
-                <input id="password_confirmation" class="form-control" type="password" name="repeatPassword" ng-model="user.repeatPassword" required="required" minlength="4" maxlength="8" ng-keyup="equalPasswords = checkPasswordMatch(user)">
+                <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" ng-model="user.password_confirmation" required="required" minlength="4" maxlength="8" ng-keyup="equalPasswords = checkPasswordMatch(user)">
 
-                <span class="help-block" ng-show="form.repeatPassword.$error.minlength && (form.repeatPassword.$dirty ||form.loginClicked)">Password must be at least 4 symbols</span>
-                <span class="help-block" ng-show="form.repeatPassword.$dirty && form.repeatPassword.$error.maxlength && (form.repeatPassword.$dirty ||form.loginClicked)">Password must be at max 8 symbols</span>
-                <span class="help-block" ng-show="form.repeatPassword.$dirty && !equalPasswords">Passwords do not match</span>
-                <span class="help-block" ng-show="form.repeatPassword.$error.required && (form.repeatPassword.$dirty || form.loginClicked)">This field is required!</span>
+                <span class="help-block" ng-show="form.password_confirmation.$error.minlength && (form.password_confirmation.$dirty ||form.loginClicked)">Password must be at least 4 symbols</span>
+                <span class="help-block" ng-show="form.password_confirmation.$dirty && form.password_confirmation.$error.maxlength && (form.password_confirmation.$dirty ||form.loginClicked)">Password must be at max 8 symbols</span>
+                <span class="help-block" ng-show="form.password_confirmation.$dirty && !equalPasswords">Passwords do not match</span>
+                <span class="help-block" ng-show="form.password_confirmation.$error.required && (form.password_confirmation.$dirty || form.loginClicked)">This field is required!</span>
             </div>
             <div>
-                <button type="submit" class="btn btn-custom1 col-xs-12" ng-click="form.loginClicked = true; form.password.$viewValue == form.repeatPassword.$viewValue && form.$valid && register(user);">Register</button>
+                <button type="submit" class="btn btn-custom1 col-xs-12" ng-click="form.loginClicked = true; form.password.$viewValue == form.password_confirmation.$viewValue && form.$valid && register(user);">Register</button>
             </div>
             <!--<pre>
 				{{form|json}}

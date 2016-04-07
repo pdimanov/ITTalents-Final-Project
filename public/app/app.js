@@ -3,9 +3,6 @@ var app = angular.module('users', ['ngRoute', 'satellizer']);
 app.config(function($routeProvider, $authProvider, $locationProvider) {
 
     $routeProvider
-        .when('/' , {
-            redirectTo: '/home'
-        })
         .when('/login' , {
             templateUrl: 'app/views/login.html',
             controller: 'LoginController'
@@ -19,16 +16,16 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
             /*controller: 'AboutController'*/
         })
         .when('/home' , {
-            templateUrl: 'app/views/home.html'
-            /*controller: 'AboutController'*/
+            templateUrl: 'app/views/home.html',
+            controller: 'HomeController'
         })
         .when('/shop' , {
             templateUrl: 'app/views/shop.html',
             controller: 'ShopController'
         })
         .when('/leaderboards' , {
-            templateUrl: 'app/views/leaderboards.html',
-            controller: 'LeaderboardsController'
+            templateUrl: 'app/views/statistics.html',
+            controller: 'StatisticsController'
         })
         .when('/profile' , {
             templateUrl: 'app/views/profile.html',
@@ -36,7 +33,7 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
         })
         .when('/logout' , {
             templateUrl: 'app/views/logout.html',
-            /*controller: 'ProfileController'*/
+            controller: 'LogoutController'
         })
         .otherwise({
             redirectTo: '/home'

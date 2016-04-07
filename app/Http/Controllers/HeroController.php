@@ -75,7 +75,7 @@ class HeroController extends Controller
 
             return Response::json(['message' => 'Successfully bought an item.', 'item' => $item], 200);
         } else {
-            return Response::json(['error' => 'The hero doesn\'t have enough gold.'], 200);
+            return Response::json(['error' => 'The hero doesn\'t have enough gold.'], 404);
         }
     }
 
@@ -95,7 +95,7 @@ class HeroController extends Controller
 
             return Response::json(['message' => 'Successfully sold an item.'], 200);
         } else {
-            return Response::json(['error' => 'The hero doesn\'t have such an item.'], 200);
+            return Response::json(['error' => 'The hero doesn\'t have such an item.'], 404);
         }
     }
 

@@ -37,5 +37,21 @@ DB_USERNAME=my_project
 **Note: You must have migrated your database beforehand.**</br>
 - For making a localhost server you must run the command `php artisan serve`, after that you can open **localhost:8000** in your browser.
 
+## Headers being used
+
+- When registering a new user or logging in with an already made user you use the several headers:
+```
+Accept : Application/Json
+Content-Type : Application/Json
+X-Requested-With : XmlHttpRequest
+```
+- After there is an already logged in user, the client needs to verify which specific user is logged in and send this information to the API via a token which is returned to the client when he logs in and saves it in his Local Storage. After that to verify his identity, the client sends a custom header with the token's value in it.</br>
+For example:
+```
+X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
+```
+- On every request regarding the user's information, these four headers are **required**.
+
 ## Routing and use of the API
 
+- In the console with your main project folder as its path, you can write the command `php artisan route:list` which would give you all the routes with their methods, URIs and actions.</br>

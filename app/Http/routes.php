@@ -30,9 +30,9 @@ Route::group(['prefix' => 'api'],function(){
         Route::delete('/hero', 'HeroController@deleteHero');
         // H E R O | S A V E S
         Route::group(['prefix' => '/save'], function(){
-            Route::post('/location', 'HeroController@saveHeroLocation');
-            Route::post('/gold', 'HeroController@saveHeroGold');
-            Route::post('/level', 'HeroController@saveHeroLevelAndExperience');
+            Route::put('/location', 'HeroController@saveHeroLocation');
+            Route::put('/gold', 'HeroController@saveHeroGold');
+            Route::put('/level', 'HeroController@saveHeroLevelAndExperience');
         });
 
         // S H O P

@@ -20,13 +20,13 @@ class ApiTokenAuthMiddleware
         $token = $request->header('X-Api-Token');
 
         if(!$token){
-            return response(['message' => 'Token required.'], 403);
+            return response(['error' => 'Token required.'], 403);
         }
 
         $user = User::where('api_token', $token)->first();
 
         if(!$user){
-            return response(['message' => 'User not found.'], 404);
+            return response(['error' => 'User not found.'], 404);
         }
 
         Auth::login($user);

@@ -1,4 +1,5 @@
 function Player(json) {
+    var _this = this;
 
     this.name = json.name;
     this.gender = json.gender;
@@ -19,6 +20,10 @@ function Player(json) {
     this.camera();
 
     this.cursorKeys = game.input.keyboard.createCursorKeys();
+    this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);
+
+    this.addAttack();
+
 }
 
 Player.prototype.animations = function() {
@@ -30,8 +35,6 @@ Player.prototype.animations = function() {
 
 Player.prototype.physics = function() {
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
-    this.sprite.body.immovable = true;
-    this.sprite.body.moves = true;
 };
 
 Player.prototype.camera = function() {
@@ -49,6 +52,7 @@ Player.prototype.movement = function(integer) {
     } else if (this.cursorKeys.right.isDown) {
         this.sprite.body.velocity.x = integer;
         this.sprite.play('right');
+        //console.log(this.sprite.body);
     } else if (this.cursorKeys.up.isDown) {
         this.sprite.body.velocity.y = -integer;
         this.sprite.play('up');
@@ -68,4 +72,25 @@ Player.prototype.hud = function(array) {
         });
         text.fixedToCamera = true;
     }
+};
+
+Player.prototype.addAttack = function() {
+    var _this = this;
+    var attack = game.add.sprite(0, 0, 'slash');
+
+    attack.animations.add('doSlash', [0, 1, 2, 3, 4], 35, true);
+    attack.anchor.setTo(0.5, 0.5);
+    this.sprite.addChild(attack);
+    this.sprite.children[0].kill();
+
+
+    this.g.onDown.add(function () {
+        _this.sprite.children[0].revive();
+        _this.sprite.children[0].play('doSlash');
+
+    }, this);
+    this.g.onUp.add(function() {
+        _this.sprite.children[0].animations.stop();
+        _this.sprite.children[0].kill();
+    }, this);
 };

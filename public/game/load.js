@@ -6,6 +6,8 @@ var loadState = {
         game.load.image('tiles', 'assets/roguelike.png');
 
         game.load.spritesheet('textbox', 'assets/textbox-sprites.png', 200, 69);
+        game.load.spritesheet('slash', 'assets/slash.png', 49, 27);
+
         game.load.spritesheet('player-male', 'assets/male.png', 32, 32);
         game.load.spritesheet('player-female', 'assets/female.png', 32, 32);
 

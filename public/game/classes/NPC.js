@@ -1,5 +1,5 @@
 function Npc(json) {
-    console.log(json.frame);
+    //console.log(json.frame);
     this.name = json.name;
     this.x = parseInt(json.x);
     this.y = parseInt(json.y);
@@ -18,9 +18,9 @@ Npc.prototype.physics = function() {
 };
 
 Npc.prototype.namePlate = function() {
-    console.log('i was here');
+    //console.log('i was here');
     var text = game.add.text(0, 0, '[NPC] ' + this.name, {
-        font: "15px Verdana Bold",
+        font: "15px Verdana",
         fill: "black",
         boundsAlignH: "center",
         boundsAlignV: "middle"

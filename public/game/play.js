@@ -74,6 +74,7 @@ var playState = {
         //collision with layers
         this.map.setCollisionByExclusion([], true, this.layerDecorationC);
         this.map.setCollisionByExclusion([], true, this.layerDecorationC2);
+        //console.log(this.monsters[0].sprite);
     },
 
     update: function() {
@@ -81,14 +82,15 @@ var playState = {
         //collision
         game.physics.arcade.collide(this.player.sprite, this.layerDecorationC);
         game.physics.arcade.collide(this.player.sprite, this.layerDecorationC2);
+
         game.physics.arcade.collide(this.player.sprite, this.npcs[0].sprite);
         game.physics.arcade.collide(this.player.sprite, this.npcs[1].sprite);
         game.physics.arcade.collide(this.player.sprite, this.npcs[2].sprite);
         game.physics.arcade.collide(this.player.sprite, this.npcs[3].sprite);
+
         game.physics.arcade.collide(this.player.sprite, this.monsters[0].sprite);
-        game.physics.arcade.collide(this.player.sprite, this.monsters[1].sprite);
-        game.physics.arcade.collide(this.player.sprite, this.monsters[2].sprite);
-        game.physics.arcade.collide(this.player.sprite, this.monsters[3].sprite);
+        game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC);
+        game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC2);
 
         //player movement
         this.player.clearVelocity();
@@ -96,6 +98,11 @@ var playState = {
 
         this.monsters[0].clearVelocity();
         this.monsters[0].movement(100);
+
+        //check for attack
+        //this.player.checkAttack();
+
+
     },
 
     render: function() {

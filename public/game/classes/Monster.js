@@ -1,5 +1,5 @@
 function Monster(json) {
-    console.log(json);
+    //console.log(json);
     this.id = json.id;
     this.health = json.health;
     this.attack = json.attack;
@@ -24,13 +24,13 @@ function Monster(json) {
         "s": game.input.keyboard.addKey(Phaser.Keyboard.S),
         "d": game.input.keyboard.addKey(Phaser.Keyboard.D)
     };
-    console.log(this.keys)
+    //console.log(this.keys)
 }
 
 Monster.prototype.spawn = function() {
     var randomX = this.spawnX + Math.floor(Math.random() * this.spawnWidth);
     var randomY = this.spawnY + Math.floor(Math.random() * this.spawnHeight);
-    console.log(randomX, randomY);
+    //console.log(randomX, randomY);
     this.sprite = game.add.sprite(randomX, randomY, this.id);
 
 };
@@ -38,7 +38,6 @@ Monster.prototype.spawn = function() {
 Monster.prototype.physics = function() {
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     this.sprite.body.immovable = true;
-    this.sprite.body.moves = true;
 };
 
 Monster.prototype.die = function() {

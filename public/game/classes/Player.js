@@ -1,6 +1,4 @@
 function Player(json) {
-    var _this = this;
-
     this.name = json.name;
     this.gender = json.gender;
     this.level  = json.level;
@@ -15,15 +13,13 @@ function Player(json) {
 
     this.sprite = game.add.sprite(this.x, this.y, 'player-' + this.gender);
 
-    this.animations();
-    this.physics();
-    this.camera();
-
     this.cursorKeys = game.input.keyboard.createCursorKeys();
     this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);
 
+    this.animations();
+    this.physics();
+    this.camera();
     this.addAttack();
-
 }
 
 Player.prototype.animations = function() {
@@ -47,16 +43,19 @@ Player.prototype.clearVelocity = function() {
 
 Player.prototype.movement = function(integer) {
     if (this.cursorKeys.left.isDown) {
+        this.sprite.children[0].direction = 'left';
         this.sprite.body.velocity.x = -integer;
         this.sprite.play('left');
     } else if (this.cursorKeys.right.isDown) {
+        this.sprite.children[0].direction = 'right';
         this.sprite.body.velocity.x = integer;
         this.sprite.play('right');
-        //console.log(this.sprite.body);
     } else if (this.cursorKeys.up.isDown) {
+        this.sprite.children[0].direction = 'up';
         this.sprite.body.velocity.y = -integer;
         this.sprite.play('up');
     } else if (this.cursorKeys.down.isDown) {
+        this.sprite.children[0].direction = 'down';
         this.sprite.body.velocity.y = integer;
         this.sprite.play('down');
     } else {
@@ -79,12 +78,13 @@ Player.prototype.addAttack = function() {
     var attack = game.add.sprite(0, 0, 'slash');
 
     attack.animations.add('doSlash', [0, 1, 2, 3, 4], 35, true);
-    attack.anchor.setTo(0.5, 0.5);
+    attack.direction = 'down';
+
     this.sprite.addChild(attack);
     this.sprite.children[0].kill();
 
-
     this.g.onDown.add(function () {
+        _this.checkAttackPosition(_this.sprite.children[0]);
         _this.sprite.children[0].revive();
         _this.sprite.children[0].play('doSlash');
 
@@ -93,4 +93,30 @@ Player.prototype.addAttack = function() {
         _this.sprite.children[0].animations.stop();
         _this.sprite.children[0].kill();
     }, this);
+};
+
+Player.prototype.checkAttackPosition = function(sprite) {
+
+    switch(sprite.direction) {
+        case 'left':
+            sprite.position.x = -25;
+            sprite.position.y = 45;
+            sprite.angle = -90;
+            break;
+        case 'right':
+            sprite.position.x = 57;
+            sprite.position.y = -10;
+            sprite.angle = 90;
+            break;
+        case 'down':
+            sprite.position.x = 43;
+            sprite.position.y = 57;
+            sprite.angle = 180;
+            break;
+        case 'up':
+            sprite.position.x = -10;
+            sprite.position.y = -25;
+            sprite.angle = 0;
+            break;
+    }
 };

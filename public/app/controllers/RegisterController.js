@@ -9,8 +9,8 @@ angular.module('users')
         }
 
         $scope.register = function(user) {
-            var test = JSON.stringify(user);
-            console.log(test);
+
+            console.log(user);
             $http({
                 method: 'POST',
                 url: 'user/register/',
@@ -19,7 +19,7 @@ angular.module('users')
                     'Content-Type' : 'Application/Json',
                     'X-Requested-With' : 'XmlHttpRequest'
                 },
-                data: test
+                data: user
                 }
             ).then(function(response) {
                 console.log('success\n', response);

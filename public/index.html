@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="assets/css/index.css">
-        <!--<base href="/Javascript/ITT_Final_Project2/" />-->
+        <base href="/" />
     </head>
     <body ng-app="users">
         <div id="main" class="container-fluid">
@@ -19,25 +19,25 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand custom-nav-link logo" href="#/home">FinalRPG</a>
+                        <a class="navbar-brand custom-nav-link logo" href="/home">FinalRPG</a>
                     </div>
                     <div class="collapse navbar-collapse" id="collapse-navbar">
                         <ul class="nav navbar-nav navbar-right" ng-show="!menuLogged">
-                            <li><a href="#/login" class="custom-nav-link">login</a></li>
-                            <li><a href="#/register" class="custom-nav-link">register</a></li>
-                            <li><a href="#/about" class="custom-nav-link">about</a></li>
+                            <li><a href="/login" class="custom-nav-link">login</a></li>
+                            <li><a href="/register" class="custom-nav-link">register</a></li>
+                            <li><a href="/about" class="custom-nav-link">about</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" ng-show="menuLogged">
-                            <li><a href="#/shop" class="custom-nav-link">shop</a></li>
-                            <li><a href="#/leaderboards" class="custom-nav-link">leaderboards</a></li>
+                            <li><a href="/shop" class="custom-nav-link">shop</a></li>
+                            <li><a href="/leaderboards" class="custom-nav-link">leaderboards</a></li>
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle custom-nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">user <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#/profile" class="custom-nav-link">profile</a></li>
-                                    <li><a href="#/logout" class="custom-nav-link">logout</a></li>
+                                    <li><a href="/profile" class="custom-nav-link">profile</a></li>
+                                    <li><a href="/logout" class="custom-nav-link">logout</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#/about" class="custom-nav-link">about</a></li>
+                            <li><a href="/about" class="custom-nav-link">about</a></li>
                         </ul>
                     </div>
                 </div>
@@ -66,5 +66,5 @@
     <script src="app/controllers/RegisterController.js"></script>
     <script src="app/controllers/ProfileController.js"></script>
     <script src="app/controllers/ShopController.js"></script>
-    <script src="app/controllers/LeaderboardsController.js"></script>
+    <script src="app/controllers/StatisticsController.js"></script>
 </html>

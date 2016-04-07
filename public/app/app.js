@@ -3,9 +3,9 @@ var app = angular.module('users', ['ngRoute', 'satellizer']);
 app.config(function($routeProvider, $authProvider, $locationProvider) {
 
     $routeProvider
-        /*.when('/' , {
+        .when('/' , {
             redirectTo: '/home'
-        })*/
+        })
         .when('/login' , {
             templateUrl: 'app/views/login.html',
             controller: 'LoginController'
@@ -39,10 +39,10 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
             /*controller: 'ProfileController'*/
         })
         .otherwise({
-            redirectTo: '/login'
+            redirectTo: '/home'
         });
 
-    /*$locationProvider.html5Mode(true);*/
+    $locationProvider.html5Mode(true);
 
     $authProvider
         .facebook({

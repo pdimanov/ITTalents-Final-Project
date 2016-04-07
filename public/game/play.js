@@ -94,15 +94,10 @@ var playState = {
 
         //player movement
         this.player.clearVelocity();
-        this.player.movement(300);
+        this.player.movement(100);
 
         this.monsters[0].clearVelocity();
         this.monsters[0].movement(100);
-
-        //check for attack
-        //this.player.checkAttack();
-
-
     },
 
     render: function() {

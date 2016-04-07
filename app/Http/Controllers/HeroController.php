@@ -24,13 +24,6 @@ class HeroController extends Controller
             ->first();
     }
 
-    public function show($id)
-    {
-        return Hero::with('items')
-            ->where('id', $id)
-            ->first();
-    }
-
     public function deleteHero()
     {
         $hero = Hero::where('user_id', Auth::id());
@@ -65,6 +58,11 @@ class HeroController extends Controller
     public function buyItem(Request $request)
     {
         $item = Item::where('id', $request->input('id'))->first();
+
+        if(!$item){
+            return Response::json(['error' => 'No such item found.'], 404);
+        }
+
         $hero = $this->getHero();
         $heroGold = $hero['gold'];
 
@@ -75,7 +73,7 @@ class HeroController extends Controller
 
             return Response::json(['message' => 'Successfully bought an item.', 'item' => $item], 200);
         } else {
-            return Response::json(['error' => 'The hero doesn\'t have enough gold.'], 404);
+            return Response::json(['error' => 'The hero doesn\'t have enough gold.'], 200);
         }
     }
 
@@ -149,5 +147,17 @@ class HeroController extends Controller
         $hero->save();
 
         return Response::json(['message' => 'Hero\'s level and experience have been successfully saved.'], 200);
+    }
+
+    public function obtainItem(Request $request)
+    {
+        $item = $request->input('id');
+        if(!$item){
+            return Response::json(['error' => 'No such item found.'], 404);
+        }
+        $hero = $this->getHero();
+        $hero->items()->attach($item);
+
+        return Response::json(['message' => 'Item successfully obtained by the hero.'], 200);
     }
 }

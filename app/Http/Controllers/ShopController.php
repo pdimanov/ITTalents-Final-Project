@@ -12,7 +12,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-        return Item::all();
+        return Response::json(['message' => Item::all()], 200);
     }
 
     public function show($slot_type)

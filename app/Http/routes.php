@@ -27,6 +27,7 @@ Route::group(['prefix' => 'api'],function(){
         Route::post('/hero', 'HeroController@createHero');
         Route::post('/hero/buy', 'HeroController@buyItem');
         Route::post('/hero/sell', 'HeroController@sellItem');
+        Route::post('/hero/obtain-item', 'HeroController@obtainItem');
         Route::delete('/hero', 'HeroController@deleteHero');
         // H E R O | S A V E S
         Route::group(['prefix' => '/save'], function(){

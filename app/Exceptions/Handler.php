@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -46,7 +47,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException){
-            return response('Error 404: Page not found.', 404);
+            return response()->view('game.index', [], 200);
         }
 
         return parent::render($request, $e);

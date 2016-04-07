@@ -23,8 +23,6 @@ class HeroTableSeeder extends Seeder
             'attack' => 5,
             'defense' => 2,
             'user_id' => 1,
-            'inventory_id' => 1,
-            'user_id' => 1,
         ]);
 
         DB::table('heroes')->insert([
@@ -39,8 +37,6 @@ class HeroTableSeeder extends Seeder
             'attack' => 7,
             'defense' => 4,
             'user_id' => 2,
-            'inventory_id' => 2,
-            'user_id' => 2,
         ]);
 
         DB::table('heroes')->insert([
@@ -54,8 +50,6 @@ class HeroTableSeeder extends Seeder
             'gender' => 'female',
             'attack' => 5,
             'defense' => 2,
-            'user_id' => 3,
-            'inventory_id' => 3,
             'user_id' => 3,
         ]);
     }

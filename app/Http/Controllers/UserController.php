@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Hero;
 use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
@@ -44,20 +46,7 @@ class UserController extends Controller
         if(Auth::attempt(['email' => $email, 'password' => $password])){
             return Auth::user();
         } else {
-            return response(['message' => 'There is no such user.'], 404);
+            return response(['error' => 'There is no such user.'], 404);
         }
-    }
-
-    public function createHero(Request $request)
-    {
-        $this->validate($request, [
-           'name' => 'required|unique',
-        ]);
-
-        $name = $request->input('name');
-        $gender = $request->input('gender') === 'female' ? : 'male';
-
-
-
     }
 }

@@ -26,6 +26,6 @@ class User extends Authenticatable
 
     public function hero()
     {
-        return $this->hasOne('App/Hero');
+        return $this->hasOne(Hero::class);
     }
 }

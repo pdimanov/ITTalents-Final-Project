@@ -15,21 +15,21 @@ class UsersTableSeeder extends Seeder
             'username' => 'stefan',
             'email' => 'asd@abv.bg',
             'password' => bcrypt('stefan'),
-            'api_token' => bcrypt('pass')
+            'api_token' => str_random(60)
         ]);
 
         DB::table('users')->insert([
             'username' => 'ivan',
             'email' => 'asdasd@abv.bg',
             'password' => bcrypt('ivan'),
-            'api_token' => bcrypt('secret')
+            'api_token' => str_random(60)
         ]);
 
         DB::table('users')->insert([
             'username' => 'nina',
             'email' => 'nina@abv.bg',
             'password' => bcrypt('nina'),
-            'api_token' => bcrypt('yes')
+            'api_token' => str_random(60)
         ]);
     }
 }

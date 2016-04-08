@@ -9,7 +9,7 @@ body {
   padding: 40px 0 40px 0; }
   body #main {
     padding: 0; }
-  body input:focus {
+  body input:focus, body button:focus {
     outline: none !important;
     border-color: #563d7c !important;
     box-shadow: 0 0 5px #563d7c !important; }
@@ -131,5 +131,26 @@ body {
 
 .text-custom2 {
   color: #67528e; }
+
+.view-slide-in.ng-enter {
+  transition: all 1.5s ease;
+  -webkit-transition: all 1.5s ease;
+  -moz-transition: all 1.5s ease;
+  -o-transition: all 1.5s ease;
+  opacity: 0.1;
+  position: relative;
+  opacity: 0; }
+
+.view-slide-in.ng-enter {
+  opacity: 0; }
+
+.view-slide-in.ng-enter.ng-enter-active {
+  opacity: 1; }
+
+.view-slide-in.ng-leave.ng-leave-active {
+  opacity: 1; }
+
+.view-slide-in.ng-leave {
+  opacity: 0; }
 
 /*# sourceMappingURL=index.css.map */

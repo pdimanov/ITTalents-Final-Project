@@ -1,6 +1,6 @@
-var app = angular.module('users', ['ngRoute', 'ngCookies', 'satellizer']);
+var app = angular.module('users', ['ngRoute', 'ngCookies', 'ngAnimate']);
 
-app.config(function($routeProvider, $authProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider) {
 
     $routeProvider
         .when('/login' , {
@@ -45,12 +45,6 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
         });
 
     $locationProvider.html5Mode(true);
-
-    $authProvider
-        .facebook({
-            clientId: 'Facebook App ID',
-            responseType: 'token'
-        });
 });
 
 app.run(function($rootScope, $location, AuthService) {

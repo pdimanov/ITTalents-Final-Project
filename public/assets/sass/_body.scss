@@ -9,7 +9,7 @@ body {
     padding: 0;
   }
 
-  input:focus {
+  input:focus, button:focus {
     outline: none !important;
     border-color: $navbar-background !important;
     box-shadow: 0 0 5px $navbar-background !important;

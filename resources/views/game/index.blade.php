@@ -13,7 +13,7 @@
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-route/angular-route.js"></script>
     <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
-    <script src="node_modules/satellizer/satellizer.min.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
 
     <script src="app/app.js"></script>
 
@@ -31,6 +31,23 @@
     <script src="app/controllers/StatisticsController.js"></script>
 
     <body ng-app="users">
+        <script>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '1007243642676337',
+                    xfbml      : true,
+                    version    : 'v2.5'
+                });
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
         <div id="main" class="container-fluid">
             <nav id="navbar" class="navbar navbar-default navbar-fixed-top" ng-controller="NavigationController">
                 <div class="container">
@@ -64,7 +81,7 @@
                     </div>
                 </div>
             </nav>
-            <section id="mainContent" ng-view>
+            <section id="mainContent" ng-view class="view-slide-in">
 
             </section>
             <footer id="footer" class="navbar-fixed-bottom">
@@ -74,5 +91,6 @@
             </footer>
         </div>
     </body>
+
 
 </html>

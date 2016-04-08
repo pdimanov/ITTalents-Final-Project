@@ -1,11 +1,11 @@
 angular.module('users')
-    .controller('LogoutController', function($scope, $rootScope, $location, AuthService) {
+    .controller('LogoutController', function($location, $timeout, $rootScope, AuthService) {
 
         AuthService.logout();
         $rootScope.$emit('user.logged');
         $rootScope.$broadcast('user.logged');
 
-        //$location.path('login');
-
-
+        $timeout(function() {
+            $location.path('/login');
+        }, 3000);
     });

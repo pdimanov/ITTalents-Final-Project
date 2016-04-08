@@ -1,7 +1,7 @@
 angular.module('users')
-    .factory('StorageService', function($window) {
+    .factory('StorageService', function($window, $cookies) {
         var key = 'user_token';
-        return  {
+        /*return  {
             getToken: function() {
                 return $window.localStorage.getItem(key);
             },
@@ -10,6 +10,21 @@ angular.module('users')
             },
             removeToken: function() {
                 $window.localStorage.removeItem(key);
+            }
+        }*/
+        return  {
+            getCookie: function() {
+                return $cookies.get(key);
+            },
+            setCookie: function(user) {
+                var time = new Date();
+                time.setMinutes(time.getMinutes() + 5);
+                $cookies.put(key, user.api_token, {
+                    'expires': time
+                });
+            },
+            removeCookie: function() {
+                $cookies.remove(key);
             }
         }
     });

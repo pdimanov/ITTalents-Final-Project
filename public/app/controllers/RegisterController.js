@@ -1,9 +1,6 @@
 angular.module('users')
     .controller('RegisterController', function($scope, $http, $location, UserService, AuthService) {
 
-        $scope.delayView = AuthService.isLogged();
-
-        if (AuthService.isLogged()) return $location.path('home');
 
         $scope.user = {};
 

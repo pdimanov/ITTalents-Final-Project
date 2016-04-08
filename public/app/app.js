@@ -1,4 +1,4 @@
-var app = angular.module('users', ['ngRoute', 'satellizer']);
+var app = angular.module('users', ['ngRoute', 'ngCookies', 'satellizer']);
 
 app.config(function($routeProvider, $authProvider, $locationProvider) {
 
@@ -17,23 +17,28 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
         })
         .when('/home' , {
             templateUrl: 'app/views/home.html',
-            controller: 'HomeController'
+            controller: 'HomeController',
+            authenticated: true
         })
         .when('/shop' , {
             templateUrl: 'app/views/shop.html',
-            controller: 'ShopController'
+            controller: 'ShopController',
+            authenticated: true
         })
         .when('/statistics' , {
             templateUrl: 'app/views/statistics.html',
-            controller: 'StatisticsController'
+            controller: 'StatisticsController',
+            authenticated: true
         })
         .when('/profile' , {
             templateUrl: 'app/views/profile.html',
-            controller: 'ProfileController'
+            controller: 'ProfileController',
+            authenticated: true
         })
         .when('/logout' , {
             templateUrl: 'app/views/logout.html',
-            controller: 'LogoutController'
+            controller: 'LogoutController',
+            authenticated: true
         })
         .otherwise({
             redirectTo: '/login'
@@ -46,4 +51,15 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
             clientId: 'Facebook App ID',
             responseType: 'token'
         });
+});
+
+app.run(function($rootScope, $location, AuthService) {
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+        $rootScope.$emit('user.logged');
+        $rootScope.$broadcast('user.logged');
+        if (next.$$route && next.$$route.authenticated && !AuthService.isAuth()) {
+            $location.path('/login');
+
+        }
+    });
 });

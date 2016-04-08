@@ -1,59 +1,66 @@
-<div class="container" id="register-form-container" ng-hide="delayView">
+<div class="container" id="register-form-container">
     <div class="col-md-6 content-div">
         <img id="logo" src="assets/images/logo.png" alt="logo" class="img-responsive center-block">
     </div>
     <div class="col-md-6 content-div">
-        <form id="form" name="form" action="" method="post" role="form" class="col-md-6 col-md-offset-3"  novalidate onsubmit="return false;">
-            <div ng-show="serverErrors">
-                <span class="help-block custom-error" ng-repeat="item in serverErrors">{{item[0]}}</span>
+        <div class="panel panel-custom1 col-md-6 col-md-offset-3">
+            <div class="panel-heading">
+                REGISTER FORM
             </div>
-            <div ng-class="{
-                'form-group' : true,
-                'has-error custom-error': (form.username.$error.minlength && (form.username.$dirty || form.loginClicked))
-                    || (form.username.$error.required && form.loginClicked)
-                    || (serverErrors.username)
-                }">
-                <label class="control-label" for="username">Username</label>
-                <input id="username" class="form-control" type="text" ng-model="user.username" name="username" autocomplete="off" required="required" minlength="2">
+            <div class="panel-body">
+                <form id="form" name="form" action="" method="post" role="form"  novalidate onsubmit="return false;">
+                    <div ng-show="serverErrors">
+                        <span class="help-block custom-error" ng-repeat="item in serverErrors">{{item[0]}}</span>
+                    </div>
+                    <div ng-class="{
+                        'form-group' : true,
+                        'has-error custom-error': (form.username.$error.minlength && (form.username.$dirty || form.loginClicked))
+                            || (form.username.$error.required && form.loginClicked)
+                            || (serverErrors.username)
+                        }">
+                        <label class="control-label" for="username">Username</label>
+                        <input id="username" class="form-control" type="text" ng-model="user.username" name="username" autocomplete="off" required="required" minlength="2">
 
-                <span class="help-block" ng-show="form.username.$error.minlength && (form.username.$dirty || form.loginClicked)">Enter at least 2 characters</span>
-                <span class="help-block" ng-show="form.username.$error.required && (form.username.$dirty || form.loginClicked)">This field is required!</span>
-            </div>
-            <div ng-class="{
-                'form-group' : true,
-                'has-error custom-error': (form.$error.email && (form.email.$dirty ||form.loginClicked))
-                    || (form.email.$error.required && form.loginClicked)
-                    || (serverErrors.email)
-                }">
-                <label class="control-label" for="email">Email</label>
-                <input id="email" class="form-control" type="email" ng-model="user.email" name="email" autocomplete="off" required="required">
+                        <span class="help-block" ng-show="form.username.$error.minlength && (form.username.$dirty || form.loginClicked)">Enter at least 2 characters</span>
+                        <span class="help-block" ng-show="form.username.$error.required && (form.username.$dirty || form.loginClicked)">This field is required!</span>
+                    </div>
+                    <div ng-class="{
+                        'form-group' : true,
+                        'has-error custom-error': (form.$error.email && (form.email.$dirty ||form.loginClicked))
+                            || (form.email.$error.required && form.loginClicked)
+                            || (serverErrors.email)
+                        }">
+                        <label class="control-label" for="email">Email</label>
+                        <input id="email" class="form-control" type="email" ng-model="user.email" name="email" autocomplete="off" required="required">
 
-                <span class="help-block" ng-show="form.email.$error.email && (form.email.$dirty || form.loginClicked)">Enter valid email!</span>
-                <span class="help-block" ng-show="form.email.$error.required && (form.email.$dirty ||form.loginClicked)">This field is required!</span>
-            </div>
-            <div ng-class="{'form-group' : true, 'has-error custom-error': !form.password.$valid && (form.password.$dirty ||form.loginClicked)}">
-                <label class="control-label" for="password">Password</label>
-                <input id="password" class="form-control" type="password" name="password" ng-model="user.password" required="required" minlength="4" maxlength="8" ng-keyup="equalPasswords = checkPasswordMatch(user)">
+                        <span class="help-block" ng-show="form.email.$error.email && (form.email.$dirty || form.loginClicked)">Enter valid email!</span>
+                        <span class="help-block" ng-show="form.email.$error.required && (form.email.$dirty ||form.loginClicked)">This field is required!</span>
+                    </div>
+                    <div ng-class="{'form-group' : true, 'has-error custom-error': !form.password.$valid && (form.password.$dirty ||form.loginClicked)}">
+                        <label class="control-label" for="password">Password</label>
+                        <input id="password" class="form-control" type="password" name="password" ng-model="user.password" required="required" minlength="4" maxlength="8" ng-keyup="equalPasswords = checkPasswordMatch(user)">
 
-                <span class="help-block" ng-show="form.password.$error.minlength && (form.password.$dirty ||form.loginClicked)">Password must be at least 4 symbols</span>
-                <span class="help-block" ng-show="form.password.$dirty && form.password.$error.maxlength && (form.password.$dirty ||form.loginClicked)">Password must be at max 8 symbols</span>
-                <span class="help-block" ng-show="form.password.$error.required && (form.password.$dirty || form.loginClicked)">This field is required!</span>
-            </div>
-            <div ng-class="{'form-group' : true, 'has-error custom-error': (!equalPasswords && form.password_confirmation.$dirty) || (!form.password_confirmation.$valid && (form.password_confirmation.$dirty ||form.loginClicked))}">
-                <label class="control-label" for="password_confirmation">Repeat Password</label>
-                <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" ng-model="user.password_confirmation" required="required" minlength="4" maxlength="8" ng-keyup="equalPasswords = checkPasswordMatch(user)">
+                        <span class="help-block" ng-show="form.password.$error.minlength && (form.password.$dirty ||form.loginClicked)">Password must be at least 4 symbols</span>
+                        <span class="help-block" ng-show="form.password.$dirty && form.password.$error.maxlength && (form.password.$dirty ||form.loginClicked)">Password must be at max 8 symbols</span>
+                        <span class="help-block" ng-show="form.password.$error.required && (form.password.$dirty || form.loginClicked)">This field is required!</span>
+                    </div>
+                    <div ng-class="{'form-group' : true, 'has-error custom-error': (!equalPasswords && form.password_confirmation.$dirty) || (!form.password_confirmation.$valid && (form.password_confirmation.$dirty ||form.loginClicked))}">
+                        <label class="control-label" for="password_confirmation">Repeat Password</label>
+                        <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" ng-model="user.password_confirmation" required="required" minlength="4" maxlength="8" ng-keyup="equalPasswords = checkPasswordMatch(user)">
 
-                <span class="help-block" ng-show="form.password_confirmation.$error.minlength && (form.password_confirmation.$dirty ||form.loginClicked)">Password must be at least 4 symbols</span>
-                <span class="help-block" ng-show="form.password_confirmation.$dirty && form.password_confirmation.$error.maxlength && (form.password_confirmation.$dirty ||form.loginClicked)">Password must be at max 8 symbols</span>
-                <span class="help-block" ng-show="form.password_confirmation.$dirty && !equalPasswords">Passwords do not match</span>
-                <span class="help-block" ng-show="form.password_confirmation.$error.required && (form.password_confirmation.$dirty || form.loginClicked)">This field is required!</span>
+                        <span class="help-block" ng-show="form.password_confirmation.$error.minlength && (form.password_confirmation.$dirty ||form.loginClicked)">Password must be at least 4 symbols</span>
+                        <span class="help-block" ng-show="form.password_confirmation.$dirty && form.password_confirmation.$error.maxlength && (form.password_confirmation.$dirty ||form.loginClicked)">Password must be at max 8 symbols</span>
+                        <span class="help-block" ng-show="form.password_confirmation.$dirty && !equalPasswords">Passwords do not match</span>
+                        <span class="help-block" ng-show="form.password_confirmation.$error.required && (form.password_confirmation.$dirty || form.loginClicked)">This field is required!</span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-custom1 col-xs-12" ng-click="form.loginClicked = true; form.password.$viewValue == form.password_confirmation.$viewValue && form.$valid && register(user);">Register</button>
+                    </div>
+                    <!--<pre>
+                        {{form|json}}
+                    </pre>-->
+                </form>
             </div>
-            <div>
-                <button type="submit" ng-disabled="!form.$valid" class="btn btn-custom1 col-xs-12" ng-click="form.loginClicked = true; form.password.$viewValue == form.password_confirmation.$viewValue && form.$valid && register(user);">Register</button>
-            </div>
-            <!--<pre>
-				{{form|json}}
-			</pre>-->
-        </form>
+        </div>
     </div>
 </div>

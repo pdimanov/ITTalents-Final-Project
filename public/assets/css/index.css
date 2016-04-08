@@ -115,11 +115,21 @@ body {
     outline-color: #752420 !important; }
 
 .panel-custom1 {
-  /*border-color: $navbar-background;*/ }
+  border-color: #67528e;
+  padding: 0;
+  background: rgba(248, 248, 255, 0.8); }
   .panel-custom1 .panel-heading, .panel-custom1 .panel-footer {
-    /*background: #3c3e7f;*/
-    /*color: ghostwhite;*/ }
+    background: #67528e;
+    color: ghostwhite; }
   .panel-custom1 .panel-body {
-    /*background: ghostwhite;*/ }
+    border-radius: 3px; }
+    .panel-custom1 .panel-body label {
+      color: #67528e; }
+
+.text-custom1 {
+  color: #563d7c; }
+
+.text-custom2 {
+  color: #67528e; }
 
 /*# sourceMappingURL=index.css.map */

@@ -12,6 +12,7 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
     <script src="node_modules/satellizer/satellizer.min.js"></script>
 
     <script src="app/app.js"></script>

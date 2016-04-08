@@ -1,16 +1,18 @@
-<div class="container" ng-show="delayView">
+<div class="container">
     <div class="col-md-6 col-md-offset-3">
-        <div class="dropdown center-block">
+        <div class="dropdown col-md-6 col-md-offset-3">
             <button class="btn btn-custom1 dropdown-toggle btn-block" type="button" data-toggle="dropdown">Item type
-                <span class="caret"></span></button>
+                <span class="caret"></span>
+            </button>
             <ul class="dropdown-menu btn-block">
-                <li><a ng-click="shopType('armor')">armor</a></li>
-                <li><a ng-click="shopType('head')">head</a></li>
-                <li><a ng-click="shopType('weapon')">weapon</a></li>
-                <li><a ng-click="shopType('gloves')">gloves</a></li>
-                <li><a ng-click="shopType('boots')">boots</a></li>
+                <li class="text-center"><a ng-click="shopType('armor')">armor</a></li>
+                <li class="text-center"><a ng-click="shopType('head')">head</a></li>
+                <li class="text-center"><a ng-click="shopType('weapon')">weapon</a></li>
+                <li class="text-center"><a ng-click="shopType('gloves')">gloves</a></li>
+                <li class="text-center"><a ng-click="shopType('boots')">boots</a></li>
             </ul>
         </div>
+        <br>
         <br>
         <div class="panel panel-default panel-custom1" ng-repeat="item in shop">
             <div class="panel-heading">

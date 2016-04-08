@@ -61,14 +61,29 @@
 }
 
 .panel-custom1 {
-  /*border-color: $navbar-background;*/
+  border-color: $navbar-border-color;
+  padding: 0;
+  background: rgba(248, 248, 255, 0.8);
 
 
   .panel-heading, .panel-footer {
-    /*background: #3c3e7f;*/
-    /*color: ghostwhite;*/
+    background: $navbar-border-color;
+    color: ghostwhite;
   }
   .panel-body {
-    /*background: ghostwhite;*/
+
+    border-radius: 3px;
+
+    label {
+      color: $navbar-border-color;
+    }
   }
+}
+
+.text-custom1 {
+  color: $navbar-background;
+}
+
+.text-custom2 {
+  color: $navbar-border-color;
 }

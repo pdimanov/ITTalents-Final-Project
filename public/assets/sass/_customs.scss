@@ -47,3 +47,15 @@
 .panel-default {
   color: black;
 }
+
+.custom-error {
+  color: #752420 !important;
+
+  label, span {
+    color: #752420 !important;
+  }
+
+  input {
+    outline-color: #752420 !important;
+  }
+}

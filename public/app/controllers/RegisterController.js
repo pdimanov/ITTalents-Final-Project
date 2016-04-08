@@ -1,6 +1,12 @@
 angular.module('users')
-    .controller('RegisterController', function($scope, $window, $http) {
+    .controller('RegisterController', function($scope, $http, $location, UserService, AuthService) {
+
+        $scope.delayView = AuthService.isLogged();
+
+        if (AuthService.isLogged()) return $location.path('home');
+
         $scope.user = {};
+
         $scope.equalPasswords = checkPasswordMatch($scope.user);
         $scope.checkPasswordMatch = checkPasswordMatch;
 
@@ -9,22 +15,10 @@ angular.module('users')
         }
 
         $scope.register = function(user) {
-
-            console.log(user);
-            $http({
-                method: 'POST',
-                url: 'user/register/',
-                headers: {
-                    'Accept' : 'Application/Json',
-                    'Content-Type' : 'Application/Json',
-                    'X-Requested-With' : 'XmlHttpRequest'
-                },
-                data: user
-                }
-            ).then(function(response) {
-                console.log('success\n', response);
+            UserService.register(user).then(function() {
+                $location.path('/login');
             }, function(response) {
-                console.log('fail\n', response);
+                $scope.serverErrors = response.data;
             });
         }
     });

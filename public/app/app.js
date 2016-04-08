@@ -23,7 +23,7 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
             templateUrl: 'app/views/shop.html',
             controller: 'ShopController'
         })
-        .when('/leaderboards' , {
+        .when('/statistics' , {
             templateUrl: 'app/views/statistics.html',
             controller: 'StatisticsController'
         })
@@ -36,7 +36,7 @@ app.config(function($routeProvider, $authProvider, $locationProvider) {
             controller: 'LogoutController'
         })
         .otherwise({
-            redirectTo: '/home'
+            redirectTo: '/login'
         });
 
     $locationProvider.html5Mode(true);

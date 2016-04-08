@@ -89,7 +89,7 @@ body {
     color: ghostwhite; }
 
 .btn-facebook {
-  background-color: #3b5998; }
+  background-color: #334e85; }
   .btn-facebook:hover {
     background-color: #273f98;
     color: ghostwhite; }
@@ -98,5 +98,12 @@ body {
 
 .panel-default {
   color: black; }
+
+.custom-error {
+  color: #752420 !important; }
+  .custom-error label, .custom-error span {
+    color: #752420 !important; }
+  .custom-error input {
+    outline-color: #752420 !important; }
 
 /*# sourceMappingURL=index.css.map */

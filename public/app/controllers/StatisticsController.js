@@ -1,4 +1,8 @@
 angular.module('users')
-    .controller('LeaderboardsController', function($http, $scope) {
+    .controller('StatisticsController', function($http, $scope, AuthService) {
+
+        $scope.delayView = AuthService.isLogged();
+
+        if (!AuthService.isLogged()) return $location.path('login');
 
     });

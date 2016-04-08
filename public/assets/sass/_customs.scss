@@ -59,3 +59,16 @@
     outline-color: #752420 !important;
   }
 }
+
+.panel-custom1 {
+  /*border-color: $navbar-background;*/
+
+
+  .panel-heading, .panel-footer {
+    /*background: #3c3e7f;*/
+    /*color: ghostwhite;*/
+  }
+  .panel-body {
+    /*background: ghostwhite;*/
+  }
+}

@@ -4,6 +4,8 @@
   background: $navbar-background;
   border: 0;
   border-bottom: $navbar-border-bottom;
+  font-size: $navbar-font-size;
+  text-transform: uppercase;
 
   #mainToggle > span {
     background-color: $navbar-border-color;

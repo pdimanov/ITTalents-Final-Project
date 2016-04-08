@@ -1,14 +1,15 @@
-$body-font-family: BPmono;//AllerRegular;
-$body-font-size: 18px;
+$body-font-family: Calibri;
+$body-font-size: 20px;
 
-$navbar-background: #61456a;
-$navbar-border-color: #67546d;
+$navbar-background: #563d7c;
+$navbar-border-color: #67528e;
 $navbar-border-bottom: 5px solid $navbar-border-color;
+$navbar-font-size: 0.8em;
 
 $main-content-min-height: 600px;
 $main-content-background: #3B8686;
 
-$footer-background: #61456a;
+$footer-background: $navbar-background;
 
 /*
 custom classes

@@ -1,12 +1,18 @@
 body {
   font-family: $body-font-family;
   font-size: $body-font-size;
-  background: $main-content-background;
+  background: url("../images/bg.png") repeat;
   color: ghostwhite !important;
   padding: 40px 0 40px 0;
 
   #main {
     padding: 0;
+  }
+
+  input:focus {
+    outline: none !important;
+    border-color: $navbar-background !important;
+    box-shadow: 0 0 5px $navbar-background !important;
   }
 }
 

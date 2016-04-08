@@ -27,6 +27,30 @@ angular.module('users')
                     },
                     data: JSON.stringify(user)
                 });
+            },
+            shop: function(token) {
+                return $http({
+                    method: 'GET',
+                    url: 'api/shop',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': token
+                    }
+                });
+            },
+            shopType: function(type, token) {
+                return $http({
+                    method: 'GET',
+                    url: 'api/shop/' + type,
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': token
+                    }
+                });
             }
         }
     });

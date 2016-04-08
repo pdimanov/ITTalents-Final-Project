@@ -2,13 +2,17 @@
 custom classes
 */
 body {
-  font-family: BPmono;
-  font-size: 18px;
-  background: #3B8686;
+  font-family: Calibri;
+  font-size: 20px;
+  background: url("../images/bg.png") repeat;
   color: ghostwhite !important;
   padding: 40px 0 40px 0; }
   body #main {
     padding: 0; }
+  body input:focus {
+    outline: none !important;
+    border-color: #563d7c !important;
+    box-shadow: 0 0 5px #563d7c !important; }
 
 @font-face {
   font-family: AllerDisplay;
@@ -22,37 +26,41 @@ body {
 #navbar {
   border-radius: 0;
   margin: 0;
-  background: #61456a;
+  background: #563d7c;
   border: 0;
-  border-bottom: 5px solid #67546d; }
+  border-bottom: 5px solid #67528e;
+  font-size: 0.8em;
+  text-transform: uppercase; }
   #navbar #mainToggle > span {
-    background-color: #67546d; }
+    background-color: #67528e; }
   #navbar #bs-example-navbar-collapse-1 {
-    border-color: #67546d; }
+    border-color: #67528e; }
   #navbar .navbar-collapse.collapse.in, #navbar .navbar-collapse.collapsing {
-    border-color: #67546d; }
+    border-color: #67528e; }
   #navbar a:hover {
-    background: #67546d; }
+    background: #67528e; }
   #navbar .dropdown:active {
-    background: #67546d; }
+    background: #67528e; }
   #navbar .dropdown .dropdown-menu {
-    background: #61456a;
-    border-color: #67546d; }
+    background: #563d7c;
+    border-color: #67528e; }
     #navbar .dropdown .dropdown-menu .divider {
-      background: #67546d; }
+      background: #67528e; }
   #navbar .dropdown.open > a {
-    background: #67546d; }
+    background: #67528e; }
 
 #mainContent {
   padding-top: 55px;
   min-height: 600px;
-  background: #3B8686; }
+  /*background: $main-content-background;*/ }
   #mainContent #logo {
     pointer-events: none; }
+  #mainContent canvas {
+    margin: 0 auto; }
 
 #footer {
   height: 40px;
-  background: #61456a;
+  background: #563d7c;
   /*position: absolute;
   bottom: 0;*/
   width: 100%;
@@ -80,10 +88,10 @@ body {
   margin-top: 50px; }
 
 .btn-custom1 {
-  background-color: #67546d;
+  background-color: #67528e;
   /*border-radius: 0;*/ }
   .btn-custom1:hover {
-    background-color: #61456a;
+    background-color: #563d7c;
     color: ghostwhite; }
   .btn-custom1:focus {
     color: ghostwhite; }
@@ -105,5 +113,13 @@ body {
     color: #752420 !important; }
   .custom-error input {
     outline-color: #752420 !important; }
+
+.panel-custom1 {
+  /*border-color: $navbar-background;*/ }
+  .panel-custom1 .panel-heading, .panel-custom1 .panel-footer {
+    /*background: #3c3e7f;*/
+    /*color: ghostwhite;*/ }
+  .panel-custom1 .panel-body {
+    /*background: ghostwhite;*/ }
 
 /*# sourceMappingURL=index.css.map */

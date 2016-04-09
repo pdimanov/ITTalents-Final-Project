@@ -23,6 +23,8 @@ angular.module('users')
             UserService.createHero(JSON.stringify(hero), StorageService.getCookie()).then(function(response) {
                 console.log('success\n', response);
                 $scope.user = response.data;
+                $scope.form.$setPristine();
+                $scope.create = {};
             });
         };
 

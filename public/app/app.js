@@ -57,7 +57,6 @@ app.run(function($rootScope, $location, AuthService) {
         }
 
         if (next.$$route && !(next.$$route.authenticated) && AuthService.isAuth()) {
-            console.log('testo');
             $location.path('/home');
         }
     });

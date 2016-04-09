@@ -51,6 +51,44 @@ angular.module('users')
                         'X-Api-Token': token
                     }
                 });
+            },
+            profile: function(token) {
+                return $http({
+                    method: 'GET',
+                    url: 'api/user',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': token
+                    }
+                });
+            },
+            upload: function(avatar, token) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/user/upload',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': token
+                    },
+                    data: avatar
+                });
+            },
+            createHero: function(hero, token) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/hero',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': token
+                    },
+                    data: hero
+                });
             }
         }
     });

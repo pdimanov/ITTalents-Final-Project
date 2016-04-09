@@ -55,7 +55,8 @@ body {
   #mainContent #logo {
     pointer-events: none; }
   #mainContent canvas {
-    margin: 0 auto; }
+    margin: 0 auto;
+    border: 5px solid #67528e; }
 
 #footer {
   height: 40px;

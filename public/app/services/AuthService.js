@@ -13,9 +13,6 @@ angular.module('users')
             logout: function() {
                 //identity = undefined;
                 StorageService.removeCookie();
-            },
-            register: function(user) {
-                return UserService.register(user);
             }
         }
     });

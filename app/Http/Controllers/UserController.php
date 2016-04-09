@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
 
@@ -68,16 +69,29 @@ class UserController extends Controller
     }
 
     public function uploadAvatar(Request $request) {
-        if($request->file('image'))
-        {
-            $image = Image::make($request->file('image'));
-            $filename  =   Auth::user()->username . '.' . $image->getClientOriginalExtension();
+//        return ini_get('upload_tmp_dir');
+//        return $_FILES;
+//        return $request->file('image')->move(public_path('avatars/'), $request->file('image')->getClientOriginalName() . '.' . $request->file('image')->getClientOriginalExtension());
 
-            if(Image::make($image->getRealPath())->fit(150, 150)->save(public_path('avatars/' . $filename))){
-                return Response::json(['message' => 'Avatar saved successfully'], 200);
-            } else {
-                return Response::json(['error' => 'Something went wrong.'], 400);
-            }
+//        if($request->file('image'))
+//        {
+//            $image = Image::make($_FILES['image']['tmp_name']);
+//            return $image;
+//            $filename  =   Auth::user()->username . '.' . pathinfo($image, PATHINFO_EXTENSION);
+//
+//            if(Image::make($image->getRealPath())->fit(150, 150)->save(public_path('avatars/' . $filename))){
+//                return Response::json(['message' => 'Avatar saved successfully'], 200);
+//            } else {
+//                return Response::json(['error' => 'Something went wrong.'], 400);
+//            }
+//        }
+
+        if (Input::hasFile('image'))
+        {
+            $file = Input::file('image');
+            $file->move('avatars', $file->getClientOriginalName());
+
+            $image = Image::make(sprintf('avatars/%s', $file->getClientOriginalName()))->resize(100, 100)->save();
         }
     }
 }

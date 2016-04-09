@@ -41,8 +41,8 @@ DB_USERNAME=my_project
 
 - When registering a new user or logging in with an already made user you use the several headers:
 ```
-Accept : Application/Json
-Content-Type : Application/Json
+Accept : application/json
+Content-Type : application/json
 X-Requested-With : XmlHttpRequest
 ```
 - After there is an already logged in user, the client needs to verify which specific user is logged in and send this information to the API via a token which is returned to the client when he logs in and saves it in his Local Storage. After that to verify his identity, the client sends a custom header with the token's value in it.</br></br>
@@ -88,6 +88,11 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Body example**: `{"id":2}`</br>
 **Response**: Returns a message if the hero has successfully sold an item. Returns an error if such an item doesn't exist.</br></br>
 
+- **Route**: `localhost:8000/api/hero/obtain-item`</br>
+**Method**: `POST`</br>
+**Body example**: {"id":5}</br>
+**Response**: Returns a message if a hero has successfully obtained an item, for example from a quest reward. Returns an error if such an item doesn't exist.</br></br>
+
 - **Route**: `localhost:8000/api/save/location`</br>
 **Method**: `PUT`</br>
 **Body example**: `{"map_x":100,"map_y":100}`</br>
@@ -111,3 +116,7 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Method**: `GET`</br>
 **{slot_type} options**: armor/head/weapon/gloves/boots</br>
 **Response**: Returns a message when a slot type collection has successfully been returned. Returns an error if there is no such slot type.</br></br>
+
+- **Route**: `localhost:8000/api/user`</br>
+**Method**: `GET`</br>
+**Response**: Returns the user's username and email and basic information about the user's hero.</br></br>

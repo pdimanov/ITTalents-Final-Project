@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hero;
+use App\Item;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -48,5 +49,13 @@ class UserController extends Controller
         } else {
             return response(['error' => 'There is no such user.'], 404);
         }
+    }
+
+    public function getUserInfo(Request $request)
+    {
+        return User::join('heroes', 'users.id', '=', 'heroes.user_id')
+            ->select('users.username', 'users.email', 'heroes.*')
+            ->where('users.id', Auth::id())
+            ->first();
     }
 }

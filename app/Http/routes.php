@@ -22,6 +22,9 @@ Route::group(['prefix' => 'api'],function(){
 
     Route::group(['middleware' => ['api.token.auth', 'api']], function(){
 
+        // U S E R
+        Route::get('/user', 'UserController@getUserInfo');
+
         // H E R O
         Route::get('/hero', 'HeroController@index');
         Route::post('/hero', 'HeroController@createHero');
@@ -29,7 +32,7 @@ Route::group(['prefix' => 'api'],function(){
         Route::post('/hero/sell', 'HeroController@sellItem');
         Route::post('/hero/obtain-item', 'HeroController@obtainItem');
         Route::delete('/hero', 'HeroController@deleteHero');
-        // H E R O | S A V E S
+        // H E R O - S A V E S
         Route::group(['prefix' => '/save'], function(){
             Route::put('/location', 'HeroController@saveHeroLocation');
             Route::put('/gold', 'HeroController@saveHeroGold');

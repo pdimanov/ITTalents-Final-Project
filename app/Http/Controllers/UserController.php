@@ -69,29 +69,25 @@ class UserController extends Controller
     }
 
     public function uploadAvatar(Request $request) {
-//        return ini_get('upload_tmp_dir');
-//        return $_FILES;
-//        return $request->file('image')->move(public_path('avatars/'), $request->file('image')->getClientOriginalName() . '.' . $request->file('image')->getClientOriginalExtension());
+        $this->validate($request,[
+           'image' => 'image|mimes:jpeg,bmp,png|max:1024',
+        ]);
 
-//        if($request->file('image'))
-//        {
-//            $image = Image::make($_FILES['image']['tmp_name']);
-//            return $image;
-//            $filename  =   Auth::user()->username . '.' . pathinfo($image, PATHINFO_EXTENSION);
-//
-//            if(Image::make($image->getRealPath())->fit(150, 150)->save(public_path('avatars/' . $filename))){
-//                return Response::json(['message' => 'Avatar saved successfully'], 200);
-//            } else {
-//                return Response::json(['error' => 'Something went wrong.'], 400);
-//            }
-//        }
+        $file = Input::file('image');
+        $filename = Auth::user()->username . '-avatar.png';
 
-        if (Input::hasFile('image'))
-        {
-            $file = Input::file('image');
-            $file->move('avatars', $file->getClientOriginalName());
+        if(!file_exists('avatars/' . $filename) && $file || file_exists('avatars/' . $filename)) {
+            if($file){
+                $file->move('avatars/', $filename);
+            }
 
-            $image = Image::make(sprintf('avatars/%s', $file->getClientOriginalName()))->resize(100, 100)->save();
+            $user = User::findOrFail(Auth::id());
+            $user->avatar = $filename;
+            $user->save();
+
+            return Image::make('avatars/' . $filename)->fit(150, 150)->save()->response('png');
+        } else {
+            return Image::make('assets/images/placeholder.png')->response('png');
         }
     }
 }

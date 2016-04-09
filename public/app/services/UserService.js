@@ -89,6 +89,18 @@ angular.module('users')
                     },
                     data: hero
                 });
+            },
+            deleteHero: function(token) {
+                return $http({
+                    method: 'DELETE',
+                    url: 'api/hero',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': token
+                    }
+                });
             }
         }
     });

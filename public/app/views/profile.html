@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="col-md-6 col-md-offset-3" ng-hide="error">
+    <div class="col-md-6 col-md-offset-3">
         <div class="col-md-4">
             <img id="logo" ng-src="{{user.avatar}}" alt="logo" class="img-responsive center-block img-thumbnail">
             <div id="uploadAvatar">
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-12 text-center">
             <h3>Hero</h3>
-            <div class="createHero" ng-hide="user.name">
+            <div id="createHero" ng-hide="user.name">
                 <form  class="form-inline" name="form" role="form" novalidate onsubmit="return false;">
                     <div class="form-group">
                         <input type="text" placeholder="name" class="form-control" ng-model="create.name">
@@ -34,6 +34,9 @@
                         <button class="btn btn-custom1" ng-click="createHero(create)">create</button>
                     </div>
                 </form>
+            </div>
+            <div id="deleteHero" ng-show="user.name">
+                <button type="button" class="btn btn-danger" ng-click="deleteHero()">delete hero</button>
             </div>
             <div ng-repeat="(key, val) in user" ng-if="user.name && key!='username' && key!='email'">
                 <span>{{key}}: </span>

@@ -24,5 +24,14 @@ angular.module('users')
                 console.log('success\n', response);
                 $scope.user = response.data;
             });
+        };
+
+        $scope.deleteHero = function() {
+            UserService.deleteHero(StorageService.getCookie()).then(function() {
+                UserService.profile(StorageService.getCookie()).then(function(response) {
+                    $scope.user = response.data;
+                    console.log(response);
+                });
+            });
         }
     });

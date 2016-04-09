@@ -24,6 +24,7 @@ Route::group(['prefix' => 'api'],function(){
 
         // U S E R
         Route::get('/user', 'UserController@getUserInfo');
+        Route::post('/user/avatar', 'UserController@uploadAvatar');
 
         // H E R O
         Route::get('/hero', 'HeroController@index');

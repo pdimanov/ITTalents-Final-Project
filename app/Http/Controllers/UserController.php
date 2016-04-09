@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -64,5 +65,19 @@ class UserController extends Controller
         }
 
         return $user;
+    }
+
+    public function uploadAvatar(Request $request) {
+        if(Input::file())
+        {
+            $image = Image::make($request->file('image'));
+            $filename  =   Auth::user()->username . '.' . $image->getClientOriginalExtension();
+
+            if(Image::make($image->getRealPath())->fit(150, 150)->save('public/avatars/' . $filename)){
+                return Response::json(['message' => 'Avatar saved successfully'], 200);
+            } else {
+                return Response::json(['error' => 'Something went wrong.'], 400);
+            }
+        }
     }
 }

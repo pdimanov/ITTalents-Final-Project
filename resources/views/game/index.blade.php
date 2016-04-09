@@ -5,6 +5,7 @@
         <title>FinalRPG</title>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
         <link rel="stylesheet" href="assets/css/index.css">
         <base href="/" />
     </head>
@@ -91,6 +92,5 @@
             </footer>
         </div>
     </body>
-
 
 </html>

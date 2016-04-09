@@ -51,8 +51,7 @@ body {
 
 #mainContent {
   padding-top: 55px;
-  min-height: 600px;
-  /*background: $main-content-background;*/ }
+  min-height: 600px; }
   #mainContent #logo {
     pointer-events: none; }
   #mainContent canvas {

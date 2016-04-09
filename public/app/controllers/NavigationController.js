@@ -1,7 +1,7 @@
 angular.module('users')
-    .controller('NavigationController', function($scope, AuthService) {
+    .controller('NavigationController', function($scope, $rootScope, AuthService) {
 
-        $scope.$on('user.logged', function() {
+        $scope.$on('user.action', function() {
             $scope.isLogged = AuthService.isAuth();
         });
 

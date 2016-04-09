@@ -9,8 +9,8 @@ angular.module('users')
                 AuthService.login(response.data);
                 $location.path('/home');
 
-                $rootScope.$emit('user.logged');
-                $rootScope.$broadcast('user.logged');
+                $rootScope.$emit('user.action');
+                $rootScope.$broadcast('user.action');
 
             }, function(response) {
                 console.log('fail\n', response);

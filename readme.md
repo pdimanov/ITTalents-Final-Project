@@ -16,6 +16,7 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 
 ## Setting up
 
+- **If you are on XAMPP you need to comment out `;extension=php_fileinfo.dll` from the php.ini file located in the php folder in XAMPP by removing the `;`.** This will allow the composer to install properly Intervention/Image, the extension used for the uploading of the users' avatars. Make sure to restart XAMPP after uncommenting.</br></br>
 - Open the main project folder in a console and run `composer install`.</br>
 - Once it's finished, go to the **/public** folder with your console and run `npm install`.</br>
 - Get back to your main project folder and rename your **.env.example** file to **.env**.</br>
@@ -119,4 +120,9 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 
 - **Route**: `localhost:8000/api/user`</br>
 **Method**: `GET`</br>
-**Response**: Returns the user's username and email and basic information about the user's hero. Returns only the user's username and email and a null value for the hero's name if the user doesn't have a hero.</br></br>
+**Response**: Returns the user's username, avatar and email and basic information about the user's hero. Returns only the user's username, avatar and email and a null value for the hero's name if the user doesn't have a hero.</br></br>
+
+- **Route**: `localhost:8000/api/user/upload`</br>
+**Method**: `POST`</br>
+**Body**: The key used for this method is "image" and the method accepts an image with extensions png, bmp, jpeg. The max size allowed is 1024KB.</br>
+**Response**: Returns the route for the user's avatar. There is a default route which all users who still haven't uploaded an avatar get. Otherwise they get the route for their own avatar.</br></br>

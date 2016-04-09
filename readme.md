@@ -119,4 +119,4 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 
 - **Route**: `localhost:8000/api/user`</br>
 **Method**: `GET`</br>
-**Response**: Returns the user's username and email and basic information about the user's hero.</br></br>
+**Response**: Returns the user's username and email and basic information about the user's hero. Returns only the user's username and email and a null value for the hero's name if the user doesn't have a hero.</br></br>

@@ -53,9 +53,16 @@ class UserController extends Controller
 
     public function getUserInfo(Request $request)
     {
-        return User::join('heroes', 'users.id', '=', 'heroes.user_id')
+        $user = User::join('heroes', 'users.id', '=', 'heroes.user_id')
             ->select('users.username', 'users.email', 'heroes.*')
             ->where('users.id', Auth::id())
             ->first();
+
+        if(!$user){
+            $user = User::where('id', Auth::id())->select('users.username', 'users.email')->first();
+            $user['name'] = null;
+        }
+
+        return $user;
     }
 }

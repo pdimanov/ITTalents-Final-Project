@@ -12,7 +12,15 @@ angular.module('users')
                 delete $scope.shop;
                 $scope.shop = response.data.items;
                 console.log($scope.shop);
-                //$scope.$apply();
             });
         };
+
+        $scope.buyItem = function(item) {
+            UserService.buyItem(item, StorageService.getCookie()).then(function(response) {
+                console.log(response);
+                $scope.info = 'Successfully bought.';
+            }, function() {
+                $scope.info = 'You can\'t buy this item.'
+            });
+        }
     });

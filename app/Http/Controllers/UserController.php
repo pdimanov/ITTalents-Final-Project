@@ -68,7 +68,7 @@ class UserController extends Controller
     }
 
     public function uploadAvatar(Request $request) {
-        if(Input::file())
+        if($request->file('image'))
         {
             $image = Image::make($request->file('image'));
             $filename  =   Auth::user()->username . '.' . $image->getClientOriginalExtension();

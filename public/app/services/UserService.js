@@ -67,7 +67,7 @@ angular.module('users')
             upload: function(avatar, token) {
                 return $http({
                     method: 'POST',
-                    url: 'api/user/upload',
+                    url: 'api/user/avatar',
                     headers: {
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
@@ -100,6 +100,19 @@ angular.module('users')
                         'X-Requested-With' : 'XmlHttpRequest',
                         'X-Api-Token': token
                     }
+                });
+            },
+            buyItem: function(item, token) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/hero/buy',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': token
+                    },
+                    data: item
                 });
             }
         }

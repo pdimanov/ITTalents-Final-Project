@@ -30,7 +30,8 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <button class="btn btn-primary">Buy</button>
+                <button class="btn btn-primary" ng-click="buyItem({'id': item.id})">Buy</button>
+                <span class="text-left">{{info}}</span>
             </div>
         </div>
     </div>

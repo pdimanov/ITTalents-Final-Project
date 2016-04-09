@@ -1,4 +1,4 @@
-var app = angular.module('users', ['ngRoute', 'ngCookies', 'ngAnimate']);
+var app = angular.module('users', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngFileUpload']);
 
 app.config(function($routeProvider, $locationProvider) {
 

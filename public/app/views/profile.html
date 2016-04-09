@@ -3,15 +3,15 @@
         <div class="col-md-4 clearfix">
             <img id="logo" ng-src="{{user.avatar}}" alt="logo" class="img-responsive center-block img-thumbnail">
             <div id="uploadAvatar">
-                <form  class="col-md-12 col-sm-6 col-xs-6 col-md-offset-0 col-sm-offset-3 col-xs-offset-3" name="uploadForm" role="form" novalidate onsubmit="return false;">
+                <form class="col-md-12 col-sm-6 col-xs-6 col-md-offset-0 col-sm-offset-3 col-xs-offset-3" name="uploadForm" role="form" novalidate onsubmit="return false;">
+                    <div class="btn btn-default" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                         ngf-resize="{width: 500, height: 500}">Select</div>
                     <div class="form-group">
-                        <label class="btn btn-default btn-block" for="avatar">choose file</label>
-                        <input class="hidden" id="avatar" name="avatar" type="file" ng-model="user.pic" accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-custom1 btn-block" ng-click="upload(user.avatar)">upload</button>
+                        <button class="btn btn-custom1 btn-block" ng-click="submit()">upload</button>
                     </div>
                 </form>
+                <img ngf-thumbnail="file || '/thumb.jpg'">
             </div>
         </div>
         <div class="col-md-6 text-center">

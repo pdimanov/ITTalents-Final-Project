@@ -73,7 +73,7 @@ class UserController extends Controller
             $image = Image::make($request->file('image'));
             $filename  =   Auth::user()->username . '.' . $image->getClientOriginalExtension();
 
-            if(Image::make($image->getRealPath())->fit(150, 150)->save('public/avatars/' . $filename)){
+            if(Image::make($image->getRealPath())->fit(150, 150)->save(public_path('avatars/' . $filename))){
                 return Response::json(['message' => 'Avatar saved successfully'], 200);
             } else {
                 return Response::json(['error' => 'Something went wrong.'], 400);

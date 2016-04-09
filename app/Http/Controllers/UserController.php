@@ -61,7 +61,7 @@ class UserController extends Controller
             ->first();
 
         if(!$user){
-            $user = User::where('id', Auth::id())->select('users.username', 'users.email')->first();
+            $user = User::where('id', Auth::id())->select('users.username', 'users.email', 'users.avatar')->first();
             $user['name'] = null;
         }
 
@@ -70,24 +70,25 @@ class UserController extends Controller
 
     public function uploadAvatar(Request $request) {
         $this->validate($request,[
-           'image' => 'image|mimes:jpeg,bmp,png|max:1024',
+            'image' => 'image|mimes:jpeg,bmp,png|max:1024',
         ]);
-
         $file = Input::file('image');
         $filename = Auth::user()->username . '-avatar.png';
+        $fullPath = 'avatars/' . $filename;
 
-        if(!file_exists('avatars/' . $filename) && $file || file_exists('avatars/' . $filename)) {
-            if($file){
+        if(!file_exists($fullPath) && $file || file_exists($fullPath)) {
+            if($file) {
                 $file->move('avatars/', $filename);
+
+                $user = User::findOrFail(Auth::id());
+                $user->avatar = $fullPath;
+                $user->save();
+                Image::make($fullPath)->fit(150, 150)->save();
             }
 
-            $user = User::findOrFail(Auth::id());
-            $user->avatar = $filename;
-            $user->save();
-
-            return Image::make('avatars/' . $filename)->fit(150, 150)->save()->response('png');
+            return Response::json(['message' => $fullPath], 200);
         } else {
-            return Image::make('assets/images/placeholder.png')->response('png');
+            return Response::json(['message' => User::where('id', Auth::id())->first()->avatar], 200);
         }
     }
 }

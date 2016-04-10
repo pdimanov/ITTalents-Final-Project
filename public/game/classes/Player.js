@@ -4,12 +4,12 @@ function Player(json) {
     this.name = json.name;
     this.gender = json.gender;
     this.level  = json.level;
-    this.exp = json.exp;
+    this.exp = json.experience;
     this.health = json.health;
     this.attack = json.attack;
     this.defense = json.defense;
-    this.x = parseInt(json.x);
-    this.y = parseInt(json.y);
+    this.x = parseInt(json.map_x);
+    this.y = parseInt(json.map_y);
     this.completedQuest = json.completedQuest;
     this.currentQuest = json.currentQuest;
     this.items = json.items;

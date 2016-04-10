@@ -16,6 +16,7 @@
     <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
     <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+    <script src="node_modules/jquery.cookie/jquery.cookie.js"></script>
 
     <script src="app/app.js"></script>
 

@@ -1,9 +1,33 @@
 var playState = {
 
     create: function() {
-
+        var _this = this;
         //game info
-        var gameInfo = game.cache.getJSON('game-info');
+        $.ajax({
+            method: 'GET',
+            url: 'api/hero',
+            headers: {
+                'Accept' : 'application/json',
+                'X-Requested-With' : 'XmlHttpRequest',
+                'X-Api-Token': $.cookie('user_token')
+            },
+            async: false
+        }).done(function(response) {
+            _this.gameInfo = response;
+            console.log(_this.gameInfo);
+        });
+
+        if (this.gameInfo['heroInfo'] == null) {
+            var bg = game.add.image(0, 0, 'background');
+            var textMissing = game.add.text(0, 0, "You dont have a hero. Go to your profile to create one.", {
+                font: "26px Verdana Bold",
+                fill: "#ffcc00",
+                boundsAlignH: "center",
+                boundsAlignV: "middle"
+            });
+            textMissing.setTextBounds(game.world.centerX - 100, 180, 200, 69);
+            return;
+        }
 
         //enable graphics
         this.graphics = game.add.graphics();
@@ -50,28 +74,29 @@ var playState = {
         this.objectSpawn4 = this.map.objects['Spawn4'];*/
 
 
-        //NPCs
+        //NPCs and Monsters
         this.npcs = [];
-        for(var i in gameInfo[1]) {
-            this.npcs.push(new Npc(gameInfo[1][i]));
+        this.monsters = [];
+        for(var i in this.gameInfo['allQuests']) {
+            this.npcs.push(new Npc(this.gameInfo['allQuests'][i].questgiver, this.gameInfo['allQuests'][i]));
+            this.monsters.push(new Monster(this.gameInfo['allQuests'][i].mob));
+            console.log('npc', this.npcs[this.npcs.length - 1]);
+            console.log('monster', this.monsters[this.monsters.length - 1]);
         }
 
         //Monsters
-        this.monsters = [];
-        for(var i in gameInfo[2]) {
-            this.monsters.push(new Monster(gameInfo[2][i]));
-        }
 
         //Items
         this.items = [];
-        for(var i in gameInfo[3]) {
-            this.items.push(gameInfo[3][i]);
+        for(var i in this.gameInfo['allItems']) {
+            this.items.push(this.gameInfo['allItems'][i]);
+            console.log('item', this.items[this.items.length -1]);
         }
 
         //player
-        this.player = new Player(gameInfo[0]);
+        this.player = new Player(this.gameInfo['heroInfo']);
         this.player.inventory.addItems([this.items[0], this.items[1]]);
-        console.log(this.player.inventory.items);
+        console.log('player', this.player);
 
 
         //collision with layers
@@ -80,9 +105,9 @@ var playState = {
 
         //interactions
         this.objectNPC1Talk = this.map.objects['NPC1-talk'][0];
-        console.log(this.objectNPC1Talk);
+        //console.log(this.objectNPC1Talk);
         this.talk1 = new Phaser.Rectangle(this.objectNPC1Talk.x, this.objectNPC1Talk.y, this.objectNPC1Talk.width, this.objectNPC1Talk.height);
-        console.log(this.talk1);
+        //console.log(this.talk1);
 
 
 
@@ -96,6 +121,8 @@ var playState = {
     },
 
     update: function() {
+        if (this.gameInfo['userInfo'] == null) return;
+
 
         this.player.checkInteraction(this.talk1);
 
@@ -121,6 +148,8 @@ var playState = {
     },
 
     render: function() {
+        if (this.gameInfo['userInfo'] == null) return;
+
         //show fps
         game.debug.text(game.time.fps, 10, 20, "orange");
 

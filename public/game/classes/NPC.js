@@ -1,10 +1,10 @@
-function Npc(json) {
+function Npc(json, quest) {
     //console.log(json.frame);
     this.name = json.name;
-    this.x = parseInt(json.x);
-    this.y = parseInt(json.y);
+    this.x = parseInt(json.map_x);
+    this.y = parseInt(json.map_y);
     this.quote = json.quote;
-    this.quest = json.quest;
+    this.quest = quest;
 
     this.sprite = game.add.sprite(this.x, this.y, 'npc');
     this.sprite.frame = parseInt(json.frame);

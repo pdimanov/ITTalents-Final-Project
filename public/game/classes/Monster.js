@@ -1,15 +1,15 @@
 function Monster(json) {
     //console.log(json);
-    this.id = json.id;
+    this.name = json.name;
     this.health = json.health;
     this.attack = json.attack;
     this.defense = json.defense;
-    this.spawnX = json.spawnX;
-    this.spawnY = json.spawnY;
-    this.spawnWidth = json.spawnWidth;
-    this.spawnHeight = json.spawnHeight;
+    this.spawnX = json.map_x;
+    this.spawnY = json.map_y;
+    this.spawnWidth = json.spawn_width;
+    this.spawnHeight = json.spawn_height;
     this.gold = json.gold;
-    this.exp = json.exp;
+    this.exp = json.experience;
     this.isAttacked = false;
 
     this.sprite = undefined;
@@ -31,7 +31,7 @@ Monster.prototype.spawn = function() {
     var randomX = this.spawnX + Math.floor(Math.random() * this.spawnWidth);
     var randomY = this.spawnY + Math.floor(Math.random() * this.spawnHeight);
     //console.log(randomX, randomY);
-    this.sprite = game.add.sprite(randomX, randomY, this.id);
+    this.sprite = game.add.sprite(randomX, randomY, this.name);
 
 };
 

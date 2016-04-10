@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-12 text-center">
             <h3>Hero</h3>
-            <div id="createHero" ng-hide="user.name">
+            <div id="createHero" ng-hide="user.hero">
                 <form  class="form-inline" name="form" role="form" novalidate onsubmit="return false;">
                     <div class="form-group">
                         <input required type="text" placeholder="name" class="form-control" ng-model="create.name">
@@ -38,10 +38,10 @@
                     </div>
                 </form>
             </div>
-            <div id="deleteHero" ng-show="user.name">
+            <div id="deleteHero" ng-show="user.hero">
                 <button type="button" class="btn btn-danger" ng-click="deleteHero()">delete hero</button>
             </div>
-            <div ng-repeat="(key, val) in user" ng-if="user.name && key!='username' && key!='email'">
+            <div ng-repeat="(key, val) in user.hero" ng-if="user.hero">
                 <span>{{key}}: </span>
                 <span>{{val}}</span>
             </div>

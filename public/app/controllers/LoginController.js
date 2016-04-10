@@ -14,7 +14,7 @@ angular.module('users')
 
             }, function(response) {
                 console.log('fail\n', response);
-                $scope.serverErrors = response.data;
+                $scope.serverErrors = response.data.error;
             });
         };
 

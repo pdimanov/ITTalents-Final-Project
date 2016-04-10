@@ -1,5 +1,5 @@
 angular.module('users')
-    .factory('UserService', function($rootScope, $http) {
+    .factory('UserService', function($rootScope, $http, Upload, StorageService) {
         return {
             login: function(user) {
                 return $http({
@@ -10,7 +10,7 @@ angular.module('users')
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest'
                     },
-                    data: JSON.stringify(user)
+                    data: user
                 });
             },
             logout: function() {
@@ -25,7 +25,7 @@ angular.module('users')
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest'
                     },
-                    data: JSON.stringify(user)
+                    data: user
                 });
             },
             shop: function(token) {
@@ -52,7 +52,7 @@ angular.module('users')
                     }
                 });
             },
-            profile: function(token) {
+            profile: function() {
                 return $http({
                     method: 'GET',
                     url: 'api/user',
@@ -60,24 +60,22 @@ angular.module('users')
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
-                        'X-Api-Token': token
+                        'X-Api-Token': StorageService.getCookie()
                     }
                 });
             },
-            upload: function(avatar, token) {
-                return $http({
-                    method: 'POST',
+            upload: function(file) {
+                return Upload.upload({
                     url: 'api/user/avatar',
+                    data: {image: file},
                     headers: {
                         'Accept' : 'application/json',
-                        'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
-                        'X-Api-Token': token
-                    },
-                    data: avatar
+                        'X-Api-Token': StorageService.getCookie()
+                    }
                 });
             },
-            createHero: function(hero, token) {
+            createHero: function(hero) {
                 return $http({
                     method: 'POST',
                     url: 'api/hero',
@@ -85,12 +83,12 @@ angular.module('users')
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
-                        'X-Api-Token': token
+                        'X-Api-Token': StorageService.getCookie()
                     },
                     data: hero
                 });
             },
-            deleteHero: function(token) {
+            deleteHero: function() {
                 return $http({
                     method: 'DELETE',
                     url: 'api/hero',
@@ -98,7 +96,7 @@ angular.module('users')
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
-                        'X-Api-Token': token
+                        'X-Api-Token': StorageService.getCookie()
                     }
                 });
             },

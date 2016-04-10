@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <form id="form" name="form" action="" method="post" role="form" novalidate onsubmit="return false;">
                     <div ng-show="serverErrors">
-                        <span class="help-block custom-error" ng-repeat="item in serverErrors">{{item[0]}}</span>
+                        <span class="help-block custom-error">{{serverErrors}}</span>
                     </div>
                     <div ng-class="{
                         'form-group' : true,

@@ -51,12 +51,12 @@ app.run(function($rootScope, $location, AuthService) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
         $rootScope.$emit('user.action');
         $rootScope.$broadcast('user.action');
+
         if (next.$$route && next.$$route.authenticated && !AuthService.isAuth()) {
             $location.path('/login');
-
         }
 
-        if (next.$$route && !(next.$$route.authenticated) && AuthService.isAuth()) {
+        if (next.$$route && (next.$$route.templateUrl != 'app/views/about.html') && !(next.$$route.authenticated) && AuthService.isAuth()) {
             $location.path('/home');
         }
     });

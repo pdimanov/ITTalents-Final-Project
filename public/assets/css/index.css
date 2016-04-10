@@ -96,6 +96,10 @@ body {
   .btn-custom1:focus {
     color: ghostwhite; }
 
+.btn-custom2 {
+  background-color: ghostwhite;
+  color: black; }
+
 .btn-facebook {
   background-color: #334e85; }
   .btn-facebook:hover {
@@ -152,5 +156,12 @@ body {
 
 .view-slide-in.ng-leave {
   opacity: 0; }
+
+.margin-top {
+  margin-top: 5px; }
+
+#avatar {
+  min-height: 150px;
+  min-width: 150px; }
 
 /*# sourceMappingURL=index.css.map */

@@ -21,7 +21,8 @@ class MobsTableSeeder extends Seeder
             'spawn_width' =>  128,
             'spawn_height' =>  224,
             'gold' =>  5,
-            'experience' =>  10
+            'experience' =>  10,
+            'quest_id' => 1,
         ]);
 
         DB::table('mobs')->insert([
@@ -34,7 +35,8 @@ class MobsTableSeeder extends Seeder
             'spawn_width' =>  288,
             'spawn_height' =>  160,
             'gold' =>  10,
-            'experience' =>  20
+            'experience' =>  20,
+            'quest_id' => 2,
         ]);
 
         DB::table('mobs')->insert([
@@ -47,7 +49,8 @@ class MobsTableSeeder extends Seeder
             'spawn_width' =>  352,
             'spawn_height' =>  96,
             'gold' =>  15,
-            'experience' =>  30
+            'experience' =>  30,
+            'quest_id' => 3,
         ]);
 
         DB::table('mobs')->insert([
@@ -60,7 +63,8 @@ class MobsTableSeeder extends Seeder
             'spawn_width' =>  416,
             'spawn_height' =>  272,
             'gold' =>  100,
-            'experience' =>  100
+            'experience' =>  100,
+            'quest_id' => 4,
         ]);
     }
 }

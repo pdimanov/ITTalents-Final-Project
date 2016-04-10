@@ -19,7 +19,11 @@ class CreateQuestgiversTable extends Migration
             $table->integer('map_y')->unsigned();
             $table->integer('frame')->unsigned();
             $table->text('quote');
-            $table->timestamps();
+            $table->integer('quest_id')->unsigned()->index();
+
+            $table->foreign('quest_id')
+                ->references('id')
+                ->on('quests');
         });
     }
 

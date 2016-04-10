@@ -17,8 +17,6 @@ class QuestsTableSeeder extends Seeder
             'count' => 3,
             'gold' => 50,
             'experience' => 100,
-            'questgiver_id' => 1,
-            'mob_id' => 1,
         ]);
 
         DB::table('quests')->insert([
@@ -27,8 +25,6 @@ class QuestsTableSeeder extends Seeder
             'count' => 7,
             'gold' => 110,
             'experience' => 300,
-            'questgiver_id' => 2,
-            'mob_id' => 2,
         ]);
 
         DB::table('quests')->insert([
@@ -37,8 +33,6 @@ class QuestsTableSeeder extends Seeder
             'count' => 5,
             'gold' => 150,
             'experience' => 500,
-            'questgiver_id' => 3,
-            'mob_id' => 3,
         ]);
 
         DB::table('quests')->insert([
@@ -47,8 +41,6 @@ class QuestsTableSeeder extends Seeder
             'count' => 1,
             'gold' => 250,
             'experience' => 700,
-            'questgiver_id' => 4,
-            'mob_id' => 4,
         ]);
     }
 }

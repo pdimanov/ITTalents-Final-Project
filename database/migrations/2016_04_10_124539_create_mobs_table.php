@@ -24,7 +24,11 @@ class CreateMobsTable extends Migration
             $table->integer('spawn_height')->unsigned();
             $table->integer('gold')->unsigned();
             $table->integer('experience')->unsigned();
-            $table->timestamps();
+            $table->integer('quest_id')->unsigned()->index();
+
+            $table->foreign('quest_id')
+                ->references('id')
+                ->on('quests');
         });
     }
 

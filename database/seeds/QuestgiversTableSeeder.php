@@ -17,6 +17,7 @@ class QuestgiversTableSeeder extends Seeder
             'map_y' =>  '2912',
             'frame' =>  '7',
             'quote' =>  'Hello, traveler! Be careful, there are wolfs in this town.',
+            'quest_id' => 1,
         ]);
 
         DB::table('questgivers')->insert([
@@ -25,6 +26,7 @@ class QuestgiversTableSeeder extends Seeder
             'map_y' =>  '1152',
             'frame' =>  '49',
             'quote' =>  'Hello!',
+            'quest_id' => 2,
         ]);
 
         DB::table('questgivers')->insert([
@@ -33,6 +35,7 @@ class QuestgiversTableSeeder extends Seeder
             'map_y' =>  '640',
             'frame' =>  '1',
             'quote' =>  'Did you know the villagers in the previous town are afraid of little spiders? Ha-ha',
+            'quest_id' => 3,
         ]);
 
         DB::table('questgivers')->insert([
@@ -41,6 +44,7 @@ class QuestgiversTableSeeder extends Seeder
             'map_y' =>  '1792',
             'frame' =>  '58',
             'quote' =>  'Are you afraid of death?',
+            'quest_id' => 4,
         ]);
     }
 }

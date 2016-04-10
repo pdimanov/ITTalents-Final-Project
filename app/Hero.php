@@ -22,6 +22,6 @@ class Hero extends Model
 
     public function quest()
     {
-        return $this->belongsToMany(Quest::class);
+        return $this->belongsToMany(Quest::class)->withPivot('progress');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Quest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -20,9 +21,15 @@ class HeroController extends Controller
 
     public function index()
     {
-        return Hero::with('items')
-            ->where('user_id', Auth::id())
-            ->first();
+        $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
+        $allQuests = Quest::with('mob')->with('questgiver')->get();
+        $allItems = Item::all();
+
+        $data['heroInfo'] = $heroInfo;
+        $data['allQuests'] = $allQuests;
+        $data['allItems'] = $allItems;
+
+        return $data;
     }
 
     public function deleteHero()

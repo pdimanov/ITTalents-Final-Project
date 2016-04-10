@@ -27,4 +27,13 @@ class Quest extends Model
     {
         return $this->belongsToMany(Hero::class);
     }
+
+    public function toArray()
+    {
+        $attributes = $this->attributesToArray();
+        $attributes = array_merge($attributes, $this->relationsToArray());
+        unset($attributes['pivot']['hero_id']);
+        unset($attributes['pivot']['quest_id']);
+        return $attributes;
+    }
 }

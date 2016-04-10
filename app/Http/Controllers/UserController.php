@@ -54,17 +54,12 @@ class UserController extends Controller
         }
     }
 
-    public function getUserInfo(Request $request)
+    public function getUserInfo()
     {
-        $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
-        $allQuests = Quest::with('mob')->with('questgiver')->get();
-        $allItems = Item::all();
+        $data = User::with('hero')->where('id', Auth::id())->first();
+        unset($data['api_token']);
 
-        $data['heroInfo'] = $heroInfo;
-        $data['allQuests'] = $allQuests;
-        $data['allItems'] = $allItems;
-
-        return $data;
+        return Response::json(['message' => 'Hero has been successfully created.', 'data' => $data], 200);
     }
 
     public function uploadAvatar(Request $request) {

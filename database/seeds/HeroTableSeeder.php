@@ -22,6 +22,8 @@ class HeroTableSeeder extends Seeder
             'gender' => 'male',
             'attack' => 5,
             'defense' => 2,
+            'completed_quest' => null,
+            'current_quest' => 1,
             'user_id' => 1,
         ]);
 
@@ -36,6 +38,8 @@ class HeroTableSeeder extends Seeder
             'gender' => 'male',
             'attack' => 7,
             'defense' => 4,
+            'completed_quest' => 1,
+            'current_quest' => 2,
             'user_id' => 2,
         ]);
 
@@ -50,6 +54,8 @@ class HeroTableSeeder extends Seeder
             'gender' => 'female',
             'attack' => 5,
             'defense' => 2,
+            'completed_quest' => null,
+            'current_quest' => null,
             'user_id' => 3,
         ]);
     }

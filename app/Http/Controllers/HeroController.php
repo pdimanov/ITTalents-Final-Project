@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -52,7 +53,10 @@ class HeroController extends Controller
             return Response::json(['error' => 'The user already has a hero.'], 200);
         }
 
-        return Hero::where('user_id', Auth::id())->first();
+        $data = User::with('hero')->where('id', Auth::id())->first();
+        unset($data['api_token']);
+
+        return Response::json(['message' => 'Hero has been successfully created.', 'data' => $data], 200);
     }
 
     public function buyItem(Request $request)

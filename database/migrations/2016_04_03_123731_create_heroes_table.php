@@ -25,6 +25,8 @@ class CreateHeroesTable extends Migration
             $table->integer('level')->unsigned()->default(1);
             $table->integer('experience')->unsigned()->default(1);
             $table->string('gender')->default('male');
+            $table->integer('completed_quest')->unsigned()->nullable()->default(null);
+            $table->integer('current_quest')->unsigned()->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('user_id')

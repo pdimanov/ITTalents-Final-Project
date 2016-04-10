@@ -3,6 +3,8 @@ function Npc(json) {
     this.name = json.name;
     this.x = parseInt(json.x);
     this.y = parseInt(json.y);
+    this.quote = json.quote;
+    this.quest = json.quest;
 
     this.sprite = game.add.sprite(this.x, this.y, 'npc');
     this.sprite.frame = parseInt(json.frame);

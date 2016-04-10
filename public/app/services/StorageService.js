@@ -18,7 +18,7 @@ angular.module('users')
             },
             setCookie: function(user) {
                 var time = new Date();
-                time.setMinutes(time.getMinutes() + 20);
+                time.setMinutes(time.getMinutes() + 120);
                 $cookies.put(key, user.api_token, {
                     'expires': time
                 });

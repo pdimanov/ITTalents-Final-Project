@@ -1,4 +1,6 @@
 function Player(json) {
+    var _this = this;
+
     this.name = json.name;
     this.gender = json.gender;
     this.level  = json.level;
@@ -10,17 +12,52 @@ function Player(json) {
     this.y = parseInt(json.y);
     this.completedQuest = json.completedQuest;
     this.currentQuest = json.currentQuest;
+    this.items = json.items;
+
+    this.hud([
+        [ 10, 450, 'LVL', this.level],
+        [ 10, 475, 'EXP', this.exp],
+        [ 10, 500, 'HP', this.health],
+        [ 10, 525, 'ATK', this.attack],
+        [ 10, 550, 'DEF', this.attack]
+    ]);
+
+
+    this.talk1 = false;
 
     this.sprite = game.add.sprite(this.x, this.y, 'player-' + this.gender);
+    this.inventory = new Inventory();
 
     this.cursorKeys = game.input.keyboard.createCursorKeys();
     this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);
+    this.i = game.input.keyboard.addKey(Phaser.Keyboard.I);
+
 
     this.animations();
     this.physics();
     this.camera();
     this.addAttack();
+
+    this.g.onDown.add(function () {
+        _this.checkAttackPosition(_this.sprite.children[0]);
+        _this.sprite.children[0].revive();
+        _this.sprite.children[0].play('doSlash');
+
+    });
+    this.g.onUp.add(function() {
+        _this.sprite.children[0].animations.stop();
+        _this.sprite.children[0].kill();
+    }, this);
+
+    this.i.onDown.add(function () {
+        _this.inventory.toggle();
+    });
 }
+
+Player.prototype.checkInteraction = function(talk1) {
+    this.talk1 = !!(talk1.contains(this.sprite.x + 16, this.sprite.y + 16));
+};
+
 
 Player.prototype.animations = function() {
     this.sprite.animations.add('left', [3, 4, 5], 10, true);
@@ -83,16 +120,7 @@ Player.prototype.addAttack = function() {
     this.sprite.addChild(attack);
     this.sprite.children[0].kill();
 
-    this.g.onDown.add(function () {
-        _this.checkAttackPosition(_this.sprite.children[0]);
-        _this.sprite.children[0].revive();
-        _this.sprite.children[0].play('doSlash');
 
-    }, this);
-    this.g.onUp.add(function() {
-        _this.sprite.children[0].animations.stop();
-        _this.sprite.children[0].kill();
-    }, this);
 };
 
 Player.prototype.checkAttackPosition = function(sprite) {

@@ -10,7 +10,8 @@
     "x": "200",
     "y": "2944",
     "completedQuest": false,
-    "currentQuest": false
+    "currentQuest": false,
+    "items": [1, 2]
   },
   [
     {

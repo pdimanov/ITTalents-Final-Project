@@ -49,6 +49,7 @@ var playState = {
         this.objectNPC4Talk = this.map.objects['NPC4-talk'];
         this.objectSpawn4 = this.map.objects['Spawn4'];*/
 
+
         //NPCs
         this.npcs = [];
         for(var i in gameInfo[1]) {
@@ -61,23 +62,42 @@ var playState = {
             this.monsters.push(new Monster(gameInfo[2][i]));
         }
 
-        //player hud
+        //Items
+        this.items = [];
+        for(var i in gameInfo[3]) {
+            this.items.push(gameInfo[3][i]);
+        }
+
+        //player
         this.player = new Player(gameInfo[0]);
-        this.player.hud([
-            [ 10, 450, 'level', this.player.level],
-            [ 10, 475, 'exp', this.player.exp],
-            [ 10, 500, 'health', this.player.health],
-            [ 10, 525, 'attack', this.player.attack],
-            [ 10, 550, 'defense', this.player.attack]
-        ]);
+        this.player.inventory.addItems([this.items[0], this.items[1]]);
+        console.log(this.player.inventory.items);
+
 
         //collision with layers
         this.map.setCollisionByExclusion([], true, this.layerDecorationC);
         this.map.setCollisionByExclusion([], true, this.layerDecorationC2);
-        //console.log(this.monsters[0].sprite);
+
+        //interactions
+        this.objectNPC1Talk = this.map.objects['NPC1-talk'][0];
+        console.log(this.objectNPC1Talk);
+        this.talk1 = new Phaser.Rectangle(this.objectNPC1Talk.x, this.objectNPC1Talk.y, this.objectNPC1Talk.width, this.objectNPC1Talk.height);
+        console.log(this.talk1);
+
+
+
+
+        this.t = game.input.keyboard.addKey(Phaser.Keyboard.T);
+        this.t.onDown.add(function() {
+            if (this.player.talk1) {
+                console.log('talking..');
+            }
+        }, this);
     },
 
     update: function() {
+
+        this.player.checkInteraction(this.talk1);
 
         //collision
         game.physics.arcade.collide(this.player.sprite, this.layerDecorationC);
@@ -103,5 +123,7 @@ var playState = {
     render: function() {
         //show fps
         game.debug.text(game.time.fps, 10, 20, "orange");
+
+        //game.debug.spriteInfo(this.player.sprite, 32, 32);
     }
 };

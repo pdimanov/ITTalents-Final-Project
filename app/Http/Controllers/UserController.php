@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hero;
 use App\Item;
+use App\Quest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -55,17 +56,15 @@ class UserController extends Controller
 
     public function getUserInfo(Request $request)
     {
-        $user = User::join('heroes', 'users.id', '=', 'heroes.user_id')
-            ->select('users.username', 'users.email', 'users.avatar', 'heroes.*')
-            ->where('users.id', Auth::id())
-            ->first();
+        $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
+        $allQuests = Quest::with('mob')->with('questgiver')->get();
+        $allItems = Item::all();
 
-        if(!$user){
-            $user = User::where('id', Auth::id())->select('users.username', 'users.email', 'users.avatar')->first();
-            $user['name'] = null;
-        }
+        $data['heroInfo'] = $heroInfo;
+        $data['allQuests'] = $allQuests;
+        $data['allItems'] = $allItems;
 
-        return $user;
+        return $data;
     }
 
     public function uploadAvatar(Request $request) {

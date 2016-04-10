@@ -26,7 +26,7 @@ class MobsTableSeeder extends Seeder
         ]);
 
         DB::table('mobs')->insert([
-            'name' => 'spnameer',
+            'name' => 'spider',
             'health' => 90,
             'attack' =>  10,
             'defense' =>  10,

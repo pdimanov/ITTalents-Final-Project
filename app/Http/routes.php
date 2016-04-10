@@ -43,6 +43,12 @@ Route::group(['prefix' => 'api'],function(){
         // S H O P
         Route::get('/shop', 'ShopController@index');
         Route::get('/shop/{slot_type}', 'ShopController@show');
+
+        // S T A T I S T I C S
+        Route::post('/statistics', 'StatisticsController@orderBy');
+
+        // S E A R C H
+        Route::post('/search', 'SearchController@search');
     });
 });
 

@@ -12,8 +12,6 @@ class HeroTableSeeder extends Seeder
     public function run()
     {
         DB::table('heroes')->insert([
-            'map_x' => 150,
-            'map_y' => 150,
             'name' => 'stefcho',
             'health' => 200,
             'level' => 1,
@@ -28,8 +26,6 @@ class HeroTableSeeder extends Seeder
         ]);
 
         DB::table('heroes')->insert([
-            'map_x' => 150,
-            'map_y' => 150,
             'name' => 'ivan',
             'health' => 200,
             'level' => 2,
@@ -44,8 +40,6 @@ class HeroTableSeeder extends Seeder
         ]);
 
         DB::table('heroes')->insert([
-            'map_x' => 150,
-            'map_y' => 150,
             'name' => 'iva',
             'health' => 200,
             'level' => 1,

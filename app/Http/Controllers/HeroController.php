@@ -19,6 +19,11 @@ class HeroController extends Controller
         return Hero::where('user_id', Auth::id())->first();
     }
 
+    private function getHeroCurrentQuest()
+    {
+
+    }
+
     public function index()
     {
         $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();

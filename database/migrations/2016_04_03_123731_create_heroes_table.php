@@ -16,8 +16,8 @@ class CreateHeroesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name')->unique();
-            $table->integer('map_x')->unsigned()->default(150);
-            $table->integer('map_y')->unsigned()->default(150);
+            $table->integer('map_x')->unsigned()->default(200);
+            $table->integer('map_y')->unsigned()->default(2944);
             $table->integer('health')->unsigned()->default(100);
             $table->integer('attack')->unsigned()->default(10);
             $table->integer('defense')->unsigned()->default(2);

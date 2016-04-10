@@ -19,4 +19,9 @@ class Hero extends Model
     {
         return $this->belongsToMany(Item::class, 'inventories')->withPivot('equipped')->withTimestamps();
     }
+
+    public function quest()
+    {
+        return $this->belongsToMany(Quest::class);
+    }
 }

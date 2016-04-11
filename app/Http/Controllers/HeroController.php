@@ -19,6 +19,11 @@ class HeroController extends Controller
         return Hero::where('user_id', Auth::id())->first();
     }
 
+    private function getHeroWithItems()
+    {
+        return Hero::with('items')->where('user_id', Auth::id())->get();
+    }
+
     public function index()
     {
         $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
@@ -193,24 +198,16 @@ class HeroController extends Controller
         $item = $hero->items()->where('id', $itemId)->first();
         $slotType = $item->slot_type;
         $itemsFromSameSlotTypeWhichAreInInventory = $hero->items()->where('slot_type', $slotType)->get();
-//        return $itemsFromSameSlotTypeWhichAreInInventory;
+
         for($currentItem = 0; $currentItem < count($itemsFromSameSlotTypeWhichAreInInventory); $currentItem++){
             if($itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->pivot->equipped){
                 $alreadyEquippedItemID = $itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->id;
                 $hero->items()->sync([$alreadyEquippedItemID => ['equipped' => 0]], false);
-//                $itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->save();
-//                return $itemsFromSameSlotTypeWhichAreInInventory[$currentItem];
             }
         }
 
-//        $item->pivot->equipped = 1;
-//        $item->save();
+        $hero->items()->sync([$itemId => ['equipped' => 1]], false);
 
-//        return $item;
-//        return $itemsFromSameSlotTypeWhichAreInInventory;
-//        return $item->pivot->equipped;
-//        return $hero->items()->where('id', $itemId)->first();
-        return $hero->with('items')->get();
-        Item::findOrFail($itemId);
+        return Response::json(['message' => 'Item equipped successfully.', 'data' => $this->getHeroWithItems()], 200);
     }
 }

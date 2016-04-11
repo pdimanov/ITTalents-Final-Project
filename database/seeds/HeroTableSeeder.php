@@ -13,44 +13,51 @@ class HeroTableSeeder extends Seeder
     {
         DB::table('heroes')->insert([
             'name' => 'stefcho',
-            'health' => 200,
-            'level' => 1,
-            'experience' => 1,
-            'gold' => 100,
             'gender' => 'male',
-            'attack' => 5,
-            'defense' => 2,
-            'completed_quest' => null,
-            'current_quest' => 1,
             'user_id' => 1,
         ]);
 
         DB::table('heroes')->insert([
             'name' => 'ivan',
-            'health' => 200,
-            'level' => 2,
-            'experience' => 1,
-            'gold' => 100,
             'gender' => 'male',
-            'attack' => 7,
-            'defense' => 4,
-            'completed_quest' => 1,
-            'current_quest' => 2,
+            'level' => 2,
+            'experience' => 100,
             'user_id' => 2,
         ]);
 
         DB::table('heroes')->insert([
             'name' => 'iva',
-            'health' => 200,
-            'level' => 1,
-            'experience' => 1,
-            'gold' => 100,
             'gender' => 'female',
-            'attack' => 5,
-            'defense' => 2,
-            'completed_quest' => null,
-            'current_quest' => null,
+            'level' => 2,
+            'experience' => 50,
             'user_id' => 3,
+        ]);
+
+        DB::table('heroes')->insert([
+            'name' => 'goshko',
+            'gender' => 'female',
+            'level' => 4,
+            'experience' => 210,
+            'gold' => 300,
+            'user_id' => 4,
+        ]);
+
+        DB::table('heroes')->insert([
+            'name' => 'toshko',
+            'gender' => 'female',
+            'level' => 4,
+            'experience' => 250,
+            'gold' => 350,
+            'user_id' => 5,
+        ]);
+
+        DB::table('heroes')->insert([
+            'name' => 'ivancho',
+            'gender' => 'male',
+            'level' => 4,
+            'experience' => 210,
+            'gold' => 320,
+            'user_id' => 6,
         ]);
     }
 }

@@ -21,6 +21,12 @@ class StatisticsController extends Controller
             return Response::json(['error' => 'No such column exists in the database.'], 404);
         }
 
-        return Response::json(['message' => Hero::orderBy($column, $direction)->take($quantity)->get()], 200);
+        $data = Hero::with('user')->orderBy($column, $direction)->take($quantity)->get();
+
+        for($i = 0; $i < count($data); $i++){
+            unset($data[$i]['user']['api_token']);
+        }
+
+        return Response::json(['message' => $data], 200);
     }
 }

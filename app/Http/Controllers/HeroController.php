@@ -190,6 +190,10 @@ class HeroController extends Controller
             $query->where('item_id', $itemId);
         })->first();
 
+        if(!$hero){
+            return Response::json(['error' => 'The hero doesn\'t have such an item.'], 404);
+        }
+
         $slotType = $hero->items()->where('id', $itemId)->first()->slot_type;
 
         return $hero->items()->where('id', $itemId)->first();

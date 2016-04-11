@@ -27,6 +27,7 @@ function Player(json) {
 
     this.sprite = game.add.sprite(this.x, this.y, 'player-' + this.gender);
     this.inventory = new Inventory();
+    this.inventory.addItems(this.items);
 
     this.cursorKeys = game.input.keyboard.createCursorKeys();
     this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);

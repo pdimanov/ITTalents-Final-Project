@@ -95,7 +95,7 @@ var playState = {
 
         //player
         this.player = new Player(this.gameInfo['heroInfo']);
-        this.player.inventory.addItems([this.items[0], this.items[1]]);
+        //this.player.inventory.addItems([this.items[0], this.items[1]]);
         console.log('player', this.player);
 
 
@@ -121,38 +121,41 @@ var playState = {
     },
 
     update: function() {
-        if (this.gameInfo['userInfo'] == null) return;
+        if (this.gameInfo['heroInfo'] != null) {
+
+            this.player.checkInteraction(this.talk1);
+
+            //collision
+            game.physics.arcade.collide(this.player.sprite, this.layerDecorationC);
+            game.physics.arcade.collide(this.player.sprite, this.layerDecorationC2);
+
+            game.physics.arcade.collide(this.player.sprite, this.npcs[0].sprite);
+            game.physics.arcade.collide(this.player.sprite, this.npcs[1].sprite);
+            game.physics.arcade.collide(this.player.sprite, this.npcs[2].sprite);
+            game.physics.arcade.collide(this.player.sprite, this.npcs[3].sprite);
+
+            game.physics.arcade.collide(this.player.sprite, this.monsters[0].sprite);
+            game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC);
+            game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC2);
+
+            //player movement
+            this.player.clearVelocity();
+            this.player.movement(100);
+
+            this.monsters[0].clearVelocity();
+            this.monsters[0].movement(100);
+        }
 
 
-        this.player.checkInteraction(this.talk1);
-
-        //collision
-        game.physics.arcade.collide(this.player.sprite, this.layerDecorationC);
-        game.physics.arcade.collide(this.player.sprite, this.layerDecorationC2);
-
-        game.physics.arcade.collide(this.player.sprite, this.npcs[0].sprite);
-        game.physics.arcade.collide(this.player.sprite, this.npcs[1].sprite);
-        game.physics.arcade.collide(this.player.sprite, this.npcs[2].sprite);
-        game.physics.arcade.collide(this.player.sprite, this.npcs[3].sprite);
-
-        game.physics.arcade.collide(this.player.sprite, this.monsters[0].sprite);
-        game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC);
-        game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC2);
-
-        //player movement
-        this.player.clearVelocity();
-        this.player.movement(100);
-
-        this.monsters[0].clearVelocity();
-        this.monsters[0].movement(100);
     },
 
     render: function() {
-        if (this.gameInfo['userInfo'] == null) return;
+        if (this.gameInfo['heroInfo'] != null) {
+            //show fps
+            game.debug.text(game.time.fps, 10, 20, "orange");
 
-        //show fps
-        game.debug.text(game.time.fps, 10, 20, "orange");
+            //game.debug.spriteInfo(this.player.sprite, 32, 32);
+        }
 
-        //game.debug.spriteInfo(this.player.sprite, 32, 32);
     }
 };

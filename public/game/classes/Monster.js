@@ -53,7 +53,7 @@ Monster.prototype.animations = function() {
         right,
         up,
         down;
-    switch(this.id) {
+    switch(this.name) {
         case 'wolf':
             left = [12, 13, 14];
             right = [24, 25, 26];

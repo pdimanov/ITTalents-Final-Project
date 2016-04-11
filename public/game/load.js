@@ -8,6 +8,7 @@ var loadState = {
         game.load.image('tiles', 'game/assets/roguelike.png');
         game.load.image('inventory', 'game/assets/inventory.png');
         game.load.image('itembox', 'game/assets/itembox.png');
+        game.load.image('npcbox', 'game/assets/npcbox.png');
 
         game.load.spritesheet('textbox', 'game/assets/textbox-sprites.png', 200, 69);
         game.load.spritesheet('slash', 'game/assets/slash.png', 49, 27);

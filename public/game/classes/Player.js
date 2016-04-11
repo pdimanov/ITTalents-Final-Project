@@ -32,6 +32,7 @@ function Player(json) {
     this.cursorKeys = game.input.keyboard.createCursorKeys();
     this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);
     this.i = game.input.keyboard.addKey(Phaser.Keyboard.I);
+    this.o = game.input.keyboard.addKey(Phaser.Keyboard.O);
 
 
     this.animations();
@@ -52,6 +53,10 @@ function Player(json) {
 
     this.i.onDown.add(function () {
         _this.inventory.toggle();
+    });
+
+    this.o.onDown.add(function () {
+
     });
 }
 

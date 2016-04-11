@@ -112,6 +112,32 @@ angular.module('users')
                     },
                     data: item
                 });
+            },
+            searchName: function(name) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/search',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': StorageService.getCookie()
+                    },
+                    data: {search: name}
+                });
+            },
+            searchStats: function(stats) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/statistics',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest',
+                        'X-Api-Token': StorageService.getCookie()
+                    },
+                    data: stats
+                });
             }
         }
     });

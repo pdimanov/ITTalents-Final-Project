@@ -1,3 +1,68 @@
 <div class="container">
-statistics
+    <div class="col-md-6">
+        <div class="input-group">
+            <input ng-model="heroName" type="text" class="form-control" placeholder="Hero name">
+            <span class="input-group-btn">
+                <button class="btn btn-custom1" type="button" ng-click="searchName()">Search</button>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <form class="form-inline" role="form" novalidate onsubmit="return false;">
+            <div class="form-group">
+                <select class="form-control" id="sel1" ng-model="stats.column">
+                    <option class="hidden" value="" selected disabled>Stat</option>
+                    <option>level</option>
+                    <option>health</option>
+                    <option>attack</option>
+                    <option>defense</option>
+                    <option>gold</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="sel2" ng-model="stats.quantity">
+                    <option class="hidden" value="" selected disabled>Quantity</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>5</option>
+                    <option>10</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="sel3" ng-model="stats.direction">
+                    <option class="hidden" value="" selected disabled>Order</option>
+                    <option>asc</option>
+                    <option>desc</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-custom1" ng-click="searchStats()">Search</button>
+            </div>
+        </form>
+    </div>
+    <table class="table table-responsive" data-toggle="table" data-sort-name="name"
+           data-sort-order="desc">
+        <thead>
+            <tr>
+                <th data-field="username" data-sortable="true">username</th>
+                <th data-field="name" data-sortable="true">hero name</th>
+                <th data-field="level" data-sortable="true">level</th>
+                <th data-field="health" data-sortable="true">health</th>
+                <th data-field="attack" data-sortable="true">attack</th>
+                <th data-field="defense" data-sortable="true">defense</th>
+                <th data-field="gold" data-sortable="true">gold</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in data">
+                <td>{{user.user.username}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.level}}</td>
+                <td>{{user.health}}</td>
+                <td>{{user.attack}}</td>
+                <td>{{user.defense}}</td>
+                <td>{{user.gold}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

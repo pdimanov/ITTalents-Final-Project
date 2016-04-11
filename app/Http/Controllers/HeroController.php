@@ -30,6 +30,19 @@ class HeroController extends Controller
         return Hero::with('quest.mob')->where('user_id', Auth::id())->first();
     }
 
+    private function saveHeroLocation(Request $request, Hero $hero)
+    {
+        $this->validate($request,[
+            'map_x' => 'min:0',
+            'map_y' => 'min:0'
+        ]);
+
+        $hero = $this->getHero();
+        $hero->map_x = $request->input('map_x');
+        $hero->map_y = $request->input('map_y');
+        $hero->save();
+    }
+
     public function index()
     {
         $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
@@ -117,21 +130,6 @@ class HeroController extends Controller
         } else {
             return Response::json(['error' => 'The hero doesn\'t have such an item.'], 404);
         }
-    }
-
-    public function saveHeroLocation(Request $request)
-    {
-        $this->validate($request,[
-            'map_x' => 'min:0',
-            'map_y' => 'min:0'
-        ]);
-
-        $hero = $this->getHero();
-        $hero->map_x = $request->input('map_x');
-        $hero->map_y = $request->input('map_y');
-        $hero->save();
-
-        return Response::json(['message' => 'Hero\'s location has been successfully saved.'], 200);
     }
 
     public function saveHeroGold(Request $request)
@@ -240,7 +238,7 @@ class HeroController extends Controller
 
     public function trackMobKill(Request $request)
     {
-        $mobId = $request->input('mob-id');
+        $mobId = $request->input('mob_id');
         $mob = Mob::findOrFail($mobId);
         $heroWithQuest = $this->getHeroWithQuest();
 
@@ -250,10 +248,15 @@ class HeroController extends Controller
             $questKillProgress = $questOfHero->pivot->progress;
             if($questKillProgress < $questKillTarget){
                 $questKillProgress++;
+                $heroWithQuest->quest()->sync([$questOfHero->id => ['progress' => $questKillProgress]], false);
             }
         }
 
-//        $heroWithQuest->gold += $mob->gold;
-//        $heroWithQuest->experience += $mob->experience;
+        $this->saveHeroLocation($request, $heroWithQuest);
+        $heroWithQuest->gold += $mob->gold;
+        $heroWithQuest->experience += $mob->experience;
+        $heroWithQuest->save();
+
+        return Response::json(['message' => 'Successfully saved the kill result.'], 200);
     }
 }

@@ -141,6 +141,11 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Body example**: `{"id":2}`</br>
 **Response**: Returns a message that the user has successfully equipped an item and data about the hero and his items. Returns an error if an item with the given id doesn't exist or the hero doesn't have this item</br></br>
 
-- **Route**: `localhost:8000/api/quest`</br>
+- **Route**: `localhost:8000/api/hero/quest`</br>
 **Method**: `PUT`</br>
 **Response**: Returns the hero's info with the new accepted quest's info and the mob required to kill. Returns an error if the hero hasn't completed his current quest.</br>
+
+- **Route**: `localhost:8000/api/hero/kill`</br>
+**Method**: `PUT`</br>
+**Body example**: `{"mob_id":1,"map_x":200,"map_y":2944}`</br>
+**Response**: Returns a message that the hero's kill has been successfully saved, updating the hero's map position and updating the hero's quest progress if the mob is his quest's target. Also saves the gold and experience received from the mob.</br>

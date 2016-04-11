@@ -57,6 +57,8 @@ body {
   #mainContent canvas {
     margin: 0 auto;
     border: 5px solid #67528e; }
+  #mainContent #buyModal {
+    color: black; }
 
 #footer {
   height: 40px;

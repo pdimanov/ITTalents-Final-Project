@@ -1,7 +1,11 @@
 angular.module('users')
     .controller('StatisticsController', function($scope, UserService) {
 
-        $scope.stats = {};
+        $scope.stats = {
+            column: '',
+            quantity: '',
+            direction: ''
+        };
 
         $scope.searchName = function() {
             UserService.searchName($scope.heroName).then(function(response) {

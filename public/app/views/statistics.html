@@ -44,17 +44,38 @@
            data-sort-order="desc">
         <thead>
             <tr>
-                <th data-field="username" data-sortable="true">username</th>
-                <th data-field="name" data-sortable="true">hero name</th>
-                <th data-field="level" data-sortable="true">level</th>
-                <th data-field="health" data-sortable="true">health</th>
-                <th data-field="attack" data-sortable="true">attack</th>
-                <th data-field="defense" data-sortable="true">defense</th>
-                <th data-field="gold" data-sortable="true">gold</th>
+                <th data-field="username" data-sortable="true" ng-click="stats.column = 'username'; stats.direction = stats.direction == 'asc' ? 'desc' : 'asc'">username
+                    <small><span ng-show="stats.column == 'username' && stats.direction == 'desc'" class="glyphicon glyphicon-triangle-bottom"></span></small>
+                    <small><span ng-show="stats.column == 'username' && stats.direction == 'asc'" class="glyphicon glyphicon-triangle-top"></span></small>
+                </th>
+                <th data-field="name" data-sortable="true" ng-click="stats.column = 'name'; stats.direction = stats.direction == 'asc' ? 'desc' : 'asc'">hero name
+                    <small><span ng-show="stats.column == 'name' && stats.direction == 'desc'" class="glyphicon glyphicon-triangle-bottom"></span></small>
+                    <small><span ng-show="stats.column == 'name' && stats.direction == 'asc'" class="glyphicon glyphicon-triangle-top"></span></small>
+                </th>
+                <th data-field="level" data-sortable="true" ng-click="stats.column = 'level'; stats.direction = stats.direction == 'asc' ? 'desc' : 'asc'">level
+                    <small><span ng-show="stats.column == 'level' && stats.direction == 'desc'" class="glyphicon glyphicon-triangle-bottom"></span></small>
+                    <small><span ng-show="stats.column == 'level' && stats.direction == 'asc'" class="glyphicon glyphicon-triangle-top"></span></small>
+                </th>
+                <th data-field="health" data-sortable="true" ng-click="stats.column = 'health'; stats.direction = stats.direction == 'asc' ? 'desc' : 'asc'">health
+                    <small><span ng-show="stats.column == 'health' && stats.direction == 'desc'" class="glyphicon glyphicon-triangle-bottom"></span></small>
+                    <small><span ng-show="stats.column == 'health' && stats.direction == 'asc'" class="glyphicon glyphicon-triangle-top"></span></small>
+                </th>
+                <th data-field="attack" data-sortable="true" ng-click="stats.column = 'attack'; stats.direction = stats.direction == 'asc' ? 'desc' : 'asc'">attack
+                    <small><span ng-show="stats.column == 'attack' && stats.direction == 'desc'" class="glyphicon glyphicon-triangle-bottom"></span></small>
+                    <small><span ng-show="stats.column == 'attack' && stats.direction == 'asc'" class="glyphicon glyphicon-triangle-top"></span></small>
+                </th>
+                <th data-field="defense" data-sortable="true" ng-click="stats.column = 'defense'; stats.direction = stats.direction == 'asc' ? 'desc' : 'asc'">defense
+                    <small><span ng-show="stats.column == 'defense' && stats.direction == 'desc'" class="glyphicon glyphicon-triangle-bottom"></span></small>
+                    <small><span ng-show="stats.column == 'defense' && stats.direction == 'asc'" class="glyphicon glyphicon-triangle-top"></span></small>
+                </th>
+                <th data-field="gold" data-sortable="true" ng-click="stats.column = 'gold'; stats.direction = stats.direction == 'asc' ? 'desc' : 'asc'">gold
+                    <small><span ng-show="stats.column == 'gold' && stats.direction == 'desc'" class="glyphicon glyphicon-triangle-bottom"></span></small>
+                    <small><span ng-show="stats.column == 'gold' && stats.direction == 'asc'" class="glyphicon glyphicon-triangle-top"></span></small>
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in data">
+            <tr ng-repeat="user in data | orderBy:stats.column:stats.direction == 'asc' ? true : false">
                 <td>{{user.user.username}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.level}}</td>

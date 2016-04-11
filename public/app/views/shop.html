@@ -5,34 +5,51 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu btn-block">
-                <li class="text-center"><a ng-click="shopType('armor')">armor</a></li>
-                <li class="text-center"><a ng-click="shopType('head')">head</a></li>
-                <li class="text-center"><a ng-click="shopType('weapon')">weapon</a></li>
-                <li class="text-center"><a ng-click="shopType('gloves')">gloves</a></li>
-                <li class="text-center"><a ng-click="shopType('boots')">boots</a></li>
+                <li class="text-center"><a ng-click="shopTypeAll()">All</a></li>
+                <li class="text-center"><a ng-click="shopType('armor')">Armor</a></li>
+                <li class="text-center"><a ng-click="shopType('head')">Head</a></li>
+                <li class="text-center"><a ng-click="shopType('weapon')">Weapon</a></li>
+                <li class="text-center"><a ng-click="shopType('gloves')">Gloves</a></li>
+                <li class="text-center"><a ng-click="shopType('boots')">Boots</a></li>
             </ul>
         </div>
         <br>
+        <div class="text-center" ng-show="heroGold || heroGold === 0">Your gold: {{heroGold}}</div>
         <br>
         <div class="panel panel-default" ng-repeat="item in shop">
             <div class="panel-heading">
                 {{item.name}}
             </div>
             <div class="panel-body">
-                <div class="col-md-8">
+                <div class="col-md-8 col-xs-8">
                     <div ng-repeat="(key, val) in item" ng-if="key != 'name' && key != 'pic' && key != 'id'">
                         <span>{{key.replace('_', ' ')}}: </span>
                         <span>{{val}}<span class="glyphicon glyphicon-euro" ng-if="key == 'price'"></span></span>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-xs-4">
                     <img ng-src="{{item.pic}}" alt="item icon" class="img-responsive img-thumbnail">
                 </div>
             </div>
             <div class="panel-footer">
-                <button class="btn btn-default" ng-click="buyItem({'id': item.id})">Buy</button>
-                <span class="text-left">{{info}}</span>
+                <button class="btn btn-default" ng-click="buyItem({'id': item.id})" data-toggle="modal" data-target="#buyModal">Buy</button>
             </div>
         </div>
+    </div>
+</div>
+<div id="buyModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{info}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>

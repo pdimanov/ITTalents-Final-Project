@@ -27,13 +27,17 @@ Route::group(['prefix' => 'api'],function(){
         Route::post('/user/avatar', 'UserController@uploadAvatar');
 
         // H E R O
-        Route::get('/hero', 'HeroController@index');
+        Route::get('/hero/info', 'HeroController@index');
         Route::post('/hero', 'HeroController@createHero');
         Route::post('/hero/buy', 'HeroController@buyItem');
         Route::post('/hero/sell', 'HeroController@sellItem');
         Route::post('/hero/obtain-item', 'HeroController@obtainItem');
         Route::delete('/hero', 'HeroController@deleteHero');
         Route::put('/hero/equip', 'HeroController@equipItem');
+
+        // H E R O - Q U E S T S
+        Route::put('/hero/kill', 'HeroController@trackMobKill');
+        Route::put('/hero/quest', 'HeroController@acceptQuest');
 
         // H E R O - S A V E S
         Route::group(['prefix' => '/save'], function(){
@@ -44,13 +48,12 @@ Route::group(['prefix' => 'api'],function(){
 
         // S H O P
         Route::get('/shop', 'ShopController@index');
-        Route::get('/shop/{slot_type}', 'ShopController@show');
 
         // S T A T I S T I C S
-        Route::post('/statistics', 'StatisticsController@orderBy');
+        Route::get('/statistics', 'StatisticsController@orderBy');
 
         // S E A R C H
-        Route::post('/search', 'SearchController@search');
+        Route::get('/hero', 'SearchController@search');
     });
 });
 

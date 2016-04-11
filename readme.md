@@ -71,7 +71,7 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Body example**: `{"name":"Adriancho","gender":"male"}`</br>
 **Response**: Returns a message with the new hero's data. Returns errors if some of the fields don't pass the validation, token isn't given such user doesn't exist.</br></br>
 
-- **Route**: `localhost:8000/api/hero`</br>
+- **Route**: `localhost:8000/api/hero/info`</br>
 **Method**: `GET`</br>
 **Response**: Returns a message with all the hero's data and the surrounding world(quests, quest givers, mobs, all items). Returns errors if some of the fields don't pass the validation, token isn't given such user doesn't exist.</br></br>
 
@@ -111,12 +111,9 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 
 - **Route**: `localhost:8000/api/shop`</br>
 **Method**: `GET`</br>
-**Response**: Returns a message with the hero's gold and all the items in the shop.</br></br>
-
-- **Route**: `localhost:8000/api/shop/{slot_type}`</br>
-**Method**: `GET`</br>
-**{slot_type} options**: armor/head/weapon/gloves/boots</br>
-**Response**: Returns a message with the hero's gold and all the items with the slot type given. Returns an error if there is no such slot type.</br></br>
+**Parameter values**: `armor/boots/gloves/head/weapon`</br>
+**Parameter example**: `?slot-type=armor`</br>
+**Response**: Returns a message with the hero's gold and all the items from the valid slot-type or the hero's gold and all the items from the shop if the parameter value is incorrect.</br></br>
 
 - **Route**: `localhost:8000/api/user`</br>
 **Method**: `GET`</br>
@@ -127,17 +124,23 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Body**: The key used for this method is "image" and the method accepts an image with extensions png, bmp, jpeg. The max size allowed is 1024KB.</br>
 **Response**: Returns the route for the user's avatar. There is a default route which all users who still haven't uploaded an avatar get. Otherwise they get the route for their own avatar.</br></br>
 
-- **Route**: `localhost:8000/api/search`</br>
-**Method**: `POST`</br>
-**Body example**: `{"search":"ivan"}`</br>
+- **Route**: `localhost:8000/api/hero`</br>
+**Method**: `GET`</br>
+**Parameter example**: `?search=ivan`</br>
 **Response**: Returns a message with all heroes who have this bit in their names. Returns an error if no hero has this bit in their name.</br></br>
 
 - **Route**: `localhost:8000/api/statistics`</br>
-**Method**: `POST`</br>
-**Body example**: `{"quantity":5,"direction":"desc","column":"level"}`</br>
+**Method**: `GET`</br>
+**Parameter keys**: `quantity | direction | column`</br>
+**Parameter values**: `quantity: some number (default is 5)` | `direction: 'asc' | 'desc'(default)` | `column: 'username' | 'hero name' | 'level' | 'health' | 'attack' | 'defense' | 'gold'` </br>
+**Parameter example**: `?quantity=5&direction=asc&column=level`</br>
 **Response**: Returns a message with the hero's and user's information ordered by the column and direction given. Returns an error if no such column exists in heroes table.</br></br>
 
 - **Route**: `localhost:8000/api/hero/equip`</br>
 **Method**: `PUT`</br>
 **Body example**: `{"id":2}`</br>
 **Response**: Returns a message that the user has successfully equipped an item and data about the hero and his items. Returns an error if an item with the given id doesn't exist or the hero doesn't have this item</br></br>
+
+- **Route**: `localhost:8000/api/quest`</br>
+**Method**: `PUT`</br>
+**Response**: Returns the hero's info with the new accepted quest's info and the mob required to kill. Returns an error if the hero hasn't completed his current quest.</br>

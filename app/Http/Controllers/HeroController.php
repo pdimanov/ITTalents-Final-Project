@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Mob;
 use App\Quest;
 use App\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,12 @@ class HeroController extends Controller
 
     private function getHeroWithItems()
     {
-        return Hero::with('items')->where('user_id', Auth::id())->get();
+        return Hero::where('user_id', Auth::id())->with('items')->first();
+    }
+
+    private function getHeroWithQuest()
+    {
+        return Hero::with('quest.mob')->where('user_id', Auth::id())->first();
     }
 
     public function index()
@@ -103,7 +109,7 @@ class HeroController extends Controller
 
         //$hero returns true if he has the item which he wants to sell and false if he doesn't have it
         if($hero){
-            return $hero->items()->detach($item->id);
+            $hero->items()->detach($item->id);
             $hero->gold += $item->price / 2;
             $hero->save();
 
@@ -213,6 +219,41 @@ class HeroController extends Controller
 
     public function acceptQuest()
     {
+        $heroWithQuest = $this->getHeroWithQuest();
+        $lastCompletedQuest = $heroWithQuest->completed_quest;
 
+        //The hero hasn't done any quests and doesn't have the first quest yet.
+        if(!$lastCompletedQuest && !$heroWithQuest->current_quest){
+            $heroWithQuest->quest()->attach(1);
+            $heroWithQuest->current_quest = 1;
+            $heroWithQuest->save();
+        } else if ($heroWithQuest->current_quest){
+            return Response::json(['message' => 'The hero hasn\'t finished his latest quest.'], 200);
+        } else if ($lastCompletedQuest >= 1 && $lastCompletedQuest <= 3 && !count($heroWithQuest->quest)){
+            $heroWithQuest->quest()->attach($lastCompletedQuest + 1);
+            $heroWithQuest->current_quest = $lastCompletedQuest + 1;
+            $heroWithQuest->save();
+        }
+
+        return Hero::with('quest.mob')->where('user_id', Auth::id())-first();
+    }
+
+    public function trackMobKill(Request $request)
+    {
+        $mobId = $request->input('mob-id');
+        $mob = Mob::findOrFail($mobId);
+        $heroWithQuest = $this->getHeroWithQuest();
+
+        if($heroWithQuest->quest()->first() && $heroWithQuest->current_quest === $mobId){
+            $questOfHero = $heroWithQuest->quest()->first();
+            $questKillTarget = $questOfHero->count;
+            $questKillProgress = $questOfHero->pivot->progress;
+            if($questKillProgress < $questKillTarget){
+                $questKillProgress++;
+            }
+        }
+
+//        $heroWithQuest->gold += $mob->gold;
+//        $heroWithQuest->experience += $mob->experience;
     }
 }

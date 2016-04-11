@@ -30,12 +30,6 @@ class Hero_QuestTableSeeder extends Seeder
         ]);
 
         DB::table('hero_quest')->insert([
-            'hero_id' => 4,
-            'quest_id' => 3,
-            'progress' => 1,
-        ]);
-
-        DB::table('hero_quest')->insert([
             'hero_id' => 5,
             'quest_id' => 1,
             'progress' => 2,

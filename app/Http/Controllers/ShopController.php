@@ -17,26 +17,19 @@ class ShopController extends Controller
         return Hero::where('user_id', Auth::id())->first()->gold;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        if(!Auth::user()->hero()){
-            $data['heroGold'] = $this->getHeroGold();
-        }
-        $data['items'] = Item::all();
-        return Response::json(['message' => $data], 200);
-    }
+        $slot_type = $request->input('slot-type');
 
-    public function show($slot_type)
-    {
-        if(!Auth::user()->her()){
+        if(Auth::user()->hero()){
             $data['heroGold'] = $this->getHeroGold();
         }
+
         $data['items'] = Item::where('slot_type', $slot_type)->get();
-
-        if($data['items']){
-            return Response::json(['message' => $data], 200);
-        } else {
-            return Response::json(['error' => 'No such slot types exist.'], 200);
+        if($data['items']->isEmpty()){
+            $data['items'] = Item::all();
         }
+
+        return Response::json(['message' => $data], 200);
     }
 }

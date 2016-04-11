@@ -210,4 +210,9 @@ class HeroController extends Controller
 
         return Response::json(['message' => 'Item equipped successfully.', 'data' => $this->getHeroWithItems()], 200);
     }
+
+    public function acceptQuest()
+    {
+        
+    }
 }

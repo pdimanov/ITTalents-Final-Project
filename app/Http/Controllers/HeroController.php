@@ -19,11 +19,6 @@ class HeroController extends Controller
         return Hero::where('user_id', Auth::id())->first();
     }
 
-    private function getHeroCurrentQuest()
-    {
-
-    }
-
     public function index()
     {
         $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
@@ -187,16 +182,35 @@ class HeroController extends Controller
 
         $hero = Hero::where('user_id', Auth::id())->whereHas('items', function($query){
             global $request;
-            $query->where('item_id', $itemId);
+
+            $query->where('item_id', $request->input('id'));
         })->first();
 
         if(!$hero){
             return Response::json(['error' => 'The hero doesn\'t have such an item.'], 404);
         }
 
-        $slotType = $hero->items()->where('id', $itemId)->first()->slot_type;
+        $item = $hero->items()->where('id', $itemId)->first();
+        $slotType = $item->slot_type;
+        $itemsFromSameSlotTypeWhichAreInInventory = $hero->items()->where('slot_type', $slotType)->get();
+//        return $itemsFromSameSlotTypeWhichAreInInventory;
+        for($currentItem = 0; $currentItem < count($itemsFromSameSlotTypeWhichAreInInventory); $currentItem++){
+            if($itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->pivot->equipped){
+                $alreadyEquippedItemID = $itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->id;
+                $hero->items()->sync([$alreadyEquippedItemID => ['equipped' => 0]], false);
+//                $itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->save();
+//                return $itemsFromSameSlotTypeWhichAreInInventory[$currentItem];
+            }
+        }
 
-        return $hero->items()->where('id', $itemId)->first();
+//        $item->pivot->equipped = 1;
+//        $item->save();
+
+//        return $item;
+//        return $itemsFromSameSlotTypeWhichAreInInventory;
+//        return $item->pivot->equipped;
+//        return $hero->items()->where('id', $itemId)->first();
+        return $hero->with('items')->get();
         Item::findOrFail($itemId);
     }
 }

@@ -213,6 +213,6 @@ class HeroController extends Controller
 
     public function acceptQuest()
     {
-        
+
     }
 }

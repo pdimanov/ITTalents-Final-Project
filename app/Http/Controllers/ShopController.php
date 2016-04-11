@@ -19,14 +19,18 @@ class ShopController extends Controller
 
     public function index()
     {
-        $data['heroGold'] = $this->getHeroGold();
+        if(!Auth::user()->hero()){
+            $data['heroGold'] = $this->getHeroGold();
+        }
         $data['items'] = Item::all();
         return Response::json(['message' => $data], 200);
     }
 
     public function show($slot_type)
     {
-        $data['heroGold'] = $this->getHeroGold();
+        if(!Auth::user()->her()){
+            $data['heroGold'] = $this->getHeroGold();
+        }
         $data['items'] = Item::where('slot_type', $slot_type)->get();
 
         if($data['items']){

@@ -28,7 +28,7 @@ angular.module('users')
                     data: user
                 });
             },
-            shop: function(token) {
+            shop: function() {
                 return $http({
                     method: 'GET',
                     url: 'api/shop',
@@ -36,11 +36,11 @@ angular.module('users')
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
-                        'X-Api-Token': token
+                        'X-Api-Token': StorageService.getCookie()
                     }
                 });
             },
-            shopType: function(type, token) {
+            shopType: function(type) {
                 return $http({
                     method: 'GET',
                     url: 'api/shop/' + type,
@@ -48,7 +48,7 @@ angular.module('users')
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
-                        'X-Api-Token': token
+                        'X-Api-Token': StorageService.getCookie()
                     }
                 });
             },
@@ -100,7 +100,7 @@ angular.module('users')
                     }
                 });
             },
-            buyItem: function(item, token) {
+            buyItem: function(item) {
                 return $http({
                     method: 'POST',
                     url: 'api/hero/buy',
@@ -108,7 +108,7 @@ angular.module('users')
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
-                        'X-Api-Token': token
+                        'X-Api-Token': StorageService.getCookie()
                     },
                     data: item
                 });

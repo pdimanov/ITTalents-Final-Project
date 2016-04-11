@@ -31,13 +31,13 @@ Route::group(['prefix' => 'api'],function(){
         Route::post('/hero', 'HeroController@createHero');
         Route::post('/hero/buy', 'HeroController@buyItem');
         Route::post('/hero/sell', 'HeroController@sellItem');
-        Route::post('/hero/obtain-item', 'HeroController@obtainItem');
         Route::delete('/hero', 'HeroController@deleteHero');
         Route::put('/hero/equip', 'HeroController@equipItem');
 
         // H E R O - Q U E S T S
         Route::put('/hero/kill', 'HeroController@trackMobKill');
-        Route::put('/hero/quest', 'HeroController@acceptQuest');
+        Route::put('/hero/acceptQuest', 'HeroController@acceptQuest');
+        Route::put('/hero/returnQuest', 'HeroController@returnQuest');
 
         // H E R O - S A V E S
         Route::group(['prefix' => '/save'], function(){

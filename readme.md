@@ -82,17 +82,12 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 - **Route**: `localhost:8000/api/hero/buy`</br>
 **Method**: `POST`</br>
 **Body example**: `{"id":2}`</br>
-**Response**: Returns a message if the hero has successfully bought an item. Returns an error if the hero doesn't have enough money or such an item doesn't exist.</br></br>
+**Response**: Returns a message if the hero has successfully bought an item or already has this item. Returns an error if the hero doesn't have enough money or such an item doesn't exist.</br></br>
 
 - **Route**: `localhost:8000/api/hero/sell`</br>
 **Method**: `POST`</br>
 **Body example**: `{"id":2}`</br>
 **Response**: Returns a message if the hero has successfully sold an item. Returns an error if such an item doesn't exist.</br></br>
-
-- **Route**: `localhost:8000/api/hero/obtain-item`</br>
-**Method**: `POST`</br>
-**Body example**: {"id":5}</br>
-**Response**: Returns a message if a hero has successfully obtained an item, for example from a quest reward. Returns an error if such an item doesn't exist.</br></br>
 
 - **Route**: `localhost:8000/api/save/location`</br>
 **Method**: `PUT`</br>
@@ -141,7 +136,7 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Body example**: `{"id":2}`</br>
 **Response**: Returns a message that the user has successfully equipped an item and data about the hero and his items. Returns an error if an item with the given id doesn't exist or the hero doesn't have this item</br></br>
 
-- **Route**: `localhost:8000/api/hero/quest`</br>
+- **Route**: `localhost:8000/api/hero/acceptQuest`</br>
 **Method**: `PUT`</br>
 **Response**: Returns the hero's info with the new accepted quest's info and the mob required to kill. Returns an error if the hero hasn't completed his current quest.</br>
 
@@ -149,3 +144,8 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Method**: `PUT`</br>
 **Body example**: `{"mob_id":1,"map_x":200,"map_y":2944}`</br>
 **Response**: Returns a message that the hero's kill has been successfully saved, updating the hero's map position and updating the hero's quest progress if the mob is his quest's target. Also saves the gold and experience received from the mob.</br>
+
+- **Route**: `localhost:8000/api/hero/returnQuest`</br>
+**Method**: `PUT`</br>
+**Body example**: `{"map_x":200,"map_y":2944}`</br>
+**Response**: Returns a message that the hero has successfully completed the quest, saving the gold and experience from the quest, saving the hero's location and updating his status about the hero's quests. Returns a message if the hero needs to kills more mobs in order to complete the quest. Returns an error if the hero doesn't have a quest.</br>

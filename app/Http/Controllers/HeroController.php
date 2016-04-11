@@ -101,6 +101,10 @@ class HeroController extends Controller
         $hero = $this->getHero();
         $heroGold = $hero['gold'];
 
+        if($hero->items()->get()->contains('id', $item->id)){
+            return Response::json(['message' => 'The hero already has this item.'], 200);
+        }
+
         if($heroGold >= $item->price){
             $hero->items()->attach($item->id);
             $hero->gold -= $item->price;
@@ -167,18 +171,6 @@ class HeroController extends Controller
         $hero->save();
 
         return Response::json(['message' => 'Hero\'s level and experience have been successfully saved.'], 200);
-    }
-
-    public function obtainItem(Request $request)
-    {
-        $item = $request->input('id');
-        if(!Item::find($item)){
-            return Response::json(['error' => 'No such item found.'], 404);
-        }
-        $hero = $this->getHero();
-        $hero->items()->attach($item);
-
-        return Response::json(['message' => 'Item successfully obtained by the hero.'], 200);
     }
 
     public function equipItem(Request $request)
@@ -258,5 +250,38 @@ class HeroController extends Controller
         $heroWithQuest->save();
 
         return Response::json(['message' => 'Successfully saved the kill result.'], 200);
+    }
+
+    public function returnQuest(Request $request)
+    {
+        $heroWithQuest = $this->getHeroWithQuest();
+        $questOfHero = $heroWithQuest->quest()->first();
+
+        if(!$questOfHero){
+            return Response::json(['error' => 'The hero doesn\'t have a quest to return.'], 404);
+        }
+
+        $questKillTarget = $questOfHero->count;
+        $questKillProgress = $questOfHero->pivot->progress;
+        $questItemsReward = $questOfHero->items()->get();
+        foreach($questItemsReward as $item){
+            $questItemsRewardIds[] = $item->id;
+        }
+
+        if($questKillTarget === $questKillProgress){
+            $heroWithQuest->items()->sync($questItemsRewardIds, false);
+            $heroWithQuest->quest()->detach($questOfHero->id);
+
+            $heroWithQuest->completed_quest = $questOfHero->id;
+            $heroWithQuest->current_quest = null;
+            $heroWithQuest->gold += $questOfHero->gold;
+            $heroWithQuest->experience += $questOfHero->experience;
+            $this->saveHeroLocation($request, $heroWithQuest);
+            $heroWithQuest->save();
+
+            return Response::json(['message' => 'The hero has successfully completed the quest.'], 200);
+        } else {
+            return Response::json(['message' => 'The hero needs to kill more mobs.'], 200);
+        }
     }
 }

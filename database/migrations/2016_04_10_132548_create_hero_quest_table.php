@@ -20,11 +20,13 @@ class CreateHeroQuestTable extends Migration
 
             $table->foreign('hero_id')
                 ->references('id')
-                ->on('heroes');
+                ->on('heroes')
+                ->onDelete('cascade');
 
             $table->foreign('quest_id')
                 ->references('id')
-                ->on('quests');
+                ->on('quests')
+                ->onDelete('cascade');
         });
     }
 

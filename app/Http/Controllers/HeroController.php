@@ -168,12 +168,18 @@ class HeroController extends Controller
     public function obtainItem(Request $request)
     {
         $item = $request->input('id');
-        if(!$item){
+        if(!Item::find($item)){
             return Response::json(['error' => 'No such item found.'], 404);
         }
         $hero = $this->getHero();
         $hero->items()->attach($item);
 
         return Response::json(['message' => 'Item successfully obtained by the hero.'], 200);
+    }
+
+    public function equipItem(Request $request)
+    {
+        $itemId = $request->input('id');
+
     }
 }

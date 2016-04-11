@@ -20,11 +20,13 @@ class CreateInventoriesTable extends Migration
 
             $table->foreign('item_id')
                 ->references('id')
-                ->on('items');
+                ->on('items')
+                ->onDelete('cascade');
 
             $table->foreign('hero_id')
                 ->references('id')
-                ->on('heroes');
+                ->on('heroes')
+                ->onDelete('cascade');
         });
     }
 

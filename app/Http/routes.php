@@ -33,6 +33,8 @@ Route::group(['prefix' => 'api'],function(){
         Route::post('/hero/sell', 'HeroController@sellItem');
         Route::post('/hero/obtain-item', 'HeroController@obtainItem');
         Route::delete('/hero', 'HeroController@deleteHero');
+        Route::put('/hero/equip', 'HeroController@equipItem');
+
         // H E R O - S A V E S
         Route::group(['prefix' => '/save'], function(){
             Route::put('/location', 'HeroController@saveHeroLocation');

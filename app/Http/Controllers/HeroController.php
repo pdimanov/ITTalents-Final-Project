@@ -180,6 +180,7 @@ class HeroController extends Controller
     public function equipItem(Request $request)
     {
         $itemId = $request->input('id');
-
+        return Hero::find(1)->with('items')->first();
+        Item::findOrFail($itemId);
     }
 }

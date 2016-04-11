@@ -180,7 +180,19 @@ class HeroController extends Controller
     public function equipItem(Request $request)
     {
         $itemId = $request->input('id');
-        return Hero::find(1)->with('items')->first();
+
+        if(!Item::find($itemId)){
+            return Response::json(['error' => 'There is no such item.'], 404);
+        }
+
+        $hero = Hero::where('user_id', Auth::id())->whereHas('items', function($query){
+            global $request;
+            $query->where('item_id', $itemId);
+        })->first();
+
+        $slotType = $hero->items()->where('id', $itemId)->first()->slot_type;
+
+        return $hero->items()->where('id', $itemId)->first();
         Item::findOrFail($itemId);
     }
 }

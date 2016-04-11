@@ -6,6 +6,7 @@ use App\Hero;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Schema;
 
 class StatisticsController extends Controller

@@ -5,6 +5,7 @@ angular.module('users')
 
         $scope.shopTypeAll = function() {
             UserService.shop().then(function(response) {
+                console.log(response);
                 $scope.shop = response.data.message.items;
                 $scope.heroGold = response.data.message.heroGold;
             });

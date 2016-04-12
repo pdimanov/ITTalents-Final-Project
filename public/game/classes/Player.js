@@ -6,6 +6,7 @@ function Player(json) {
     this.level  = json.level;
     this.exp = json.experience;
     this.health = json.health;
+    this.maxHealth = json.max_health;
     this.gold = json.gold;
     this.attack = json.attack;
     this.defense = json.defense;
@@ -15,14 +16,11 @@ function Player(json) {
     this.currentQuest = json.currentQuest;
     this.items = json.items;
     this.isTalking = false;
-
     this.progress = json.progress;
+    this.currentTarget = null;
 
 
-    var style = {
-        font: "20px Arial",
-        fill: "black"
-    };
+    var style = {font: "20px Arial", fill: "black"};
     this.levelHUD = game.add.text(10, 425, 'LVL: ' + this.level, style);
     this.expHUD = game.add.text(10, 450, 'EXP: ' + this.exp, style);
     this.healthHUD = game.add.text(10, 475, 'HP: ' + this.health, style);
@@ -38,7 +36,6 @@ function Player(json) {
     this.progressHUD.fixedToCamera = true;
     this.goldHUD.fixedToCamera = true;
 
-
     this.talk1 = false;
     this.talk2 = false;
     this.talk3 = false;
@@ -48,62 +45,70 @@ function Player(json) {
     this.inventory = new Inventory();
     this.inventory.addItems(this.items);
 
-    this.cursorKeys = game.input.keyboard.createCursorKeys();
-    this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);
-    this.i = game.input.keyboard.addKey(Phaser.Keyboard.I);
-
-
     this.npcBox = game.add.image(game.camera.x, game.camera.y, 'npcbox');
     this.npcBox.fixedToCamera = true;
     this.npcBox.kill();
 
-
+    this.cursorKeys = game.input.keyboard.createCursorKeys();
 
     this.animations();
     this.physics();
     this.camera();
     this.addAttack();
-
-    this.g.onDown.add(function () {
-        _this.checkAttackPosition(_this.sprite.children[0]);
-        _this.sprite.children[0].revive();
-        _this.sprite.children[0].play('doSlash');
-
-        if (Phaser.Rectangle.intersects(_this.sprite.children[0].getBounds(), playState.monsters[0].sprite.getBounds())) {
-            playState.monsters[0].sprite.destroy();
-
-            game.time.events.add(Phaser.Timer.SECOND * 4, function() {
-                playState.monsters[0].spawn();
-                playState.monsters[0].physics();
-                playState.monsters[0].animations();
-                playState.monsters[0].healthBar();
-                //playState.monsters[0].sprite.revive();
-            }, this).autoDestroy = true;
-
-
-            var asd = {
-                "mob_id":parseInt(playState.monsters[0].id),
-                "map_x":_this.sprite.x,
-                "map_y":_this.sprite.y
-            };
-            console.log(asd);
-            killMob(JSON.stringify(asd));
-        }
-    });
-    this.g.onUp.add(function() {
-        _this.sprite.children[0].animations.stop();
-        _this.sprite.children[0].kill();
-    }, this);
-
-    this.i.onDown.add(function () {
-        _this.inventory.toggle();
-    });
-
-
 }
 
+Player.prototype.targetDetection = function(monsters) {
+    var dist;
+    for (var i in monsters) {
+        /*if (Phaser.Rectangle.intersects(this.sprite.children[0].getBounds(), monsters[i].sprite.getBounds())) {
+            this.currentTarget = monsters[i];
+            break;
+        }*/
+        var x = Math.abs(this.sprite.x - monsters[i].sprite.x);
+        var y = Math.abs(this.sprite.y - monsters[i].sprite.y);
+        var curr = Math.pow(x, 2) + Math.pow(y, 2);
+        if (dist == undefined || curr < dist) {
+            dist = curr;
+            this.currentTarget = monsters[i];
+        }
+    }
+};
+
+Player.prototype.stopAttack = function() {
+    this.sprite.children[0].animations.stop();
+    this.sprite.children[0].kill();
+};
+
+Player.prototype.startAttack = function () {
+    this.checkAttackPosition(this.sprite.children[0]);
+    this.sprite.children[0].revive();
+    this.sprite.children[0].play('doSlash');
+
+
+    if (this.currentTarget.sprite && Phaser.Rectangle.intersects(this.sprite.getBounds(), this.currentTarget.sprite.getBounds())) {
+        this.currentTarget.sprite.destroy();
+        console.log('hello? ', this.currentTarget.sprite.x);
+
+        game.time.events.add(Phaser.Timer.SECOND * 4, function() {
+            this.currentTarget.spawn();
+            this.currentTarget.physics();
+            this.currentTarget.animations();
+            this.currentTarget.healthBar();
+        }, this).autoDestroy = true;
+
+
+        var asd = {
+            "mob_id":parseInt(this.currentTarget.id),
+            "map_x":this.sprite.x,
+            "map_y":this.sprite.y
+        };
+        console.log(asd);
+        killMob(JSON.stringify(asd));
+    }
+
+};
+
 Player.prototype.interaction = function(npc) {
-    var _this = this;
     var quote = game.add.text(0, 0, npc.quote, {
         font: "20px Verdana Bold",
         fill: "#ffcc00",

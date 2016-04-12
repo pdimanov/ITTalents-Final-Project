@@ -1,7 +1,7 @@
 function Inventory() {
     this.image = game.add.image(game.camera.x, game.camera.y, 'inventory');
-    this.items = 0;
     this.isOpen = false;
+    this.items = [];
 
     this.image.fixedToCamera = true;
     this.image.kill();
@@ -17,12 +17,22 @@ Inventory.prototype.toggle = function() {
         this.image.revive();
         console.log('opened');
     }
+    console.log(this.image.children);
 };
 
 Inventory.prototype.addItems = function(array) {
-    for(var i in array) {
-        //this.items.push(new Item(array[i]));
-        this.image.addChild(new Item(array[i], this.items).sprite);
-        this.items++;
+    for(var i = 0; i < array.length; i++) {
+        var item = new Item(array[i], i);
+        this.items.push(item);
+        this.image.addChild(item.sprite);
     }
+    console.log(this.image.children);
+    console.log(this.items);
+};
+
+Inventory.prototype.removeAllItems = function() {
+    for (var i = this.items.length - 1; i >= 0; i--) {
+        this.image.children[i].destroy();
+    }
+    this.items = [];
 };

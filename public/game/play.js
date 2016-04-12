@@ -17,7 +17,7 @@ var playState = {
             console.log(_this.gameInfo);
         });
 
-        if (this.gameInfo['heroInfo'] == null) {
+        if (this.gameInfo == undefined) {
             var bg = game.add.image(0, 0, 'background');
             var textMissing = game.add.text(0, 0, "You dont have a hero.\nGo to your profile to create one.", {
                 font: "26px Verdana Bold",
@@ -85,8 +85,6 @@ var playState = {
             console.log('monster', this.monsters[this.monsters.length - 1]);
         }
 
-        //Monsters
-
         //Items
         this.items = [];
         for(var i in this.gameInfo['allItems']) {
@@ -96,43 +94,42 @@ var playState = {
 
         //player
         this.player = new Player(this.gameInfo['heroInfo']);
-        //this.player.inventory.addItems([this.items[0], this.items[1]]);
-        console.log('player', this.player);
         this.player.interaction(this.npcs[0]);
+        //console.log('player', this.player);
 
 
         //collision with layers
         this.map.setCollisionByExclusion([], true, this.layerDecorationC);
         this.map.setCollisionByExclusion([], true, this.layerDecorationC2);
 
-        //interactions
+        //interaction areas
         this.objectNPC1Talk = this.map.objects['NPC1-talk'][0];
         this.objectNPC2Talk = this.map.objects['NPC2-talk'][0];
         this.objectNPC3Talk = this.map.objects['NPC3-talk'][0];
         this.objectNPC4Talk = this.map.objects['NPC4-talk'][0];
-        //console.log(this.objectNPC1Talk);
         this.talk1 = new Phaser.Rectangle(this.objectNPC1Talk.x, this.objectNPC1Talk.y, this.objectNPC1Talk.width, this.objectNPC1Talk.height);
         this.talk2 = new Phaser.Rectangle(this.objectNPC2Talk.x, this.objectNPC2Talk.y, this.objectNPC2Talk.width, this.objectNPC2Talk.height);
         this.talk3 = new Phaser.Rectangle(this.objectNPC3Talk.x, this.objectNPC3Talk.y, this.objectNPC3Talk.width, this.objectNPC3Talk.height);
         this.talk4 = new Phaser.Rectangle(this.objectNPC4Talk.x, this.objectNPC4Talk.y, this.objectNPC4Talk.width, this.objectNPC4Talk.height);
-        //console.log(this.talk1);
-
 
 
 
         this.t = game.input.keyboard.addKey(Phaser.Keyboard.T);
+        this.i = game.input.keyboard.addKey(Phaser.Keyboard.I);
+
         this.t.onDown.add(toggleTalk, this);
+        this.i.onDown.add(this.player.inventory.toggle, this.player.inventory);
+        this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);
 
-        //console.log(this.monsters[0].sprite);
-        //console.log(this.player.sprite.children[0]);
+        this.g.onDown.add(this.player.startAttack, this.player);
+        this.g.onUp.add(this.player.stopAttack, this.player);
 
 
-
-        this.location = 'http://localhost:8000/home';
+        //this.location = 'http://localhost:8000/home';
     },
 
     update: function() {
-        if (this.gameInfo['heroInfo'] != null) {
+        if (this.gameInfo != undefined) {
 
             //overlap(this.player.sprite.children[0], this.monsters[0].sprite);
 
@@ -144,18 +141,21 @@ var playState = {
             this.player.checkInteraction(this.talk3, 3, this.npcs[2]);
             this.player.checkInteraction(this.talk4, 4, this.npcs[3]);
 
+            this.player.targetDetection(this.monsters);
+
             //collision
             game.physics.arcade.collide(this.player.sprite, this.layerDecorationC);
             game.physics.arcade.collide(this.player.sprite, this.layerDecorationC2);
 
-            game.physics.arcade.collide(this.player.sprite, this.npcs[0].sprite);
-            game.physics.arcade.collide(this.player.sprite, this.npcs[1].sprite);
-            game.physics.arcade.collide(this.player.sprite, this.npcs[2].sprite);
-            game.physics.arcade.collide(this.player.sprite, this.npcs[3].sprite);
+            for (var i in this.npcs) {
+                game.physics.arcade.collide(this.player.sprite, this.npcs[i].sprite);
+            }
 
-            game.physics.arcade.collide(this.player.sprite, this.monsters[0].sprite);
-            game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC);
-            game.physics.arcade.collide(this.monsters[0].sprite, this.layerDecorationC2);
+            for (var i in this.monsters) {
+                game.physics.arcade.collide(this.player.sprite, this.monsters[i].sprite);
+                game.physics.arcade.collide(this.monsters[i].sprite, this.layerDecorationC);
+                game.physics.arcade.collide(this.monsters[i].sprite, this.layerDecorationC2);
+            }
 
             //player movement
             this.player.clearVelocity();
@@ -167,7 +167,7 @@ var playState = {
     },
 
     render: function() {
-        if (this.gameInfo['heroInfo'] != null) {
+        if (this.gameInfo != undefined) {
             //show fps
             game.debug.text(game.time.fps, 10, 20, "orange");
 
@@ -187,13 +187,15 @@ function AcceptQuest() {
         url: 'api/hero/acceptQuest',
         headers: {
             'Accept' : 'application/json',
+            'Content-Type': 'application/json',
             'X-Requested-With' : 'XmlHttpRequest',
             'X-Api-Token': $.cookie('user_token')
         },
-        async: false
+        async: false,
+        data: JSON.stringify({'map_x': playState.player.sprite.x, 'map_y': playState.player.sprite.y})
     }).done(function(response) {
         console.log(response);
-        playState.player.npcBox.kill();
+        toggleTalk();
     });
 }
 
@@ -207,9 +209,17 @@ function CompleteQuest() {
             'X-Api-Token': $.cookie('user_token'),
             'X-Requested-With' : 'XmlHttpRequest'
         },
+        async: false,
         data: JSON.stringify({"map_x":playState.player.sprite.x,"map_y":playState.player.sprite.y})
     }).done(function(response) {
         console.log(response);
+        toggleTalk();
+
+        playState.player.progress = response.data.progress;
+        playState.player.gold = response.data.gold;
+        playState.player.exp = response.data.experience;
+        playState.player.level = response.data.level;
+        playState.player.maxHealth = response.data.max_health;
     });
 }
 
@@ -238,6 +248,7 @@ function killMob(data) {
         playState.player.gold = response.data.gold;
         playState.player.exp = response.data.experience;
         playState.player.level = response.data.level;
+        playState.player.maxHealth = response.data.max_health;
     });
 }
 
@@ -251,4 +262,31 @@ function toggleTalk() {
         playState.player.npcBox.kill();
         console.log('npc box closed');
     }
+}
+
+function EquipItem(item) {
+    $.ajax({
+        method: 'PUT',
+        url: 'api/hero/equip',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept' : 'application/json',
+            'X-Api-Token': $.cookie('user_token'),
+            'X-Requested-With' : 'XmlHttpRequest'
+        },
+        async: false,
+        data: JSON.stringify({'id': item})
+    }).done(function(response) {
+        console.log(response);
+        playState.player.attack = response.data.attack;
+        playState.player.defense = response.data.defense;
+        var array = response.data.items;
+        var myInv = playState.player.inventory;
+        myInv.removeAllItems();
+        myInv.addItems(array);
+
+        //playState.player.inventory = new Inventory();
+        //playState.player.inventory.addItems(array);
+        //console.log(myInv.image.children);
+    });
 }

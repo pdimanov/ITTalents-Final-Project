@@ -13,8 +13,6 @@ function Monster(json) {
     this.exp = json.experience;
     this.isAttacked = false;
 
-    this.sprite = undefined;
-
     this.spawn();
     this.physics();
     this.animations();
@@ -48,6 +46,7 @@ Monster.prototype.die = function() {
 
 Monster.prototype.healthBar = function() {
     var bar = game.add.image(0, -10, 'healthbar');
+    bar.position.x = this.sprite.width/2 - bar.width/2;
     this.sprite.addChild(bar);
 };
 

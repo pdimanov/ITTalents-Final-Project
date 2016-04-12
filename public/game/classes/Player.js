@@ -16,7 +16,7 @@ function Player(json) {
     this.items = json.items;
     this.isTalking = false;
 
-    this.progress = 0;
+    this.progress = json.progress;
 
 
     var style = {
@@ -40,6 +40,9 @@ function Player(json) {
 
 
     this.talk1 = false;
+    this.talk2 = false;
+    this.talk3 = false;
+    this.talk4 = false;
 
     this.sprite = game.add.sprite(this.x, this.y, 'player-' + this.gender);
     this.inventory = new Inventory();
@@ -106,7 +109,9 @@ Player.prototype.interaction = function(npc) {
         fill: "#ffcc00",
         boundsAlignH: "center",
         boundsAlignV: "middle",
-        align: 'center'
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 700
     });
     quote.setTextBounds(0, 50, 800, 50);
 
@@ -125,7 +130,9 @@ Player.prototype.interaction = function(npc) {
 
     var button = game.add.button(370, 500, 'accept', AcceptQuest, this);
 
-    var button2 = game.add.button(370, 500, 'complete', CompleteQuest(JSON.stringify({"map_x":this.sprite.x,"map_y":this.sprite.y})), this);
+    var button2 = game.add.button(370, 530, 'complete', CompleteQuest, this);
+
+    var button3 = game.add.button(370, 560, 'close', toggleTalk, this);
 
 
 
@@ -134,10 +141,39 @@ Player.prototype.interaction = function(npc) {
     this.npcBox.addChild(questName);
     this.npcBox.addChild(button);
     this.npcBox.addChild(button2);
+    this.npcBox.addChild(button3);
 };
 
-Player.prototype.checkInteraction = function(talk1) {
-    this.talk1 = !!(talk1.contains(this.sprite.x + 16, this.sprite.y + 16));
+Player.prototype.updateInteraction = function(npc) {
+    this.npcBox.children[0].setText(npc.quote);
+    this.npcBox.children[1].setText('Quest: ' + npc.quest.name + '\n' +
+        npc.quest.description + '\n Count: ' +
+        npc.quest.count + '\nREWARDS:\n' + 'gold - ' +
+        npc.quest.gold + '\nexp -' +
+        npc.quest.experience);
+
+};
+
+Player.prototype.checkInteraction = function(talkZone, id, npc) {
+    switch (id) {
+        case 1:
+            this.talk1 = !!(talkZone.contains(this.sprite.x + 16, this.sprite.y + 16));
+            if (this.talk1) this.updateInteraction(npc);
+            break;
+        case 2:
+            this.talk2 = !!(talkZone.contains(this.sprite.x + 16, this.sprite.y + 16));
+            if (this.talk2) this.updateInteraction(npc);
+            break;
+        case 3:
+            this.talk3 = !!(talkZone.contains(this.sprite.x + 16, this.sprite.y + 16));
+            if (this.talk3) this.updateInteraction(npc);
+            break;
+        case 4:
+            this.talk4 = !!(talkZone.contains(this.sprite.x + 16, this.sprite.y + 16));
+            if (this.talk4) this.updateInteraction(npc);
+            break;
+    }
+
 };
 
 

@@ -107,26 +107,21 @@ var playState = {
 
         //interactions
         this.objectNPC1Talk = this.map.objects['NPC1-talk'][0];
+        this.objectNPC2Talk = this.map.objects['NPC2-talk'][0];
+        this.objectNPC3Talk = this.map.objects['NPC3-talk'][0];
+        this.objectNPC4Talk = this.map.objects['NPC4-talk'][0];
         //console.log(this.objectNPC1Talk);
         this.talk1 = new Phaser.Rectangle(this.objectNPC1Talk.x, this.objectNPC1Talk.y, this.objectNPC1Talk.width, this.objectNPC1Talk.height);
+        this.talk2 = new Phaser.Rectangle(this.objectNPC2Talk.x, this.objectNPC2Talk.y, this.objectNPC2Talk.width, this.objectNPC2Talk.height);
+        this.talk3 = new Phaser.Rectangle(this.objectNPC3Talk.x, this.objectNPC3Talk.y, this.objectNPC3Talk.width, this.objectNPC3Talk.height);
+        this.talk4 = new Phaser.Rectangle(this.objectNPC4Talk.x, this.objectNPC4Talk.y, this.objectNPC4Talk.width, this.objectNPC4Talk.height);
         //console.log(this.talk1);
 
 
 
 
         this.t = game.input.keyboard.addKey(Phaser.Keyboard.T);
-        this.t.onDown.add(function() {
-            if (_this.player.talk1 && !(_this.player.isTalking)) {
-                _this.player.isTalking = true;
-                _this.player.npcBox.revive();
-                console.log('npc box opened');
-
-            } else {
-                _this.player.isTalking = false;
-                _this.player.npcBox.kill();
-                console.log('npc box closed');
-            }
-        }, this);
+        this.t.onDown.add(toggleTalk, this);
 
         //console.log(this.monsters[0].sprite);
         //console.log(this.player.sprite.children[0]);
@@ -144,7 +139,10 @@ var playState = {
             //if(this.location != window.location.href) killGame();
 
             this.player.updateHUD();
-            this.player.checkInteraction(this.talk1);
+            this.player.checkInteraction(this.talk1, 1, this.npcs[0]);
+            this.player.checkInteraction(this.talk2, 2, this.npcs[1]);
+            this.player.checkInteraction(this.talk3, 3, this.npcs[2]);
+            this.player.checkInteraction(this.talk4, 4, this.npcs[3]);
 
             //collision
             game.physics.arcade.collide(this.player.sprite, this.layerDecorationC);
@@ -161,7 +159,7 @@ var playState = {
 
             //player movement
             this.player.clearVelocity();
-            this.player.movement(100);
+            this.player.movement(300);
 
             //this.monsters[0].clearVelocity();
             this.monsters[0].movement(100);
@@ -199,7 +197,7 @@ function AcceptQuest() {
     });
 }
 
-function CompleteQuest(data) {
+function CompleteQuest() {
     $.ajax({
         method: 'PUT',
         url: 'api/hero/returnQuest',
@@ -209,7 +207,7 @@ function CompleteQuest(data) {
             'X-Api-Token': $.cookie('user_token'),
             'X-Requested-With' : 'XmlHttpRequest'
         },
-        data: data
+        data: JSON.stringify({"map_x":playState.player.sprite.x,"map_y":playState.player.sprite.y})
     }).done(function(response) {
         console.log(response);
     });
@@ -239,6 +237,18 @@ function killMob(data) {
         playState.player.progress = response.data.progress;
         playState.player.gold = response.data.gold;
         playState.player.exp = response.data.experience;
-
+        playState.player.level = response.data.level;
     });
+}
+
+function toggleTalk() {
+    if (!(playState.player.isTalking) && (playState.player.talk1 || playState.player.talk2 || playState.player.talk3 || playState.player.talk4)) {
+        playState.player.isTalking = true;
+        playState.player.npcBox.revive();
+        console.log('npc box opened');
+    } else {
+        playState.player.isTalking = false;
+        playState.player.npcBox.kill();
+        console.log('npc box closed');
+    }
 }

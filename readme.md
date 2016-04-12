@@ -73,7 +73,7 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 
 - **Route**: `localhost:8000/api/hero/info`</br>
 **Method**: `GET`</br>
-**Response**: Returns a message with all the hero's data and the surrounding world(quests, quest givers, mobs, all items). Returns errors if some of the fields don't pass the validation, token isn't given such user doesn't exist.</br></br>
+**Response**: Returns a message with all the hero's data and the surrounding world(quests, quest givers, mobs, all items). Returns errors if some of the fields don't pass the validation, token isn't given, such user doesn't exist or the user doesn't have a hero yet.</br></br>
 
 - **Route**: `localhost:8000/api/hero`</br>
 **Method**: `DELETE`</br>

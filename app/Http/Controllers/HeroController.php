@@ -46,6 +46,11 @@ class HeroController extends Controller
     public function index()
     {
         $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
+
+        if(!$heroInfo){
+            return Response::json(['error' => 'The user doesn\'t have a hero yet.'], 404);
+        }
+
         $allQuests = Quest::with('mob')->with('questgiver')->get();
         $allItems = Item::all();
 
@@ -225,7 +230,7 @@ class HeroController extends Controller
             $heroWithQuest->save();
         }
 
-        return Hero::with('quest.mob')->where('user_id', Auth::id())-first();
+        return Hero::with('quest.mob')->where('user_id', Auth::id())->first();
     }
 
     public function trackMobKill(Request $request)

@@ -59,7 +59,7 @@ class UserController extends Controller
         $data = User::with('hero')->where('id', Auth::id())->first();
         unset($data['api_token']);
 
-        return Response::json(['message' => 'Hero has been successfully created.', 'data' => $data], 200);
+        return Response::json(['message' => 'Returned user\'s profile info.', 'data' => $data], 200);
     }
 
     public function uploadAvatar(Request $request) {

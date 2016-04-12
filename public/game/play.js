@@ -143,7 +143,7 @@ var playState = {
 
             //if(this.location != window.location.href) killGame();
 
-
+            this.player.updateHUD();
             this.player.checkInteraction(this.talk1);
 
             //collision
@@ -199,6 +199,22 @@ function AcceptQuest() {
     });
 }
 
+function CompleteQuest(data) {
+    $.ajax({
+        method: 'PUT',
+        url: 'api/hero/returnQuest',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept' : 'application/json',
+            'X-Api-Token': $.cookie('user_token'),
+            'X-Requested-With' : 'XmlHttpRequest'
+        },
+        data: data
+    }).done(function(response) {
+        console.log(response);
+    });
+}
+
 function overlap(player, mob) {
     if (Phaser.Rectangle.intersects(player.getBounds(), mob.getBounds())) {
         console.log('overlapping');
@@ -212,12 +228,17 @@ function killMob(data) {
         method: 'PUT',
         url: 'api/hero/kill',
         headers: {
+            'Content-Type': 'application/json',
             'Accept' : 'application/json',
-            'X-Requested-With' : 'XmlHttpRequest',
-            'X-Api-Token': $.cookie('user_token')
+            'X-Api-Token': $.cookie('user_token'),
+            'X-Requested-With' : 'XmlHttpRequest'
         },
         data: data
     }).done(function(response) {
         console.log(response);
+        playState.player.progress = response.data.progress;
+        playState.player.gold = response.data.gold;
+        playState.player.exp = response.data.experience;
+
     });
 }

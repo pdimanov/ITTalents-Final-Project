@@ -6,6 +6,7 @@ function Player(json) {
     this.level  = json.level;
     this.exp = json.experience;
     this.health = json.health;
+    this.gold = json.gold;
     this.attack = json.attack;
     this.defense = json.defense;
     this.x = parseInt(json.map_x);
@@ -15,16 +16,27 @@ function Player(json) {
     this.items = json.items;
     this.isTalking = false;
 
-    this.progress = json.progress | 0;
+    this.progress = 0;
 
-    this.hud([
-        [ 10, 450, 'LVL', this.level],
-        [ 10, 475, 'EXP', this.exp],
-        [ 10, 500, 'HP', this.health],
-        [ 10, 525, 'ATK', this.attack],
-        [ 10, 550, 'DEF', this.attack],
-        [10, 575, 'PROGRESS', this.progress]
-    ]);
+
+    var style = {
+        font: "20px Arial",
+        fill: "black"
+    };
+    this.levelHUD = game.add.text(10, 425, 'LVL: ' + this.level, style);
+    this.expHUD = game.add.text(10, 450, 'EXP: ' + this.exp, style);
+    this.healthHUD = game.add.text(10, 475, 'HP: ' + this.health, style);
+    this.attackHUD = game.add.text(10, 500, 'ATK: ' + this.attack, style);
+    this.defenseHUD = game.add.text(10, 525, 'DEF: ' + this.defense, style);
+    this.progressHUD = game.add.text(10, 550, 'PROGRESS: ' + this.progress, style);
+    this.goldHUD = game.add.text(10, 575, 'GOLD: ' + this.gold, style);
+    this.levelHUD.fixedToCamera = true;
+    this.expHUD.fixedToCamera = true;
+    this.healthHUD.fixedToCamera = true;
+    this.attackHUD.fixedToCamera = true;
+    this.defenseHUD.fixedToCamera = true;
+    this.progressHUD.fixedToCamera = true;
+    this.goldHUD.fixedToCamera = true;
 
 
     this.talk1 = false;
@@ -65,11 +77,14 @@ function Player(json) {
                 //playState.monsters[0].sprite.revive();
             }, this).autoDestroy = true;
 
-            killMob({
-                'mob_id': playState.monsters[0].id,
-                'map_x': _this.x,
-                'map_y': _this.y
-            });
+
+            var asd = {
+                "mob_id":parseInt(playState.monsters[0].id),
+                "map_x":_this.sprite.x,
+                "map_y":_this.sprite.y
+            };
+            console.log(asd);
+            killMob(JSON.stringify(asd));
         }
     });
     this.g.onUp.add(function() {
@@ -110,12 +125,15 @@ Player.prototype.interaction = function(npc) {
 
     var button = game.add.button(370, 500, 'accept', AcceptQuest, this);
 
+    var button2 = game.add.button(370, 500, 'complete', CompleteQuest(JSON.stringify({"map_x":this.sprite.x,"map_y":this.sprite.y})), this);
+
 
 
 
     this.npcBox.addChild(quote);
     this.npcBox.addChild(questName);
     this.npcBox.addChild(button);
+    this.npcBox.addChild(button2);
 };
 
 Player.prototype.checkInteraction = function(talk1) {
@@ -166,14 +184,14 @@ Player.prototype.movement = function(integer) {
     this.checkAttackPosition(this.sprite.children[0]);
 };
 
-Player.prototype.hud = function(array) {
-    for(var i in array) {
-        var text = game.add.text(array[i][0], array[i][1], array[i][2] + ': ' + array[i][3], {
-            font: "20px Arial",
-            fill: "black"
-        });
-        text.fixedToCamera = true;
-    }
+Player.prototype.updateHUD = function() {
+    this.levelHUD.setText('LVL: ' + this.level);
+    this.expHUD.setText('EXP: ' + this.exp);
+    this.healthHUD.setText('HP: ' + this.health);
+    this.attackHUD.setText('ATK: ' + this.attack);
+    this.defenseHUD.setText('DEF: ' + this.defense);
+    this.progressHUD.setText('PROGRESS: ' + this.progress);
+    this.goldHUD.setText('GOLD: ' + this.gold);
 };
 
 Player.prototype.addAttack = function() {

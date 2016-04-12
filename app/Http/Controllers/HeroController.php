@@ -30,7 +30,7 @@ class HeroController extends Controller
         return Hero::with('quest.mob')->where('user_id', Auth::id())->first();
     }
 
-    private function saveHeroLocation(Request $request, Hero $hero)
+    private function saveHeroLocation(Hero $hero, Request $request)
     {
         $this->validate($request,[
             'map_x' => 'min:0',
@@ -41,6 +41,36 @@ class HeroController extends Controller
         $hero->map_x = $request->input('map_x');
         $hero->map_y = $request->input('map_y');
         $hero->save();
+    }
+
+    private function heroLevelUp($hero, $currentHeroExperience, $experienceFromSource, $experienceToNextLevel){
+        $hero->level += 1;
+        $hero->experience = $currentHeroExperience + $experienceFromSource - $experienceToNextLevel;
+        $hero->experience_to_next_level = $hero->level * 100;
+        $hero->max_health += 50;
+    }
+
+    private function saveHeroLevelAndExperience($hero, $experienceFromSource)
+    {
+        $currentHeroExperience = $hero->experience;
+        $experienceToNextLevel = $hero->experience_to_next_level;
+
+        if($currentHeroExperience + $experienceFromSource >= $experienceToNextLevel){
+            $this->heroLevelUp($hero, $currentHeroExperience, $experienceFromSource, $experienceToNextLevel);
+        } else {
+            $hero->experience = $currentHeroExperience + $experienceFromSource;
+        }
+    }
+
+    private function getBasicDynamicVariables($hero)
+    {
+        $data['gold'] = $hero->gold;
+        $data['experience'] = $hero->experience;
+        $data['level'] = $hero->level;
+        $data['experience_to_next_level'] = $hero->experience_to_next_level;
+        $data['max_health'] = $hero->max_health;
+
+        return $data;
     }
 
     public function index()
@@ -148,43 +178,6 @@ class HeroController extends Controller
         }
     }
 
-    public function saveHeroGold(Request $request)
-    {
-        $this->validate($request, [
-            'gold' => 'min:0'
-        ]);
-
-        $hero = $this->getHero();
-        $hero->gold += $request->input('gold');
-        if($hero->gold < 0){
-            return Response::json(['error' => 'The hero cannot have less than zero gold.'], 200);
-        }
-        $hero->save();
-
-        return Response::json(['message' => 'Hero\'s gold has been successfully saved.'], 200);
-    }
-
-    public function saveHeroLevelAndExperience(Request $request)
-    {
-        $this->validate($request,[
-            'level' => 'min:1',
-            'experience' => 'min:1'
-        ]);
-
-        $newLevel = $request->input('level');
-        $newExperience = $request->input('level');
-
-        $hero = $this->getHero();
-        if($newLevel < $hero->level || $newLevel === $hero->level && $newExperience < $hero->experience){
-            return Response::json(['error' => 'The hero can\'t be a lower level or lower experience than before.'], 200);
-        }
-        $hero->level = $newLevel;
-        $hero->experience = $newExperience;
-        $hero->save();
-
-        return Response::json(['message' => 'Hero\'s level and experience have been successfully saved.'], 200);
-    }
-
     public function equipItem(Request $request)
     {
         $itemId = $request->input('id');
@@ -260,13 +253,13 @@ class HeroController extends Controller
         }
 
 
-        $this->saveHeroLocation($request, $heroWithQuest);
+        $this->saveHeroLocation($heroWithQuest, $request);
+        $this->saveHeroLevelAndExperience($heroWithQuest, $mob->experience);
         $heroWithQuest->gold += $mob->gold;
-        $heroWithQuest->experience += $mob->experience;
         $heroWithQuest->save();
 
-        $data['gold'] = $heroWithQuest->gold;
-        $data['experience'] = $heroWithQuest->experience;
+        $data = $this->getBasicDynamicVariables($heroWithQuest);
+
         if(isset($questKillProgress)){
             $data['progress'] = $questKillProgress;
         } else {
@@ -299,11 +292,15 @@ class HeroController extends Controller
             $heroWithQuest->completed_quest = $questOfHero->id;
             $heroWithQuest->current_quest = null;
             $heroWithQuest->gold += $questOfHero->gold;
-            $heroWithQuest->experience += $questOfHero->experience;
-            $this->saveHeroLocation($request, $heroWithQuest);
+            $this->saveHeroLevelAndExperience($heroWithQuest, $questOfHero->experience);
+            $this->saveHeroLocation($heroWithQuest, $request);
             $heroWithQuest->save();
 
-            return Response::json(['message' => 'The hero has successfully completed the quest.'], 200);
+            $data = $this->getBasicDynamicVariables($heroWithQuest);
+            $data['progress'] = 0;
+            $data['rewards'] = $questItemsRewardIds;
+
+            return Response::json(['message' => 'The hero has successfully completed the quest.', 'data' => $data], 200);
         } else {
             return Response::json(['message' => 'The hero needs to kill more mobs.'], 200);
         }

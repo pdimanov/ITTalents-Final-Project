@@ -18,12 +18,14 @@ class CreateHeroesTable extends Migration
             $table->string('name')->unique();
             $table->integer('map_x')->unsigned()->default(200);
             $table->integer('map_y')->unsigned()->default(2944);
-            $table->integer('health')->unsigned()->default(100);
+            $table->integer('health')->usnigned()->default(100);
+            $table->integer('max_health')->unsigned()->default(100);
             $table->integer('attack')->unsigned()->default(10);
             $table->integer('defense')->unsigned()->default(2);
             $table->integer('gold')->unsigned()->default(50);
             $table->integer('level')->unsigned()->default(1);
             $table->integer('experience')->unsigned()->default(1);
+            $table->integer('experience_to_next_level')->unsigned()->default(100);
             $table->string('gender')->default('male');
             $table->integer('completed_quest')->unsigned()->nullable()->default(null);
             $table->integer('current_quest')->unsigned()->nullable()->default(null);

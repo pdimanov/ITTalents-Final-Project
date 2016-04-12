@@ -42,8 +42,6 @@ Route::group(['prefix' => 'api'],function(){
         // H E R O - S A V E S
         Route::group(['prefix' => '/save'], function(){
             Route::put('/location', 'HeroController@saveHeroLocation');
-            Route::put('/gold', 'HeroController@saveHeroGold');
-            Route::put('/level', 'HeroController@saveHeroLevelAndExperience');
         });
 
         // S H O P

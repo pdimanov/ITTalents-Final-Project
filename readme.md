@@ -94,16 +94,6 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 **Body example**: `{"map_x":100,"map_y":100}`</br>
 **Response**: Returns a message when the hero has successfully saved his location.</br></br>
 
-- **Route**: `localhost:8000/api/save/gold`</br>
-**Method**: `PUT`</br>
-**Body example**: `{"gold":200}`</br>
-**Response**: Returns a message when the hero has successfully saved his gold.</br></br>
-
-- **Route**: `localhost:8000/api/save/level`</br>
-**Method**: `PUT`</br>
-**Body example**: `{"level":2,"experience":3}`</br>
-**Response**: Returns a message when the hero has successfully saved his level and experience. Returns an error if the level is lower than before or when the level is the same and the experience is lower than before.</br></br>
-
 - **Route**: `localhost:8000/api/shop`</br>
 **Method**: `GET`</br>
 **Parameter values**: `armor/boots/gloves/head/weapon`</br>

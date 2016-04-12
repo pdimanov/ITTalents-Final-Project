@@ -52,7 +52,7 @@ class HeroController extends Controller
         }
 
         $data['heroInfo'] = $heroInfo;
-        if($heroInfo->quest){
+        if(!$heroInfo->quest->isEmpty()){
             $data['heroInfo']['progress'] = $heroInfo->quest()->first()->pivot->progress;
         } else {
             $data['heroInfo']['progress'] = 0;

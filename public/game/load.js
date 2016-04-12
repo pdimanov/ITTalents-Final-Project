@@ -28,18 +28,29 @@ var loadState = {
         //load items
         game.load.image('equip', 'game/assets/equip.png');
 
-        for(var i = 1; i < 6; i++) {
-            var armor = 'armor' + i,
-                boots = 'boots' + i,
-                gloves = 'gloves' + i,
-                head = 'head' + i,
-                weapon = 'weapon' + i;
+        var armor,
+            boots,
+            gloves,
+            head,
+            weapon;
 
-            game.load.image(armor, 'assets/images/shopItems/' + armor + '.png');
-            game.load.image(boots, 'assets/images/shopItems/' + armor + '.png');
-            game.load.image(gloves, 'assets/images/shopItems/' + armor + '.png');
-            game.load.image(head, 'assets/images/shopItems/' + armor + '.png');
-            game.load.image(weapon, 'assets/images/shopItems/' + armor + '.png');
+        for(var i = 1; i < 26; i++) {
+            if (i < 6) {
+                armor = 'armor' + i;
+                game.load.image(armor, 'assets/images/shopItems/' + armor + '.png');
+            } else if (i < 11) {
+                boots = 'boots' + i;
+                game.load.image(boots, 'assets/images/shopItems/' + boots + '.png');
+            } else if (i < 16) {
+                gloves = 'gloves' + i;
+                game.load.image(gloves, 'assets/images/shopItems/' + gloves + '.png');
+            } else if (i < 21) {
+                head = 'head' + i;
+                game.load.image(head, 'assets/images/shopItems/' + head + '.png');
+            } else {
+                weapon = 'weapon' + i;
+                game.load.image(weapon, 'assets/images/shopItems/' + weapon + '.png');
+            }
         }
     },
 

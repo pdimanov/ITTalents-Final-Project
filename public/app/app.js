@@ -51,13 +51,17 @@ app.run(function($rootScope, $location, AuthService) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
         $rootScope.$emit('user.action');
         $rootScope.$broadcast('user.action');
-
+        console.log(current);
         if (next.$$route && next.$$route.authenticated && !AuthService.isAuth()) {
             $location.path('/login');
         }
 
         if (next.$$route && (next.$$route.templateUrl != 'app/views/about.html') && !(next.$$route.authenticated) && AuthService.isAuth()) {
             $location.path('/home');
+        }
+
+        if (current && current.$$route && current.$$route.originalPath == '/home') {
+            //game.destroy();
         }
     });
 });

@@ -5,7 +5,7 @@ var playState = {
         //game info
         $.ajax({
             method: 'GET',
-            url: 'api/hero',
+            url: 'api/hero/info',
             headers: {
                 'Accept' : 'application/json',
                 'X-Requested-With' : 'XmlHttpRequest',
@@ -30,7 +30,7 @@ var playState = {
         }
 
         //enable graphics
-        this.graphics = game.add.graphics();
+        //this.graphics = game.add.graphics();
 
         //fps
         game.time.advancedTiming = true;
@@ -118,10 +118,15 @@ var playState = {
                 console.log('talking..');
             }
         }, this);
+
+        this.location = 'http://localhost:8000/home';
     },
 
     update: function() {
         if (this.gameInfo['heroInfo'] != null) {
+
+            //if(this.location != window.location.href) killGame();
+
 
             this.player.checkInteraction(this.talk1);
 
@@ -145,8 +150,6 @@ var playState = {
             this.monsters[0].clearVelocity();
             this.monsters[0].movement(100);
         }
-
-
     },
 
     render: function() {
@@ -159,3 +162,7 @@ var playState = {
 
     }
 };
+
+function killGame() {
+    game.destroy();
+}

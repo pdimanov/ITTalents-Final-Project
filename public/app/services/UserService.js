@@ -43,7 +43,7 @@ angular.module('users')
             shopType: function(type) {
                 return $http({
                     method: 'GET',
-                    url: 'api/shop/' + type,
+                    url: 'api/shop/?slot-type=' + type,
                     headers: {
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
@@ -115,28 +115,26 @@ angular.module('users')
             },
             searchName: function(name) {
                 return $http({
-                    method: 'POST',
-                    url: 'api/search',
+                    method: 'GET',
+                    url: 'api/hero?search=' + name,
                     headers: {
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
                         'X-Api-Token': StorageService.getCookie()
-                    },
-                    data: {search: name}
+                    }
                 });
             },
             searchStats: function(stats) {
                 return $http({
-                    method: 'POST',
-                    url: 'api/statistics',
+                    method: 'GET',
+                    url: 'api/statistics?quantity=' + stats.quantity + '&direction='+ stats.direction +'&column=' + stats.column,
                     headers: {
                         'Accept' : 'application/json',
                         'Content-Type' : 'application/json',
                         'X-Requested-With' : 'XmlHttpRequest',
                         'X-Api-Token': StorageService.getCookie()
-                    },
-                    data: stats
+                    }
                 });
             }
         }

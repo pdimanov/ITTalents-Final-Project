@@ -95,4 +95,6 @@
         </div>
     </body>
 
+    <script src="node_modules/phaser/build/phaser.js"></script>
+
 </html>

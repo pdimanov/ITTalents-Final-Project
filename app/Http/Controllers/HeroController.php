@@ -230,7 +230,7 @@ class HeroController extends Controller
             $heroWithQuest->save();
         }
 
-        return Hero::with('quest.mob')->where('user_id', Auth::id())->first();
+        return Hero::with('quest.mob')->with('quest.items')->where('user_id', Auth::id())->first();
     }
 
     public function trackMobKill(Request $request)
@@ -243,18 +243,29 @@ class HeroController extends Controller
             $questOfHero = $heroWithQuest->quest()->first();
             $questKillTarget = $questOfHero->count;
             $questKillProgress = $questOfHero->pivot->progress;
+
             if($questKillProgress < $questKillTarget){
                 $questKillProgress++;
                 $heroWithQuest->quest()->sync([$questOfHero->id => ['progress' => $questKillProgress]], false);
             }
         }
 
+//        return $questKillProgress;
+
         $this->saveHeroLocation($request, $heroWithQuest);
         $heroWithQuest->gold += $mob->gold;
         $heroWithQuest->experience += $mob->experience;
         $heroWithQuest->save();
 
-        return Response::json(['message' => 'Successfully saved the kill result.'], 200);
+        $data['gold'] = $heroWithQuest->gold;
+        $data['experience'] = $heroWithQuest->experience;
+        if(isset($questKillProgress)){
+            $data['progress'] = $questKillProgress;
+        } else {
+            $data['progress'] = 0;
+        }
+
+        return Response::json(['message' => 'Successfully saved the kill result.', 'data' => $data], 200);
     }
 
     public function returnQuest(Request $request)

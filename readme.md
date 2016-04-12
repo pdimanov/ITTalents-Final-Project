@@ -143,7 +143,7 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 - **Route**: `localhost:8000/api/hero/kill`</br>
 **Method**: `PUT`</br>
 **Body example**: `{"mob_id":1,"map_x":200,"map_y":2944}`</br>
-**Response**: Returns a message that the hero's kill has been successfully saved, updating the hero's map position and updating the hero's quest progress if the mob is his quest's target. Also saves the gold and experience received from the mob.</br>
+**Response**: Returns a message that the hero's kill has been successfully saved, updating the hero's map position and updating the hero's quest progress if the mob is his quest's target. Also saves the gold and experience received from the mob. Returns a data with keys `gold`, `experience`, `progress`.</br>
 
 - **Route**: `localhost:8000/api/hero/returnQuest`</br>
 **Method**: `PUT`</br>

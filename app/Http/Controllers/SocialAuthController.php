@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocialAuthController extends Controller
 {
@@ -21,6 +22,7 @@ class SocialAuthController extends Controller
         } catch (Exception $e){
 
         }
+//        dd($user);
 
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser);

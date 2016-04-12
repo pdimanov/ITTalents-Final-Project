@@ -101,7 +101,7 @@ class HeroController extends Controller
             $data['heroInfo']['progress'] = 0;
         }
 
-        $allQuests = Quest::with('mob')->with('questgiver')->get();
+        $allQuests = Quest::with('mob')->with('questgiver')->with('items')->get();
         $allItems = Item::all();
 
 
@@ -314,7 +314,7 @@ class HeroController extends Controller
 
             $data = $this->getBasicDynamicVariables($heroWithQuest);
             $data['progress'] = 0;
-            $data['rewards'] = $questItemsRewardIds;
+            $data['inventory'] = $heroWithQuest->items()->get();
 
             return Response::json(['message' => 'The hero has successfully completed the quest.', 'data' => $data], 200);
         } else {

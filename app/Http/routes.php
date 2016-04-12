@@ -38,6 +38,7 @@ Route::group(['prefix' => 'api'],function(){
 
         // H E R O - Q U E S T S
         Route::put('/hero/kill', 'HeroController@trackMobKill');
+        Route::put('/hero/die', 'HeroController@heroDie');
         Route::put('/hero/acceptQuest', 'HeroController@acceptQuest');
         Route::put('/hero/returnQuest', 'HeroController@returnQuest');
 

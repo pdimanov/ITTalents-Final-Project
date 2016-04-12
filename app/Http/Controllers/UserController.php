@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         //If not validated correctly this JSON response will be sent with a 422 HTTP status code.
         $this->validate($request, [
-            'username' => 'required|min:2',
+            'username' => 'required|min:2|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'min:4|max:8|confirmed',
             'password_confirmation' => 'min:4|max:8|same:password'

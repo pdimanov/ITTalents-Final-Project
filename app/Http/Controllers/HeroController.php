@@ -45,16 +45,23 @@ class HeroController extends Controller
 
     public function index()
     {
-        $heroInfo = Hero::where('user_id', Auth::id())->with('items')->first();
+        $heroInfo = $this->getHeroWithItems();
 
         if(!$heroInfo){
             return Response::json(['error' => 'The user doesn\'t have a hero yet.'], 404);
         }
 
+        $data['heroInfo'] = $heroInfo;
+        if($heroInfo->quest){
+            $data['heroInfo']['progress'] = $heroInfo->quest()->first()->pivot->progress;
+        } else {
+            $data['heroInfo']['progress'] = 0;
+        }
+
         $allQuests = Quest::with('mob')->with('questgiver')->get();
         $allItems = Item::all();
 
-        $data['heroInfo'] = $heroInfo;
+
         $data['allQuests'] = $allQuests;
         $data['allItems'] = $allItems;
 
@@ -228,7 +235,9 @@ class HeroController extends Controller
             $heroWithQuest->quest()->attach($lastCompletedQuest + 1);
             $heroWithQuest->current_quest = $lastCompletedQuest + 1;
             $heroWithQuest->save();
-        }
+        } if ($lastCompletedQuest > 3){
+        return Response::json(['message' => 'The hero has already completed all the quests in the game. No quests left.'], 200);
+    }
 
         return Hero::with('quest.mob')->with('quest.items')->where('user_id', Auth::id())->first();
     }
@@ -250,7 +259,6 @@ class HeroController extends Controller
             }
         }
 
-//        return $questKillProgress;
 
         $this->saveHeroLocation($request, $heroWithQuest);
         $heroWithQuest->gold += $mob->gold;

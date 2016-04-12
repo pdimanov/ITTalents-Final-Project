@@ -19,18 +19,19 @@ var playState = {
 
         if (this.gameInfo['heroInfo'] == null) {
             var bg = game.add.image(0, 0, 'background');
-            var textMissing = game.add.text(0, 0, "You dont have a hero. Go to your profile to create one.", {
+            var textMissing = game.add.text(0, 0, "You dont have a hero.\nGo to your profile to create one.", {
                 font: "26px Verdana Bold",
                 fill: "#ffcc00",
                 boundsAlignH: "center",
-                boundsAlignV: "middle"
+                boundsAlignV: "middle",
+                align: 'center'
             });
             textMissing.setTextBounds(game.world.centerX - 100, 180, 200, 69);
             return;
         }
 
         //enable graphics
-        //this.graphics = game.add.graphics();
+        this.graphics = game.add.graphics();
 
         //fps
         game.time.advancedTiming = true;
@@ -97,6 +98,7 @@ var playState = {
         this.player = new Player(this.gameInfo['heroInfo']);
         //this.player.inventory.addItems([this.items[0], this.items[1]]);
         console.log('player', this.player);
+        this.player.interaction(this.npcs[0]);
 
 
         //collision with layers
@@ -114,16 +116,30 @@ var playState = {
 
         this.t = game.input.keyboard.addKey(Phaser.Keyboard.T);
         this.t.onDown.add(function() {
-            if (this.player.talk1) {
-                console.log('talking..');
+            if (_this.player.talk1 && !(_this.player.isTalking)) {
+                _this.player.isTalking = true;
+                _this.player.npcBox.revive();
+                console.log('npc box opened');
+
+            } else {
+                _this.player.isTalking = false;
+                _this.player.npcBox.kill();
+                console.log('npc box closed');
             }
         }, this);
+
+        //console.log(this.monsters[0].sprite);
+        //console.log(this.player.sprite.children[0]);
+
+
 
         this.location = 'http://localhost:8000/home';
     },
 
     update: function() {
         if (this.gameInfo['heroInfo'] != null) {
+
+            //overlap(this.player.sprite.children[0], this.monsters[0].sprite);
 
             //if(this.location != window.location.href) killGame();
 
@@ -147,7 +163,7 @@ var playState = {
             this.player.clearVelocity();
             this.player.movement(100);
 
-            this.monsters[0].clearVelocity();
+            //this.monsters[0].clearVelocity();
             this.monsters[0].movement(100);
         }
     },
@@ -165,4 +181,43 @@ var playState = {
 
 function killGame() {
     game.destroy();
+}
+
+function AcceptQuest() {
+    $.ajax({
+        method: 'PUT',
+        url: 'api/hero/acceptQuest',
+        headers: {
+            'Accept' : 'application/json',
+            'X-Requested-With' : 'XmlHttpRequest',
+            'X-Api-Token': $.cookie('user_token')
+        },
+        async: false
+    }).done(function(response) {
+        console.log(response);
+        playState.player.npcBox.kill();
+    });
+}
+
+function overlap(player, mob) {
+    if (Phaser.Rectangle.intersects(player.getBounds(), mob.getBounds())) {
+        console.log('overlapping');
+        mob.destroy();
+        game.time.events.add(Phaser.Timer.SECOND * 3, this.start, this).autoDestroy = true;
+    }
+}
+
+function killMob(data) {
+    $.ajax({
+        method: 'PUT',
+        url: 'api/hero/kill',
+        headers: {
+            'Accept' : 'application/json',
+            'X-Requested-With' : 'XmlHttpRequest',
+            'X-Api-Token': $.cookie('user_token')
+        },
+        data: data
+    }).done(function(response) {
+        console.log(response);
+    });
 }

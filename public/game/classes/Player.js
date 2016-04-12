@@ -13,13 +13,17 @@ function Player(json) {
     this.completedQuest = json.completedQuest;
     this.currentQuest = json.currentQuest;
     this.items = json.items;
+    this.isTalking = false;
+
+    this.progress = json.progress | 0;
 
     this.hud([
         [ 10, 450, 'LVL', this.level],
         [ 10, 475, 'EXP', this.exp],
         [ 10, 500, 'HP', this.health],
         [ 10, 525, 'ATK', this.attack],
-        [ 10, 550, 'DEF', this.attack]
+        [ 10, 550, 'DEF', this.attack],
+        [10, 575, 'PROGRESS', this.progress]
     ]);
 
 
@@ -32,7 +36,12 @@ function Player(json) {
     this.cursorKeys = game.input.keyboard.createCursorKeys();
     this.g = game.input.keyboard.addKey(Phaser.Keyboard.G);
     this.i = game.input.keyboard.addKey(Phaser.Keyboard.I);
-    this.o = game.input.keyboard.addKey(Phaser.Keyboard.O);
+
+
+    this.npcBox = game.add.image(game.camera.x, game.camera.y, 'npcbox');
+    this.npcBox.fixedToCamera = true;
+    this.npcBox.kill();
+
 
 
     this.animations();
@@ -45,6 +54,23 @@ function Player(json) {
         _this.sprite.children[0].revive();
         _this.sprite.children[0].play('doSlash');
 
+        if (Phaser.Rectangle.intersects(_this.sprite.children[0].getBounds(), playState.monsters[0].sprite.getBounds())) {
+            playState.monsters[0].sprite.destroy();
+
+            game.time.events.add(Phaser.Timer.SECOND * 4, function() {
+                playState.monsters[0].spawn();
+                playState.monsters[0].physics();
+                playState.monsters[0].animations();
+                playState.monsters[0].healthBar();
+                //playState.monsters[0].sprite.revive();
+            }, this).autoDestroy = true;
+
+            killMob({
+                'mob_id': playState.monsters[0].id,
+                'map_x': _this.x,
+                'map_y': _this.y
+            });
+        }
     });
     this.g.onUp.add(function() {
         _this.sprite.children[0].animations.stop();
@@ -55,10 +81,42 @@ function Player(json) {
         _this.inventory.toggle();
     });
 
-    this.o.onDown.add(function () {
 
-    });
 }
+
+Player.prototype.interaction = function(npc) {
+    var _this = this;
+    var quote = game.add.text(0, 0, npc.quote, {
+        font: "20px Verdana Bold",
+        fill: "#ffcc00",
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+        align: 'center'
+    });
+    quote.setTextBounds(0, 50, 800, 50);
+
+    var questName = game.add.text(0, 0, 'Quest: ' + npc.quest.name + '\n' +
+        npc.quest.description + '\n Count: ' +
+        npc.quest.count + '\nREWARDS:\n' + 'gold - ' +
+        npc.quest.gold + '\nexp -' +
+        npc.quest.experience, {
+        font: "18px Verdana Bold",
+        fill: "#ffcc00",
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+        align: 'center'
+    });
+    questName.setTextBounds(0, 100, 800, 400);
+
+    var button = game.add.button(370, 500, 'accept', AcceptQuest, this);
+
+
+
+
+    this.npcBox.addChild(quote);
+    this.npcBox.addChild(questName);
+    this.npcBox.addChild(button);
+};
 
 Player.prototype.checkInteraction = function(talk1) {
     this.talk1 = !!(talk1.contains(this.sprite.x + 16, this.sprite.y + 16));
@@ -85,6 +143,7 @@ Player.prototype.clearVelocity = function() {
 };
 
 Player.prototype.movement = function(integer) {
+
     if (this.cursorKeys.left.isDown) {
         this.sprite.children[0].direction = 'left';
         this.sprite.body.velocity.x = -integer;
@@ -104,6 +163,7 @@ Player.prototype.movement = function(integer) {
     } else {
         this.sprite.animations.stop();
     }
+    this.checkAttackPosition(this.sprite.children[0]);
 };
 
 Player.prototype.hud = function(array) {

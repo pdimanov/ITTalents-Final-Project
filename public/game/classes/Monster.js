@@ -1,5 +1,6 @@
 function Monster(json) {
     //console.log(json);
+    this.id = json.id;
     this.name = json.name;
     this.health = json.health;
     this.attack = json.attack;
@@ -17,6 +18,7 @@ function Monster(json) {
     this.spawn();
     this.physics();
     this.animations();
+    this.healthBar();
 
     this.keys = {
         "w": game.input.keyboard.addKey(Phaser.Keyboard.W),
@@ -45,7 +47,8 @@ Monster.prototype.die = function() {
 };
 
 Monster.prototype.healthBar = function() {
-
+    var bar = game.add.image(0, -10, 'healthbar');
+    this.sprite.addChild(bar);
 };
 
 Monster.prototype.animations = function() {

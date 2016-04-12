@@ -9,6 +9,9 @@ var loadState = {
         game.load.image('inventory', 'game/assets/inventory.png');
         game.load.image('itembox', 'game/assets/itembox.png');
         game.load.image('npcbox', 'game/assets/npcbox.png');
+        game.load.image('accept', 'game/assets/accept.png');
+        game.load.image('complete', 'game/assets/accept.png');
+        game.load.image('healthbar', 'game/assets/healthbar.png');
 
         game.load.spritesheet('textbox', 'game/assets/textbox-sprites.png', 200, 69);
         game.load.spritesheet('slash', 'game/assets/slash.png', 49, 27);

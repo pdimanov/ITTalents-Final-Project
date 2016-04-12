@@ -73,6 +73,19 @@ class HeroController extends Controller
         return $data;
     }
 
+    private function changeHeroStats($hero, $item, $action)
+    {
+        if($action === 'equip'){
+            $hero->attack += $item->attack;
+            $hero->defense += $item->defense;
+            $hero->save();
+        } else if ($action === 'unequip'){
+            $hero->attack -= $item->attack;
+            $hero->defense -= $item->defense;
+            $hero->save();
+        }
+    }
+
     public function index()
     {
         $heroInfo = $this->getHeroWithItems();
@@ -198,16 +211,18 @@ class HeroController extends Controller
 
         $item = $hero->items()->where('id', $itemId)->first();
         $slotType = $item->slot_type;
-        $itemsFromSameSlotTypeWhichAreInInventory = $hero->items()->where('slot_type', $slotType)->get();
+        $itemsFromSameSlotTypeInInventory = $hero->items()->where('slot_type', $slotType)->get();
 
-        for($currentItem = 0; $currentItem < count($itemsFromSameSlotTypeWhichAreInInventory); $currentItem++){
-            if($itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->pivot->equipped){
-                $alreadyEquippedItemID = $itemsFromSameSlotTypeWhichAreInInventory[$currentItem]->id;
+        for($currentItem = 0; $currentItem < count($itemsFromSameSlotTypeInInventory); $currentItem++){
+            if($itemsFromSameSlotTypeInInventory[$currentItem]->pivot->equipped){
+                $alreadyEquippedItemID = $itemsFromSameSlotTypeInInventory[$currentItem]->id;
                 $hero->items()->sync([$alreadyEquippedItemID => ['equipped' => 0]], false);
+                $this->changeHeroStats($hero, $itemsFromSameSlotTypeInInventory[$currentItem], 'unequip');
             }
         }
 
         $hero->items()->sync([$itemId => ['equipped' => 1]], false);
+        $this->changeHeroStats($hero, $item, 'equip');
 
         return Response::json(['message' => 'Item equipped successfully.', 'data' => $this->getHeroWithItems()], 200);
     }

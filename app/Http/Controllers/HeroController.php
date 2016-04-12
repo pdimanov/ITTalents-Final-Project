@@ -227,7 +227,7 @@ class HeroController extends Controller
         return Response::json(['message' => 'Item equipped successfully.', 'data' => $this->getHeroWithItems()], 200);
     }
 
-    public function acceptQuest()
+    public function acceptQuest(Request $request)
     {
         $heroWithQuest = $this->getHeroWithQuest();
         $lastCompletedQuest = $heroWithQuest->completed_quest;
@@ -243,9 +243,10 @@ class HeroController extends Controller
             $heroWithQuest->quest()->attach($lastCompletedQuest + 1);
             $heroWithQuest->current_quest = $lastCompletedQuest + 1;
             $heroWithQuest->save();
+            $this->saveHeroLocation($heroWithQuest, $request);
         } if ($lastCompletedQuest > 3){
-        return Response::json(['message' => 'The hero has already completed all the quests in the game. No quests left.'], 200);
-    }
+            return Response::json(['message' => 'The hero has already completed all the quests in the game. No quests left.'], 200);
+        }
 
         return Hero::with('quest.mob')->with('quest.items')->where('user_id', Auth::id())->first();
     }

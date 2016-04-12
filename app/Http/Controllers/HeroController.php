@@ -68,7 +68,10 @@ class HeroController extends Controller
         $data['experience'] = $hero->experience;
         $data['level'] = $hero->level;
         $data['experience_to_next_level'] = $hero->experience_to_next_level;
+        $data['health'] = $hero->health;
         $data['max_health'] = $hero->max_health;
+        $data['map_x'] = $hero->map_x;
+        $data['map_y'] = $hero->map_y;
 
         return $data;
     }
@@ -271,6 +274,7 @@ class HeroController extends Controller
 
         $this->saveHeroLocation($heroWithQuest, $request);
         $this->saveHeroLevelAndExperience($heroWithQuest, $mob->experience);
+        $heroWithQuest->health = $request->input('health');
         $heroWithQuest->gold += $mob->gold;
         $heroWithQuest->save();
 
@@ -308,6 +312,7 @@ class HeroController extends Controller
             $heroWithQuest->completed_quest = $questOfHero->id;
             $heroWithQuest->current_quest = null;
             $heroWithQuest->gold += $questOfHero->gold;
+            $heroWithQuest->health = $heroWithQuest->max_health;
             $this->saveHeroLevelAndExperience($heroWithQuest, $questOfHero->experience);
             $this->saveHeroLocation($heroWithQuest, $request);
             $heroWithQuest->save();
@@ -320,5 +325,19 @@ class HeroController extends Controller
         } else {
             return Response::json(['message' => 'The hero needs to kill more mobs.'], 200);
         }
+    }
+
+    public function heroDie()
+    {
+        $hero = $this->getHero();
+        $hero->gold -= $hero->gold / 2;
+        $hero->map_x = 200;
+        $hero->map_y = 2944;
+        $hero->health = $hero->max_health;
+        $hero->save();
+
+        $data = $this->getBasicDynamicVariables();
+
+        return Response::json(['message' => 'Hero died and respawned.', 'data' => $data]);
     }
 }

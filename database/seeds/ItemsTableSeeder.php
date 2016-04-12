@@ -62,7 +62,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 5,
             'slot_type' => 'boots',
             'price' => 30,
-            'pic' => 'assets/images/shopItems/boots1.png'
+            'pic' => 'assets/images/shopItems/boots6.png'
         ]);
 
         DB::table('items')->insert([
@@ -71,7 +71,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 10,
             'slot_type' => 'boots',
             'price' => 70,
-            'pic' => 'assets/images/shopItems/boots2.png'
+            'pic' => 'assets/images/shopItems/boots7.png'
         ]);
 
         DB::table('items')->insert([
@@ -80,7 +80,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 20,
             'slot_type' => 'boots',
             'price' => 150,
-            'pic' => 'assets/images/shopItems/boots3.png'
+            'pic' => 'assets/images/shopItems/boots8.png'
         ]);
 
         DB::table('items')->insert([
@@ -89,7 +89,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 30,
             'slot_type' => 'boots',
             'price' => 220,
-            'pic' => 'assets/images/shopItems/boots4.png'
+            'pic' => 'assets/images/shopItems/boots9.png'
         ]);
 
         DB::table('items')->insert([
@@ -98,7 +98,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 40,
             'slot_type' => 'boots',
             'price' => 280,
-            'pic' => 'assets/images/shopItems/boots5.png'
+            'pic' => 'assets/images/shopItems/boots10.png'
         ]);
 
         DB::table('items')->insert([
@@ -107,7 +107,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 5,
             'slot_type' => 'gloves',
             'price' => 30,
-            'pic' => 'assets/images/shopItems/gloves1.png'
+            'pic' => 'assets/images/shopItems/gloves11.png'
         ]);
 
         DB::table('items')->insert([
@@ -116,7 +116,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 10,
             'slot_type' => 'gloves',
             'price' => 70,
-            'pic' => 'assets/images/shopItems/gloves2.png'
+            'pic' => 'assets/images/shopItems/gloves12.png'
         ]);
 
         DB::table('items')->insert([
@@ -125,7 +125,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 20,
             'slot_type' => 'gloves',
             'price' => 150,
-            'pic' => 'assets/images/shopItems/gloves3.png'
+            'pic' => 'assets/images/shopItems/gloves13.png'
         ]);
 
         DB::table('items')->insert([
@@ -134,7 +134,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 30,
             'slot_type' => 'gloves',
             'price' => 220,
-            'pic' => 'assets/images/shopItems/gloves4.png'
+            'pic' => 'assets/images/shopItems/gloves14.png'
         ]);
 
         DB::table('items')->insert([
@@ -143,7 +143,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 40,
             'slot_type' => 'gloves',
             'price' => 280,
-            'pic' => 'assets/images/shopItems/gloves5.png'
+            'pic' => 'assets/images/shopItems/gloves15.png'
         ]);
 
         DB::table('items')->insert([
@@ -152,7 +152,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 10,
             'slot_type' => 'head',
             'price' => 50,
-            'pic' => 'assets/images/shopItems/head1.png'
+            'pic' => 'assets/images/shopItems/head16.png'
         ]);
 
         DB::table('items')->insert([
@@ -161,7 +161,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 20,
             'slot_type' => 'head',
             'price' => 100,
-            'pic' => 'assets/images/shopItems/head2.png'
+            'pic' => 'assets/images/shopItems/head17.png'
         ]);
 
         DB::table('items')->insert([
@@ -170,7 +170,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 30,
             'slot_type' => 'head',
             'price' => 150,
-            'pic' => 'assets/images/shopItems/head3.png'
+            'pic' => 'assets/images/shopItems/head18.png'
         ]);
 
         DB::table('items')->insert([
@@ -179,7 +179,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 35,
             'slot_type' => 'head',
             'price' => 220,
-            'pic' => 'assets/images/shopItems/head4.png'
+            'pic' => 'assets/images/shopItems/head19.png'
         ]);
 
         DB::table('items')->insert([
@@ -188,7 +188,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 40,
             'slot_type' => 'head',
             'price' => 270,
-            'pic' => 'assets/images/shopItems/head5.png'
+            'pic' => 'assets/images/shopItems/head20.png'
         ]);
 
         DB::table('items')->insert([
@@ -197,7 +197,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 0,
             'slot_type' => 'weapon',
             'price' => 50,
-            'pic' => 'assets/images/shopItems/weapon1.png'
+            'pic' => 'assets/images/shopItems/weapon21.png'
         ]);
 
         DB::table('items')->insert([
@@ -206,7 +206,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 0,
             'slot_type' => 'weapon',
             'price' => 80,
-            'pic' => 'assets/images/shopItems/weapon2.png'
+            'pic' => 'assets/images/shopItems/weapon22.png'
         ]);
 
         DB::table('items')->insert([
@@ -215,7 +215,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 0,
             'slot_type' => 'weapon',
             'price' => 150,
-            'pic' => 'assets/images/shopItems/weapon3.png'
+            'pic' => 'assets/images/shopItems/weapon23.png'
         ]);
 
         DB::table('items')->insert([
@@ -224,7 +224,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 10,
             'slot_type' => 'weapon',
             'price' => 220,
-            'pic' => 'assets/images/shopItems/weapon4.png'
+            'pic' => 'assets/images/shopItems/weapon24.png'
         ]);
 
         DB::table('items')->insert([
@@ -233,7 +233,7 @@ class ItemsTableSeeder extends Seeder
             'defense' => 15,
             'slot_type' => 'weapon',
             'price' => 300,
-            'pic' => 'assets/images/shopItems/weapon5.png'
+            'pic' => 'assets/images/shopItems/weapon25.png'
         ]);
     }
 }

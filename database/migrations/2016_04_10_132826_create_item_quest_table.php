@@ -13,8 +13,8 @@ class CreateItemQuestTable extends Migration
     public function up()
     {
         Schema::create('item_quest', function (Blueprint $table) {
-            $table->integer('quest_id')->unsigned()->index();
-            $table->integer('item_id')->unsigned()->index();
+            $table->integer('quest_id')->unsigned();
+            $table->integer('item_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('quest_id')

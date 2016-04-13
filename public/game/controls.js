@@ -13,7 +13,7 @@ var controlsState = {
         });
         this.textControls.setTextBounds(game.world.centerX - 100, 400, 200, 69);
 
-        this.textControls = game.add.text(0, 0, "Arrow Keys - Player movement\nA - Attack\nT - Talk\nI - Inventory\nQ - Quests", {
+        this.textControls = game.add.text(0, 0, "Arrow Keys - Player movement\nG - Attack\nT - Talk\nI - Inventory", {
             font: "26px Verdana Bold",
             fill: "#ffcc00",
             boundsAlignH: "center",

@@ -64,7 +64,7 @@ class UserController extends Controller
 
     public function uploadAvatar(Request $request) {
         $this->validate($request,[
-            'image' => 'image|mimes:jpeg,bmp,png|max:1024',
+            'image' => 'image|mimes:jpeg,png,gif|max:1024',
         ]);
         $file = Input::file('image');
         $filename = Auth::user()->username . '-avatar.png';

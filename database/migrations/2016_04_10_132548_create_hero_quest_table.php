@@ -13,8 +13,8 @@ class CreateHeroQuestTable extends Migration
     public function up()
     {
         Schema::create('hero_quest', function (Blueprint $table) {
-            $table->integer('hero_id')->unsigned()->index();
-            $table->integer('quest_id')->unsigned()->index();
+            $table->integer('hero_id')->unsigned();
+            $table->integer('quest_id')->unsigned();
             $table->integer('progress')->unsigned();
             $table->timestamps();
 

@@ -336,7 +336,7 @@ class HeroController extends Controller
         $hero->health = $hero->max_health;
         $hero->save();
 
-        $data = $this->getBasicDynamicVariables();
+        $data = $this->getBasicDynamicVariables($hero);
 
         return Response::json(['message' => 'Hero died and respawned.', 'data' => $data]);
     }

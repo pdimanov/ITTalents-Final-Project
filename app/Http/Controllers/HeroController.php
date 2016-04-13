@@ -176,7 +176,7 @@ class HeroController extends Controller
 
     public function sellItem(Request $request)
     {
-        $item = Item::where('id', $request->input('id'))->first();
+        $item = Item::findOrFail($request->input('id'));
         $hero = Hero::whereHas('items', function($query){
             global $request;
             $query->where('item_id', $request->input('id'));
@@ -330,7 +330,7 @@ class HeroController extends Controller
     public function heroDie()
     {
         $hero = $this->getHero();
-        $hero->gold -= $hero->gold / 2;
+        $hero->gold -= floor($hero->gold / 2);
         $hero->map_x = 200;
         $hero->map_y = 2944;
         $hero->health = $hero->max_health;

@@ -16,7 +16,7 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 
 ## Setting up
 
-- **If you are on XAMPP you need to comment out `;extension=php_fileinfo.dll` from the php.ini file located in the php folder in XAMPP by removing the `;`.** This will allow the composer to install properly Intervention/Image, the extension used for the uploading of the users' avatars. Make sure to restart XAMPP after uncommenting.</br></br>
+- **If you are on XAMPP you need to comment out `;extension=php_fileinfo.dll` from the php.ini file located in the php folder in XAMPP by removing the `;`.** This will allow the composer to install properly Intervention Image, the extension used for the uploading of the users' avatars. Make sure to restart XAMPP after uncommenting.</br></br>
 - Open the main project folder in a console and run `composer install`.</br>
 - Once it's finished, go to the **/public** folder with your console and run `npm install`.</br>
 - Get back to your main project folder and rename your **.env.example** file to **.env**.</br>
@@ -56,24 +56,25 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 ## Routing and use of the API
 
 - In the console with your main project folder as its path, you can write the command `php artisan route:list` which would give you all the routes with their methods, URIs and actions.</br>
+
 - **Route**: `localhost:8000/api/user/register`</br>
 **Method**: `POST`</br>
 **Body example**: `{"username":"ivancho","email":"ivancho@abv.bg","password":"ivancho","password_confirmation":"ivancho"}`</br>
-**Response**: Returns the new user's data. Returns errors if some of the fields don't pass the validation.</br></br>
+**Response**: Returns the new user's data - username, email, api_token, id. Returns errors if some of the fields don't pass the validation.</br></br>
 
 - **Route**: `localhost:8000/api/user/login`</br>
 **Method**: `POST`</br>
 **Body example**: `{"email":"ivancho@abv.bg","password":"ivancho"}`</br>
-**Response**: Returns the user's data. Returns errors if some of the fields don't pass the validation or such user doesn't exist.</br></br>
+**Response**: Returns the user's data. Returns errors if some of the fields don't pass the validation or if such a user doesn't exist.</br></br>
 
 - **Route**: `localhost:8000/api/hero`</br>
 **Method**: `POST`</br>
 **Body example**: `{"name":"Adriancho","gender":"male"}`</br>
-**Response**: Returns a message with the new hero's data. Returns errors if some of the fields don't pass the validation, token isn't given such user doesn't exist.</br></br>
+**Response**: Returns a message that a new hero has been successfully created and a data with the user's and hero's basic information. Returns errors if some of the fields don't pass the validation, token isn't given such user doesn't exist.</br></br>
 
 - **Route**: `localhost:8000/api/hero/info`</br>
 **Method**: `GET`</br>
-**Response**: Returns a message with all the hero's data and the surrounding world(quests, quest givers, mobs, all items). Returns errors if some of the fields don't pass the validation, token isn't given, such user doesn't exist or the user doesn't have a hero yet.</br></br>
+**Response**: Returns all the hero's data and the surrounding world's data(quests, quest givers, mobs, quest rewards amd all items). Returns errors if a token isn't given, if such a user doesn't exist or if the user doesn't have a hero yet.</br></br>
 
 - **Route**: `localhost:8000/api/hero`</br>
 **Method**: `DELETE`</br>
@@ -82,12 +83,12 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 - **Route**: `localhost:8000/api/hero/buy`</br>
 **Method**: `POST`</br>
 **Body example**: `{"id":2}`</br>
-**Response**: Returns a message if the hero has successfully bought an item or already has this item. Returns an error if the hero doesn't have enough money or such an item doesn't exist.</br></br>
+**Response**: Returns a message if the hero has successfully bought an item and the item's info or returns a message if the hero already has this item. Returns an error if the hero doesn't have enough gold or if such an item doesn't exist.</br></br>
 
 - **Route**: `localhost:8000/api/hero/sell`</br>
 **Method**: `POST`</br>
 **Body example**: `{"id":2}`</br>
-**Response**: Returns a message if the hero has successfully sold an item. Returns an error if such an item doesn't exist.</br></br>
+**Response**: Returns a message if the hero has successfully sold an item. Returns an error if such an item doesn't exist or if the hero's doesn't have it in his inventory.</br></br>
 
 - **Route**: `localhost:8000/api/save/location`</br>
 **Method**: `PUT`</br>
@@ -102,17 +103,17 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 
 - **Route**: `localhost:8000/api/user`</br>
 **Method**: `GET`</br>
-**Response**: Returns the user's username, avatar and email and basic information about the user's hero. Returns only the user's username, avatar and email and a null value for the hero's name if the user doesn't have a hero.</br></br>
+**Response**: Returns the user's username, avatar, email and basic information about the user's hero. Returns only the user's username, avatar and email and a null value for the hero's name if the user doesn't have a hero.</br></br>
 
 - **Route**: `localhost:8000/api/user/upload`</br>
 **Method**: `POST`</br>
 **Body**: The key used for this method is "image" and the method accepts an image with extensions png, bmp, jpeg. The max size allowed is 1024KB.</br>
-**Response**: Returns the route for the user's avatar. There is a default route which all users who still haven't uploaded an avatar get. Otherwise they get the route for their own avatar.</br></br>
+**Response**: Returns the route for the user's avatar. There is a default route for all users who still haven't uploaded an avatar yet. The avatar is resized to 150x150 pixels. Otherwise they get the route for their own avatar.</br></br>
 
 - **Route**: `localhost:8000/api/hero`</br>
 **Method**: `GET`</br>
 **Parameter example**: `?search=ivan`</br>
-**Response**: Returns a message with all heroes who have this bit in their names. Returns an error if no hero has this bit in their name.</br></br>
+**Response**: Returns a message with all heroes who have the parameter's value in their names. Returns an error if no hero has this parameter's value in their name.</br></br>
 
 - **Route**: `localhost:8000/api/statistics`</br>
 **Method**: `GET`</br>
@@ -128,14 +129,14 @@ X-Api-Token : zD7funJLtfqY4Ad85TZn1jB2yoznyIhdYzQjzNAYOToXc9ftUTX5euBasvH3
 
 - **Route**: `localhost:8000/api/hero/acceptQuest`</br>
 **Method**: `PUT`</br>
-**Response**: Returns the hero's info with the new accepted quest's info and the mob required to kill. Returns an error if the hero hasn't completed his current quest.</br>
+**Response**: Returns the hero's info with the new accepted quest's info, quest's reward and info about the mob required to get killed. Returns an error if the hero hasn't completed his current quest yet.</br>
 
 - **Route**: `localhost:8000/api/hero/kill`</br>
 **Method**: `PUT`</br>
-**Body example**: `{"mob_id":1,"map_x":200,"map_y":2944}`</br>
-**Response**: Returns a message that the hero's kill has been successfully saved, updating the hero's map position and updating the hero's quest progress if the mob is his quest's target. Also saves the gold and experience received from the mob. Returns a data with keys `gold`, `experience`, `progress`.</br>
+**Body example**: `{"mob_id":1,"map_x":200,"map_y":2944,"health":100}`</br>
+**Response**: Returns a message that the hero's kill has been successfully saved, updating the hero's map position, updating the hero's quest progress if the mob is his quest's target and hero's health. Also saves the gold and the experience received from the mob. Hero gains level if the experience needed for level up is reached. Returns a data with keys `gold`, `experience`, `level`, `experience_to_next_level`, `health`, `map_x`, `map_y` and `progress`.</br>
 
 - **Route**: `localhost:8000/api/hero/returnQuest`</br>
 **Method**: `PUT`</br>
 **Body example**: `{"map_x":200,"map_y":2944}`</br>
-**Response**: Returns a message that the hero has successfully completed the quest, saving the gold and experience from the quest, saving the hero's location and updating his status about the hero's quests. Returns a message if the hero needs to kills more mobs in order to complete the quest. Returns an error if the hero doesn't have a quest.</br>
+**Response**: Returns a message that the hero has successfully completed the quest, saving the gold and experience from the quest, saving the hero's location, healing the hero to his full health and updating his status about the hero's quests. Returns a message if the hero needs to kills more creeps in order to complete the quest. Returns an error if the hero doesn't have a quest.</br>

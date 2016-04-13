@@ -20,7 +20,7 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         $slot_type = $request->input('slot-type');
-        
+
         if(Auth::user()->hero()->first()){
             $data['heroGold'] = $this->getHeroGold();
         }

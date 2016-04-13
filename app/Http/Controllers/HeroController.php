@@ -168,7 +168,10 @@ class HeroController extends Controller
             $hero->gold -= $item->price;
             $hero->save();
 
-            return Response::json(['message' => 'Successfully bought an item.', 'item' => $item], 200);
+            $data['item'] = $item;
+            $data['heroGold'] = $hero->gold;
+
+            return Response::json(['message' => 'Successfully bought an item.', 'data' => $data], 200);
         } else {
             return Response::json(['error' => 'The hero doesn\'t have enough gold.'], 200);
         }

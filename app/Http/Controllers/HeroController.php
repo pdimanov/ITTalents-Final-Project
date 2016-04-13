@@ -283,7 +283,7 @@ class HeroController extends Controller
         if(isset($questKillProgress)){
             $data['progress'] = $questKillProgress;
         } else {
-            $data['progress'] = 0;
+            $data['progress'] = $questOfHero->pivot->progress;
         }
 
         return Response::json(['message' => 'Successfully saved the kill result.', 'data' => $data], 200);

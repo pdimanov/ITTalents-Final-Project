@@ -23,20 +23,20 @@ function Player(json) {
     this.healNext = 0;
 
 
-    var style = {font: "20px Arial", fill: "black"};
-    this.levelHUD = game.add.text(10, 425, 'LVL: ' + this.level, style);
-    this.expHUD = game.add.text(10, 450, 'EXP: ' + this.exp, style);
-    this.healthHUD = game.add.text(10, 475, 'HP: ' + this.health, style);
-    this.attackHUD = game.add.text(10, 500, 'ATK: ' + this.attack, style);
-    this.defenseHUD = game.add.text(10, 525, 'DEF: ' + this.defense, style);
-    this.progressHUD = game.add.text(10, 550, 'PROGRESS: ' + this.progress, style);
-    this.goldHUD = game.add.text(10, 575, 'GOLD: ' + this.gold, style);
+    var style = {font: "18px Calibri", fill: "#ffcc00"};
+    this.bgHud = game.add.image(0, 430, 'statgui');
+    this.levelHUD = game.add.text(20, 455, 'LVL: ' + this.level, style);
+    this.expHUD = game.add.text(20, 475, 'EXP: ' + this.exp, style);
+    this.healthHUD = game.add.text(20, 495, 'HP: ' + this.health + '/' + this.maxHealth, style);
+    this.attackHUD = game.add.text(20, 515, 'ATK: ' + this.attack, style);
+    this.defenseHUD = game.add.text(20, 535, 'DEF: ' + this.defense, style);
+    this.goldHUD = game.add.text(20, 555, 'GOLD: ' + this.gold, style);
+    this.bgHud.fixedToCamera = true;
     this.levelHUD.fixedToCamera = true;
     this.expHUD.fixedToCamera = true;
     this.healthHUD.fixedToCamera = true;
     this.attackHUD.fixedToCamera = true;
     this.defenseHUD.fixedToCamera = true;
-    this.progressHUD.fixedToCamera = true;
     this.goldHUD.fixedToCamera = true;
 
     this.talk1 = false;
@@ -44,9 +44,12 @@ function Player(json) {
     this.talk3 = false;
     this.talk4 = false;
 
+    this.questHud();
+
     this.sprite = game.add.sprite(this.x, this.y, 'player-' + this.gender);
     this.inventory = new Inventory();
     this.inventory.addItems(this.items);
+
 
     this.npcBox = game.add.image(game.camera.x, game.camera.y, 'back');
     this.npcBox.fixedToCamera = true;
@@ -59,7 +62,46 @@ function Player(json) {
     this.camera();
     this.addAttack();
 
+
 }
+
+Player.prototype.questHud = function() {
+    this.questWindow = game.add.image(570, 10, 'gui');
+    var name = game.add.text(0, 0, '', {
+        font: "25px BlackChancery",
+        fill: "#ffcc00",
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 210
+    });
+    name.setTextBounds(0, 20, 224, 40);
+    var progress = game.add.text(0, 0, '', {
+        font: "20px BlackChancery",
+        fill: "#ffcc00",
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+        align: 'center'
+    });
+    progress.setTextBounds(0, 70, 224, 40);
+
+    this.questWindow.addChild(name);
+    this.questWindow.addChild(progress);
+
+    this.questWindow.fixedToCamera = true;
+    console.log('questHud ready');
+};
+
+Player.prototype.questHudUpdate = function() {
+    if (this.quest) {
+        this.questWindow.revive();
+        this.questWindow.children[0].setText('Quest: ' + this.quest.name);
+        this.questWindow.children[1].setText('Progress: ' + this.progress + '/' + this.quest.count);
+    } else {
+        this.questWindow.kill();
+    }
+};
 
 Player.prototype.passiveHeal = function() {
     if (game.time.now > this.healNext) {
@@ -212,7 +254,7 @@ Player.prototype.updateInteraction = function(npc) {
     this.npcBox.children[2].setText('Quest: ' + npc.quest.name + '\n' +
         npc.quest.description + '\n Kill count: ' +
         npc.quest.count + '\nREWARDS:\n' +
-        npc.quest.gold + ' gold\nexp -' +
+        npc.quest.gold + ' gold\n' +
         npc.quest.experience + ' exp');
     var array = npc.quest.items;
     var string = '';
@@ -308,10 +350,9 @@ Player.prototype.movement = function(integer) {
 Player.prototype.updateHUD = function() {
     this.levelHUD.setText('LVL: ' + this.level);
     this.expHUD.setText('EXP: ' + this.exp);
-    this.healthHUD.setText('HP: ' + this.health);
+    this.healthHUD.setText('HP: ' + this.health + '/' + this.maxHealth);
     this.attackHUD.setText('ATK: ' + this.attack);
     this.defenseHUD.setText('DEF: ' + this.defense);
-    this.progressHUD.setText('PROGRESS: ' + this.progress);
     this.goldHUD.setText('GOLD: ' + this.gold);
 };
 

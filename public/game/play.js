@@ -136,6 +136,7 @@ var playState = {
             //if(this.location != window.location.href) killGame();
 
             this.player.updateHUD();
+            this.player.questHudUpdate();
             this.player.checkInteraction(this.talk1, 1, this.npcs[0]);
             this.player.checkInteraction(this.talk2, 2, this.npcs[1]);
             this.player.checkInteraction(this.talk3, 3, this.npcs[2]);
@@ -198,6 +199,7 @@ function AcceptQuest() {
         toggleTalk();
         playState.player.quest = response.quest[0];
         playState.player.currentQuest = response.current_quest;
+        playState.player.questWindow.revive();
     });
 }
 
@@ -214,6 +216,7 @@ function CompleteQuest() {
         async: false,
         data: JSON.stringify({"map_x":playState.player.sprite.x,"map_y":playState.player.sprite.y})
     }).done(function(response) {
+        playState.player.questWindow.kill();
         console.log(response);
         toggleTalk();
 

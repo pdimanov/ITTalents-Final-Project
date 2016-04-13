@@ -168,9 +168,9 @@ Player.prototype.interaction = function(npc) {
 
     var questName = game.add.text(0, 0, 'Quest: ' + npc.quest.name + '\n' +
         npc.quest.description + '\n Kill count: ' +
-        npc.quest.count + '\nREWARDS:\n' + 'gold - ' +
-        npc.quest.gold + '\nexp -' +
-        npc.quest.experience, {
+        npc.quest.count + '\nREWARDS:\n' +
+        npc.quest.gold + ' gold' + '\n' +
+        npc.quest.experience + ' exp', {
         font: "20px BlackChancery",
         fill: "#ffcc00",
         boundsAlignH: "center",
@@ -183,16 +183,27 @@ Player.prototype.interaction = function(npc) {
 
     var button2 = game.add.button(335, 530, 'complete', CompleteQuest, this, 0, 1);
 
-    //var button3 = game.add.button(370, 560, 'close', toggleTalk, this);
-
-
-
     this.npcBox.addChild(name);
     this.npcBox.addChild(quote);
     this.npcBox.addChild(questName);
     this.npcBox.addChild(button);
     this.npcBox.addChild(button2);
-    //this.npcBox.addChild(button3);
+
+    var array = npc.quest.items;
+    var string = '';
+    for (var i = 0; i < array.length; i++) {
+        string += array[i].name;
+        if (i != array.length - 1) string += ',';
+    }
+    var items = game.add.text(0, 0, string, {
+        font: "20px BlackChancery",
+        fill: "#ffcc00",
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+        align: 'center'
+    });
+    items.setTextBounds(0, 400, 800, 30);
+    this.npcBox.addChild(items);
 };
 
 Player.prototype.updateInteraction = function(npc) {
@@ -200,9 +211,16 @@ Player.prototype.updateInteraction = function(npc) {
     this.npcBox.children[1].setText(npc.quote);
     this.npcBox.children[2].setText('Quest: ' + npc.quest.name + '\n' +
         npc.quest.description + '\n Kill count: ' +
-        npc.quest.count + '\nREWARDS:\n' + 'gold - ' +
-        npc.quest.gold + '\nexp -' +
-        npc.quest.experience);
+        npc.quest.count + '\nREWARDS:\n' +
+        npc.quest.gold + ' gold\nexp -' +
+        npc.quest.experience + ' exp');
+    var array = npc.quest.items;
+    var string = '';
+    for (var i = 0; i < array.length; i++) {
+        string += array[i].name;
+        if (i != array.length - 1) string += ',';
+    }
+    this.npcBox.children[5].setText(string);
 
     if ((this.completedQuest === npc.quest.id - 1 && !this.quest) || (this.completedQuest === null && npc.quest.id == 1 && !this.currentQuest)) {
         this.npcBox.children[3].revive();

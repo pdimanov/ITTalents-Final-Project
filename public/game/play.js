@@ -301,7 +301,7 @@ function EquipItem(item) {
 }
 
 function KillPlayer() {
-    /*var bg = game.add.image(0, 0, 'background');
+    var bg = game.add.image(0, 0, 'background');
     var text = game.add.text(0, 0, "You died. Respawning in 3...", {
         font: "26px Verdana Bold",
         fill: "#ffcc00",
@@ -310,12 +310,14 @@ function KillPlayer() {
         align: 'center'
     });
     text.setTextBounds(game.world.centerX - 100, 180, 200, 69);
+    bg.fixedToCamera = true;
+    text.fixedToCamera = true;
 
     game.time.events.add(Phaser.Timer.SECOND * 3, function() {
         text.destroy();
         bg.destroy();
 
-    }, this).autoDestroy = true;*/
+    }, this).autoDestroy = true;
 
     $.ajax({
         method: 'PUT',

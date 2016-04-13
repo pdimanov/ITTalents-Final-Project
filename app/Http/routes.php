@@ -15,10 +15,9 @@ Route::get('/', function () {
     return view('game.index');
 });
 
-Route::get('/redirect', 'SocialAuthController@redirect');
-Route::get('/callback', 'SocialAuthController@callback');
-
 Route::group(['prefix' => 'api'],function(){
+    Route::post('/user/facebook/register', 'FacebookAuthController@register');
+
     Route::post('/user/register', 'UserController@register');
     Route::post('/user/login', 'UserController@login');
 

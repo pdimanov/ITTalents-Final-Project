@@ -136,6 +136,18 @@ angular.module('users')
                         'X-Api-Token': StorageService.getCookie()
                     }
                 });
+            },
+            loginFB: function(data) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/user/facebook/register',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'application/json',
+                        'X-Requested-With' : 'XmlHttpRequest'
+                    },
+                    data: data
+                });
             }
         }
     });

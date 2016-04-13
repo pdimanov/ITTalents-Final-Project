@@ -22,8 +22,15 @@ angular.module('users')
             FB.login(function(response) {
                 if (response.status === 'connected') {
                     console.log(response);
-                    FB.api('/me', function(response) {
+                    FB.api('/me?fields=name,picture,email', function(response) {
                         console.log(response);
+                        var data = {
+                            'username': response.name,
+                            'email': response.email,
+                            'facebook_id': response.id,
+                            'picture': response.picture.data.url
+                        };
+                        UserService.loginFB(JSON.stringify(data));
                     })
                 } else if (response.status === 'not_authorized') {
                     // The person is logged into Facebook, but not your app.
@@ -31,6 +38,6 @@ angular.module('users')
                     // The person is not logged into Facebook, so we're not sure if
                     // they are logged into this app or not.
                 }
-            });
+            }, {scope: 'email', return_scopes: true});
         }
     });

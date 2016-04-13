@@ -133,7 +133,10 @@ var playState = {
 
             this.player.passiveHeal();
 
-            //if(this.location != window.location.href) killGame();
+            /*if(this.location != window.location.href) {
+                killGame();
+                $('#phaser-game').remove();
+            }*/
 
             this.player.updateHUD();
             this.player.questHudUpdate();
@@ -312,7 +315,7 @@ function KillPlayer() {
         boundsAlignV: "middle",
         align: 'center'
     });
-    text.setTextBounds(game.world.centerX - 100, 180, 200, 69);
+    text.setTextBounds(0, 0, 800, 600);
     bg.fixedToCamera = true;
     text.fixedToCamera = true;
 

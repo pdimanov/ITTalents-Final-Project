@@ -334,5 +334,7 @@ function KillPlayer() {
         playState.player.sprite.x = response.data.map_x;
         playState.player.sprite.y = response.data.map_y;
         playState.player.gold = response.data.gold;
+        playState.player.health = response.data.health;
+        playState.player.maxHealth = response.data.max_health;
     });
 }

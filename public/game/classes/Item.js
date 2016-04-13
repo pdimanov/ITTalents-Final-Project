@@ -6,7 +6,7 @@ function Item(item, number) {
     this.defense = item.defense;
     this.price = item.price;
     this.slotType = item.slot_type;
-    this.equipped = item.pivot.equipped;
+    this.equipped = item.pivot ? item.pivot.equipped : 0;
 
 
     this.sprite = game.add.image(50, number * 35 + 50, 'itembox');

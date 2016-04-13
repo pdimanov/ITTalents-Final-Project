@@ -12,12 +12,15 @@ function Player(json) {
     this.defense = json.defense;
     this.x = parseInt(json.map_x);
     this.y = parseInt(json.map_y);
-    this.completedQuest = json.completedQuest;
-    this.currentQuest = json.currentQuest;
+    this.completedQuest = json.completed_quest;
+    this.currentQuest = json.current_quest;
     this.items = json.items;
     this.isTalking = false;
     this.progress = json.progress;
     this.currentTarget = null;
+    //this.questCount = json.quest[0] ? json.quest[0].count : null;
+    this.quest = json.quest[0];
+    this.healNext = 0;
 
 
     var style = {font: "20px Arial", fill: "black"};
@@ -45,7 +48,7 @@ function Player(json) {
     this.inventory = new Inventory();
     this.inventory.addItems(this.items);
 
-    this.npcBox = game.add.image(game.camera.x, game.camera.y, 'npcbox');
+    this.npcBox = game.add.image(game.camera.x, game.camera.y, 'back');
     this.npcBox.fixedToCamera = true;
     this.npcBox.kill();
 
@@ -55,7 +58,55 @@ function Player(json) {
     this.physics();
     this.camera();
     this.addAttack();
+
 }
+
+Player.prototype.passiveHeal = function() {
+    if (game.time.now > this.healNext) {
+        var heal = this.maxHealth / 10;
+        if (this.health + heal >= this.maxHealth) {
+            this.health = this.maxHealth;
+        } else {
+            this.health += heal;
+        }
+        this.healNext += 5000;
+
+    }
+};
+
+Player.prototype.damage = function(mob) {
+    return this.attack * (100 / (100 + mob.defense));
+};
+
+Player.prototype.dealDamage = function(mob) {
+    var dmg = this.damage(mob);
+    if (mob.currentHealth <= dmg) {
+        mob.currentHealth = 0;
+        mob.killMe();
+    } else {
+        mob.currentHealth -= dmg;
+        mob.sprite.children[0].scale.setTo(mob.currentHealth / mob.health, 1);
+    }
+    this.fancyDamage(dmg, mob);
+};
+
+Player.prototype.fancyDamage = function(dmg, mob) {
+    console.log(this.sprite.children);
+    var text = game.add.text(mob.sprite.x, mob.sprite.y, parseInt(dmg), {
+        font: "15px Verdana Bold",
+        fill: "#FF0000"
+    });
+
+    var random = Math.random() * 20;
+    random = random <= 10 ? -random : random;
+
+    game.add.tween(text).to({x: mob.sprite.x + random, y: mob.sprite.y + 30}, 1000, Phaser.Easing.Bounce.Out, true,  100, false);
+    game.time.events.add(Phaser.Timer.SECOND, function() {
+        text.destroy();
+
+    }, this).autoDestroy = true;
+};
+
 
 Player.prototype.targetDetection = function(monsters) {
     var dist;
@@ -86,31 +137,15 @@ Player.prototype.startAttack = function () {
 
 
     if (this.currentTarget.sprite && Phaser.Rectangle.intersects(this.sprite.getBounds(), this.currentTarget.sprite.getBounds())) {
-        this.currentTarget.sprite.destroy();
-        console.log('hello? ', this.currentTarget.sprite.x);
-
-        game.time.events.add(Phaser.Timer.SECOND * 4, function() {
-            this.currentTarget.spawn();
-            this.currentTarget.physics();
-            this.currentTarget.animations();
-            this.currentTarget.healthBar();
-        }, this).autoDestroy = true;
-
-
-        var asd = {
-            "mob_id":parseInt(this.currentTarget.id),
-            "map_x":this.sprite.x,
-            "map_y":this.sprite.y
-        };
-        console.log(asd);
-        killMob(JSON.stringify(asd));
+        this.currentTarget.dealDamage(this);
+        this.dealDamage(this.currentTarget);
     }
 
 };
 
 Player.prototype.interaction = function(npc) {
-    var quote = game.add.text(0, 0, npc.quote, {
-        font: "20px Verdana Bold",
+    var name = game.add.text(0, 0, '[NPC]: ' + npc.name, {
+        font: "30px BlackChancery",
         fill: "#ffcc00",
         boundsAlignH: "center",
         boundsAlignV: "middle",
@@ -118,14 +153,25 @@ Player.prototype.interaction = function(npc) {
         wordWrap: true,
         wordWrapWidth: 700
     });
-    quote.setTextBounds(0, 50, 800, 50);
+    name.setTextBounds(0, 10, 800, 40);
+
+    var quote = game.add.text(0, 0, npc.quote, {
+        font: "24px BlackChancery",
+        fill: "#ffcc00",
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+        align: 'center',
+        wordWrap: true,
+        wordWrapWidth: 700
+    });
+    quote.setTextBounds(0, 70, 800, 50);
 
     var questName = game.add.text(0, 0, 'Quest: ' + npc.quest.name + '\n' +
-        npc.quest.description + '\n Count: ' +
+        npc.quest.description + '\n Kill count: ' +
         npc.quest.count + '\nREWARDS:\n' + 'gold - ' +
         npc.quest.gold + '\nexp -' +
         npc.quest.experience, {
-        font: "18px Verdana Bold",
+        font: "20px BlackChancery",
         fill: "#ffcc00",
         boundsAlignH: "center",
         boundsAlignV: "middle",
@@ -133,29 +179,44 @@ Player.prototype.interaction = function(npc) {
     });
     questName.setTextBounds(0, 100, 800, 400);
 
-    var button = game.add.button(370, 500, 'accept', AcceptQuest, this);
+    var button = game.add.button(335, 470, 'accept', AcceptQuest, this, 1, 0);
 
-    var button2 = game.add.button(370, 530, 'complete', CompleteQuest, this);
+    var button2 = game.add.button(335, 530, 'complete', CompleteQuest, this, 0, 1);
 
-    var button3 = game.add.button(370, 560, 'close', toggleTalk, this);
-
-
+    //var button3 = game.add.button(370, 560, 'close', toggleTalk, this);
 
 
+
+    this.npcBox.addChild(name);
     this.npcBox.addChild(quote);
     this.npcBox.addChild(questName);
     this.npcBox.addChild(button);
     this.npcBox.addChild(button2);
-    this.npcBox.addChild(button3);
+    //this.npcBox.addChild(button3);
 };
 
 Player.prototype.updateInteraction = function(npc) {
-    this.npcBox.children[0].setText(npc.quote);
-    this.npcBox.children[1].setText('Quest: ' + npc.quest.name + '\n' +
-        npc.quest.description + '\n Count: ' +
+    this.npcBox.children[0].setText('[NPC] ' + npc.name);
+    this.npcBox.children[1].setText(npc.quote);
+    this.npcBox.children[2].setText('Quest: ' + npc.quest.name + '\n' +
+        npc.quest.description + '\n Kill count: ' +
         npc.quest.count + '\nREWARDS:\n' + 'gold - ' +
         npc.quest.gold + '\nexp -' +
         npc.quest.experience);
+
+    if ((this.completedQuest === npc.quest.id - 1 && !this.quest) || (this.completedQuest === null && npc.quest.id == 1 && !this.currentQuest)) {
+        this.npcBox.children[3].revive();
+    } else {
+        this.npcBox.children[3].kill();
+    }
+
+    if (this.quest && this.progress >= this.quest.count) {
+        this.npcBox.children[4].revive();
+    } else {
+        this.npcBox.children[4].kill();
+    }
+
+
 
 };
 

@@ -95,7 +95,7 @@ var playState = {
         //player
         this.player = new Player(this.gameInfo['heroInfo']);
         this.player.interaction(this.npcs[0]);
-        //console.log('player', this.player);
+        console.log('player', this.player);
 
 
         //collision with layers
@@ -131,7 +131,7 @@ var playState = {
     update: function() {
         if (this.gameInfo != undefined) {
 
-            //overlap(this.player.sprite.children[0], this.monsters[0].sprite);
+            this.player.passiveHeal();
 
             //if(this.location != window.location.href) killGame();
 
@@ -196,6 +196,8 @@ function AcceptQuest() {
     }).done(function(response) {
         console.log(response);
         toggleTalk();
+        playState.player.quest = response.quest[0];
+        playState.player.currentQuest = response.current_quest;
     });
 }
 
@@ -220,16 +222,22 @@ function CompleteQuest() {
         playState.player.exp = response.data.experience;
         playState.player.level = response.data.level;
         playState.player.maxHealth = response.data.max_health;
+        playState.player.health = response.data.health;
+        playState.player.quest = null;
+        playState.player.completedQuest++;
+        var myInv = playState.player.inventory;
+        myInv.removeAllItems();
+        myInv.addItems(response.data.inventory);
     });
 }
 
-function overlap(player, mob) {
+/*function overlap(player, mob) {
     if (Phaser.Rectangle.intersects(player.getBounds(), mob.getBounds())) {
         console.log('overlapping');
         mob.destroy();
         game.time.events.add(Phaser.Timer.SECOND * 3, this.start, this).autoDestroy = true;
     }
-}
+}*/
 
 function killMob(data) {
     $.ajax({
@@ -249,6 +257,7 @@ function killMob(data) {
         playState.player.exp = response.data.experience;
         playState.player.level = response.data.level;
         playState.player.maxHealth = response.data.max_health;
+        playState.player.health = response.data.health;
     });
 }
 
@@ -288,5 +297,40 @@ function EquipItem(item) {
         //playState.player.inventory = new Inventory();
         //playState.player.inventory.addItems(array);
         //console.log(myInv.image.children);
+    });
+}
+
+function KillPlayer() {
+    /*var bg = game.add.image(0, 0, 'background');
+    var text = game.add.text(0, 0, "You died. Respawning in 3...", {
+        font: "26px Verdana Bold",
+        fill: "#ffcc00",
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+        align: 'center'
+    });
+    text.setTextBounds(game.world.centerX - 100, 180, 200, 69);
+
+    game.time.events.add(Phaser.Timer.SECOND * 3, function() {
+        text.destroy();
+        bg.destroy();
+
+    }, this).autoDestroy = true;*/
+
+    $.ajax({
+        method: 'PUT',
+        url: 'api/hero/die',
+        headers: {
+            'Accept' : 'application/json',
+            'X-Api-Token': $.cookie('user_token'),
+            'X-Requested-With' : 'XmlHttpRequest'
+        }
+    }).done(function(response) {
+        console.log(response);
+        playState.player.map_x = response.data.map_x;
+        playState.player.map_y = response.data.map_y;
+        playState.player.sprite.x = response.data.map_x;
+        playState.player.sprite.y = response.data.map_y;
+        playState.player.gold = response.data.gold;
     });
 }

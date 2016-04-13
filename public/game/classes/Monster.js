@@ -3,6 +3,7 @@ function Monster(json) {
     this.id = json.id;
     this.name = json.name;
     this.health = json.health;
+    this.currentHealth = json.health;
     this.attack = json.attack;
     this.defense = json.defense;
     this.spawnX = json.map_x;
@@ -12,6 +13,7 @@ function Monster(json) {
     this.gold = json.gold;
     this.exp = json.experience;
     this.isAttacked = false;
+    this.healNext = 0;
 
     this.spawn();
     this.physics();
@@ -26,6 +28,44 @@ function Monster(json) {
     };
     //console.log(this.keys)
 }
+
+Monster.prototype.killMe = function() {
+    this.sprite.destroy();
+    //console.log('hello? ', this.currentTarget.sprite.x);
+
+    game.time.events.add(Phaser.Timer.SECOND * 4, function() {
+        this.spawn();
+        this.physics();
+        this.animations();
+        this.currentHealth = this.health;
+        this.healthBar();
+    }, this).autoDestroy = true;
+
+
+    var data = {
+        "mob_id": parseInt(this.id),
+        "map_x": this.sprite.x,
+        "map_y": this.sprite.y,
+        "health": playState.player.health
+    };
+    //console.log(data);
+    killMob(JSON.stringify(data));
+};
+
+Monster.prototype.damage = function(player) {
+    return this.attack * (100 / (100 + player.defense));
+};
+
+Monster.prototype.dealDamage = function(player) {
+    var dmg = this.damage(player);
+    if (player.health <= dmg) {
+        player.health = 0;
+        KillPlayer();
+    } else {
+        player.health -= parseInt(dmg);
+        //player.sprite.children[0].scale.setTo(player.currentHealth / player.health, 1);
+    }
+};
 
 Monster.prototype.spawn = function() {
     var randomX = this.spawnX + Math.floor(Math.random() * this.spawnWidth);

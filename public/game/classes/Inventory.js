@@ -1,5 +1,5 @@
 function Inventory() {
-    this.image = game.add.image(game.camera.x, game.camera.y, 'inventory');
+    this.image = game.add.image(game.camera.x, game.camera.y, 'back');
     this.isOpen = false;
     this.items = [];
 

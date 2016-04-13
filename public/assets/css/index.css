@@ -23,6 +23,9 @@ body {
 @font-face {
   font-family: BPmono;
   src: url(../fonts/BPmono.ttf); }
+@font-face {
+  font-family: BlackChancery;
+  src: url(../fonts/BLKCHCRY.TTF) format("truetype"); }
 #navbar {
   border-radius: 0;
   margin: 0;

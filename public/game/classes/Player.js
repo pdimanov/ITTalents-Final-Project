@@ -220,6 +220,7 @@ Player.prototype.updateInteraction = function(npc) {
         string += array[i].name;
         if (i != array.length - 1) string += ',';
     }
+    //console.log(string);
     this.npcBox.children[5].setText(string);
 
     if ((this.completedQuest === npc.quest.id - 1 && !this.quest) || (this.completedQuest === null && npc.quest.id == 1 && !this.currentQuest)) {
@@ -318,7 +319,7 @@ Player.prototype.addAttack = function() {
     var _this = this;
     var attack = game.add.sprite(0, 0, 'slash');
 
-    attack.animations.add('doSlash', [0, 1, 2, 3, 4], 35, true);
+    attack.animations.add('doSlash', [0, 1, 2, 3, 4], 30, true);
     attack.direction = 'down';
 
     this.sprite.addChild(attack);

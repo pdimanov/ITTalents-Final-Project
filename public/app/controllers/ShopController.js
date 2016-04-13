@@ -21,8 +21,9 @@ angular.module('users')
 
         $scope.buyItem = function(item) {
             UserService.buyItem(item).then(function(response) {
-                //console.log(response);
+                console.log(response);
                 $scope.info = (response.data.message) ? response.data.message : response.data.error;
+                $scope.heroGold = response.data.data.heroGold;
             });
         }
     });

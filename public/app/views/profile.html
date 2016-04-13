@@ -41,7 +41,7 @@
             <div id="deleteHero" ng-show="user.hero">
                 <button type="button" class="btn btn-danger" ng-click="deleteHero()">delete hero</button>
             </div>
-            <div ng-repeat="(key, val) in user.hero" ng-if="user.hero">
+            <div ng-repeat="(key, val) in user.hero" ng-if="user.hero && key!='id' && key!='map_x'&& key!='map_y' && key!='completed_quest' && key!='current_quest'">
                 <span>{{key}}: </span>
                 <span>{{val}}</span>
             </div>

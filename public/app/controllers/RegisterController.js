@@ -1,5 +1,5 @@
 angular.module('users')
-    .controller('RegisterController', function($scope, $http, $location, UserService, AuthService) {
+    .controller('RegisterController', function($scope, $rootScope, $http, $location, UserService, AuthService) {
 
 
         $scope.user = {};
@@ -12,8 +12,14 @@ angular.module('users')
         }
 
         $scope.register = function(user) {
-            UserService.register(user).then(function() {
-                $location.path('/login');
+            UserService.register(user).then(function(response) {
+                //$location.path('/login');
+
+                AuthService.login(response.data);
+                $location.path('/home');
+
+                $rootScope.$emit('user.action');
+                $rootScope.$broadcast('user.action');
             }, function(response) {
                 $scope.serverErrors = response.data;
             });

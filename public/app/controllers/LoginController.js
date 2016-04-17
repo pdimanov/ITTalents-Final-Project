@@ -30,8 +30,19 @@ angular.module('users')
                             'facebook_id': response.id,
                             'picture': response.picture.data.url
                         };
-                        UserService.loginFB(JSON.stringify(data));
-                    })
+                        UserService.loginFB(data).then(function(response) {
+                            console.log(response);
+                            AuthService.login(response.data);
+                            $location.path('/home');
+
+                            $rootScope.$emit('user.action');
+                            $rootScope.$broadcast('user.action');
+                        }, function(response) {
+                            console.log('fail\n', response);
+                            $scope.serverErrors = response.data.error;
+                        });
+
+                    });
                 } else if (response.status === 'not_authorized') {
                     // The person is logged into Facebook, but not your app.
                 } else {

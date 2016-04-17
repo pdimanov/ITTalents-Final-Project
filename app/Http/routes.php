@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'api'],function(){
-    Route::post('/user/facebook/register', 'FacebookAuthController@register');
+    Route::post('/user/facebook/register', 'FacebookAuthController@loginWithFacebook');
 
     Route::post('/user/register', 'UserController@register');
     Route::post('/user/login', 'UserController@login');

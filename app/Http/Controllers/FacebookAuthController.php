@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class FacebookAuthController extends Controller
 {
@@ -19,7 +20,7 @@ class FacebookAuthController extends Controller
         return $result;
     }
 
-    public function register(Request $request)
+    public function loginWithFacebook(Request $request)
     {
         $data['username'] = $request->input('username');
         $data['email'] = $request->input('email');
@@ -27,22 +28,20 @@ class FacebookAuthController extends Controller
         $data['avatar'] = $request->input('picture');
 
         $facebookUser = User::where('facebook_id', $data['facebook_id'])->first();
-//        return $data['facebook_id'];
 
-        if(!$facebookUser){
+        if($facebookUser){
+            return $facebookUser;
+        } else {
             $newUser = new User();
             $newUser->username = $data['username'];
             $newUser->email = $data['email'];
-            $newUser->password = bcrypt($this->randomNumber(20));
+            $newUser->password = bcrypt('test');
             $newUser->api_token = str_random(60);
             $newUser->facebook_id = $data['facebook_id'];
             $newUser->avatar = $data['avatar'];
             $newUser->save();
 
             return $newUser;
-        } else {
-            Auth::login();
-            return $facebookUser;
         }
     }
 }
